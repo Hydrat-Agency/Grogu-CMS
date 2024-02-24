@@ -1,15 +1,15 @@
 <?php
 
-namespace VendorName\Skeleton;
+namespace Hydrat\GroguCMS;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
 
-class SkeletonPlugin implements Plugin
+class GroguCMSPlugin implements Plugin
 {
     public function getId(): string
     {
-        return 'skeleton';
+        return 'grogu-cms';
     }
 
     public function register(Panel $panel): void

@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Hydrat\GroguCMS\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class GroguCMSCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'grogu-cms';
 
     public $description = 'My command';
 
