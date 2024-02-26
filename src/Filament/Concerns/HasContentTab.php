@@ -2,10 +2,10 @@
 
 namespace Hydrat\GroguCMS\Filament\Concerns;
 
+use App\Facades\FilamentCms;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
-use App\Facades\FilamentCms;
 
 trait HasContentTab
 {
@@ -36,7 +36,7 @@ trait HasContentTab
         return [
             Forms\Components\Section::make('content')
                 ->schema([
-                    ...static::getContentTabInnerSchema($form)
+                    ...static::getContentTabInnerSchema($form),
                 ]),
         ];
     }

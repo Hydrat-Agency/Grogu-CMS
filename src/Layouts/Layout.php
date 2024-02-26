@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS\Layouts;
 
-use Illuminate\Support\Str;
 use Filament\Forms\Components\Builder\Block;
+use Illuminate\Support\Str;
 
 abstract class Layout extends Block
 {

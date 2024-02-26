@@ -2,13 +2,12 @@
 
 namespace Hydrat\GroguCMS\Filament\Concerns;
 
-use Hydrat\GroguCMS\Actions\GenerateUniqueSlug;
 use App\Models\Page;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
-use Filament\Forms\Get;
 use Filament\Forms\Set;
+use Hydrat\GroguCMS\Actions\GenerateUniqueSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -134,13 +133,13 @@ trait HasOverviewTab
                         ->schema([
                             Forms\Components\Placeholder::make('created_at')
                                 ->label('Created at')
-                                ->content(fn (Page $page) : ?string => $page->created_at?->isoFormat('LLL')),
+                                ->content(fn (Page $page): ?string => $page->created_at?->isoFormat('LLL')),
 
                             Forms\Components\Placeholder::make('updated_at')
                                 ->label('Last modified at')
-                                ->content(fn (Page $page) : ?string => $page->updated_at?->isoFormat('LLL')),
+                                ->content(fn (Page $page): ?string => $page->updated_at?->isoFormat('LLL')),
                         ])
-                        ->hidden(fn (?Page $record) => null === $record),
+                        ->hidden(fn (?Page $record) => $record === null),
                 ]),
         ];
     }

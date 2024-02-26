@@ -19,9 +19,9 @@ trait HasSlug
      */
     public static function findBySlugOrFail(string $slug): static
     {
-        if (!($record = static::findBySlug($slug))) {
+        if (! ($record = static::findBySlug($slug))) {
             throw new ModelNotFoundException(
-                str()->of(static::class)->afterLast('\\') . " with slug `{$slug}` not found.",
+                str()->of(static::class)->afterLast('\\')." with slug `{$slug}` not found.",
                 404,
             );
         }

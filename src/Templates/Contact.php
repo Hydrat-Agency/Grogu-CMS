@@ -23,7 +23,7 @@ class Contact extends Template
     public function blocks(): array
     {
         return [
-          // Layouts\Contact::create(),
+            // Layouts\Contact::create(),
         ];
     }
 }

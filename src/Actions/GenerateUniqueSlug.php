@@ -2,9 +2,8 @@
 
 namespace Hydrat\GroguCMS\Actions;
 
-use App\Models\Page;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class GenerateUniqueSlug
@@ -13,7 +12,7 @@ class GenerateUniqueSlug
 
     public function handle(?string $title = null, ?Model $model = null): string
     {
-        if (!$title) {
+        if (! $title) {
             return '';
         }
 
@@ -25,10 +24,10 @@ class GenerateUniqueSlug
             $model::class::where('slug', $slug)
                 ->when($model, fn ($q) => $q->where('id', '!=', $model->id))
                 ->when($parentId, fn ($q) => $q->where('parent_id', $parentId))
-                ->when(!$parentId, fn ($q) => $q->whereNull('parent_id'))
+                ->when(! $parentId, fn ($q) => $q->whereNull('parent_id'))
                 ->exists()
         ) {
-            $slug = Str::slug($title . '-' . $i++);
+            $slug = Str::slug($title.'-'.$i++);
         }
 
         return $slug;

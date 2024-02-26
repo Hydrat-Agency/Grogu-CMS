@@ -2,20 +2,20 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Spatie\MediaLibrary\HasMedia;
-use Illuminate\Database\Eloquent\Model;
 use Hydrat\GroguCMS\Events;
-use Illuminate\Database\Eloquent\Relations;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
 use Hydrat\GroguCMS\Models\Contracts as CmsContracts;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-abstract class CmsModel extends Model implements HasMedia, CmsContracts\HasBlueprint, CmsContracts\HasSeo
+abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
 {
-    use InteractsWithMedia;
     use CmsConcerns\HasSlug;
     use CmsConcerns\InteractsWithBlueprint;
     use CmsConcerns\InteractsWithSeo;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.

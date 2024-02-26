@@ -4,11 +4,11 @@ namespace Hydrat\GroguCMS\Filament\Concerns;
 
 use Filament\Forms;
 use Filament\Forms\Form;
-use Vormkracht10\Seo\SeoScore;
 use Hydrat\GroguCMS\Actions\Seo\GenerateSeoScore;
-use Illuminate\Support\HtmlString;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\HtmlString;
+use Vormkracht10\Seo\SeoScore;
 
 trait HasSeoTab
 {
@@ -41,7 +41,7 @@ trait HasSeoTab
             Forms\Components\Section::make('seo')
                 ->label('SEO')
                 ->schema([
-                    ...static::getSeoTabInnerSchema($form)
+                    ...static::getSeoTabInnerSchema($form),
                 ]),
         ];
     }
@@ -61,13 +61,13 @@ trait HasSeoTab
 
     protected static function getSeoTabScoreSchema(Form $form): array
     {
-        if (!($record = $form->getRecord())) {
+        if (! ($record = $form->getRecord())) {
             return [];
         }
 
         $score = Cache::get(GenerateSeoScore::getCacheKey($record));
 
-        if (!$score || !($score instanceof SeoScore)) {
+        if (! $score || ! ($score instanceof SeoScore)) {
             return [];
         }
 
@@ -105,8 +105,8 @@ trait HasSeoTab
                                     </div>
                                 HTML
                             )
-                            ->map(fn ($content) => Blade::render($content))
-                            ->join("\n")
+                                ->map(fn ($content) => Blade::render($content))
+                                ->join("\n")
                         )),
 
                     Forms\Components\Placeholder::make('passes')
@@ -123,8 +123,8 @@ trait HasSeoTab
                                     </div>
                                 HTML
                             )
-                            ->map(fn ($content) => Blade::render($content))
-                            ->join("\n")
+                                ->map(fn ($content) => Blade::render($content))
+                                ->join("\n")
                         )),
                 ]),
         ];

@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Actions\Seo;
 
-use Vormkracht10\Seo\SeoScore;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Model;
 use Hydrat\GroguCMS\Events\CmsModelSaved;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Vormkracht10\Seo\SeoScore;
 
 class GenerateSeoScore
 {

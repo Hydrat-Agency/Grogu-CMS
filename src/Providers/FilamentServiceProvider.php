@@ -4,14 +4,13 @@ namespace Hydrat\GroguCMS\Providers;
 
 use Filament\Actions\Action;
 use Filament\Actions\StaticAction;
-use Filament\Support\Colors\Color;
+use Filament\Forms\Components\Component;
+use Filament\Forms\Components\Placeholder;
+use Filament\Infolists\Components\Entry;
+use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Filters\BaseFilter;
-use Filament\Forms\Components\Component;
-use Filament\Infolists\Components\Entry;
-use Filament\Forms\Components\Placeholder;
 use Illuminate\Support\ServiceProvider;
-use Filament\Tables\Actions\Action as TableAction;
 
 class FilamentServiceProvider extends ServiceProvider
 {

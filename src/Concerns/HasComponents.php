@@ -57,7 +57,7 @@ trait HasComponents
 
         foreach ($filesystem->allFiles($directory) as $file) {
             $variableNamespace = $namespace->contains('*') ? str_ireplace(
-                ['\\' . $namespace->before('*'), $namespace->after('*')],
+                ['\\'.$namespace->before('*'), $namespace->after('*')],
                 ['', ''],
                 str($file->getPath())
                     ->after(base_path())

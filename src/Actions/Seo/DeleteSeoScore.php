@@ -2,11 +2,10 @@
 
 namespace Hydrat\GroguCMS\Actions\Seo;
 
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Model;
-use Lorisleiva\Actions\Concerns\AsAction;
 use Hydrat\GroguCMS\Events\CmsModelDeleted;
-use Hydrat\GroguCMS\Actions\Seo\GenerateSeoScore;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class DeleteSeoScore
 {

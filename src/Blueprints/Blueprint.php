@@ -2,13 +2,13 @@
 
 namespace Hydrat\GroguCMS\Blueprints;
 
+use Hydrat\GroguCMS\Contracts\BlueprintContract;
+use Hydrat\GroguCMS\Settings\GeneralSettings;
 use Hydrat\GroguCMS\UrlManager;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Database\Eloquent\Model;
-use Hydrat\GroguCMS\Contracts\BlueprintContract;
-use Hydrat\GroguCMS\Settings\GeneralSettings;
 
 abstract class Blueprint implements BlueprintContract
 {
@@ -30,7 +30,8 @@ abstract class Blueprint implements BlueprintContract
 
     public function __construct(
         protected ?Model $record = null,
-    ) {}
+    ) {
+    }
 
     public function hasRecord(): bool
     {
@@ -87,7 +88,7 @@ abstract class Blueprint implements BlueprintContract
     {
         $record = $record ?? $this->record();
 
-        if (!$this->hierarchical()) {
+        if (! $this->hierarchical()) {
             return $record->slug;
         }
 
@@ -121,11 +122,11 @@ abstract class Blueprint implements BlueprintContract
 
     public function frontUri(bool $includeSelf = true): ?string
     {
-        if (!$this->routeName()) {
+        if (! $this->routeName()) {
             return null;
         }
 
-        if (($record = $this->record()) && get_class($record) === "App\\Models\\Page") {
+        if (($record = $this->record()) && get_class($record) === 'App\\Models\\Page') {
             $settings = app(GeneralSettings::class);
 
             if ($settings->front_page === $record->id) {
@@ -137,7 +138,7 @@ abstract class Blueprint implements BlueprintContract
         $route = Route::getRoutes()->getByName($this->routeName());
         $binds = $this->bindRouteParameters();
 
-        if (!$includeSelf) {
+        if (! $includeSelf) {
             $parent = $record->parent;
 
             $binds = [
@@ -178,7 +179,7 @@ abstract class Blueprint implements BlueprintContract
     public function hasDefaultTemplate(): bool
     {
         return $this->hasTemplates()
-            && !$this->hasMandatoryTemplate();
+            && ! $this->hasMandatoryTemplate();
     }
 
     public function getTemplates(): Collection

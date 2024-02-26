@@ -2,9 +2,9 @@
 
 namespace Hydrat\GroguCMS;
 
+use Hydrat\GroguCMS\Concerns\HasComponents;
 use Hydrat\GroguCMS\Templates\Template;
 use Illuminate\Support\Collection;
-use Hydrat\GroguCMS\Concerns\HasComponents;
 
 class GroguCMS
 {

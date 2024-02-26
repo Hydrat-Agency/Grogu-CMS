@@ -2,27 +2,27 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Throwable;
 use Filament\Forms;
-use Filament\Tables;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Contracts\Support\Htmlable;
-use Hydrat\GroguCMS\Filament\Concerns as Parts;
-use Hydrat\GroguCMS\Contracts\BlueprintContract;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Hydrat\GroguCMS\Actions\Seo\GenerateSeoScore;
-use Hydrat\GroguCMS\Models\Contracts\HasBlueprint;
+use Hydrat\GroguCMS\Contracts\BlueprintContract;
 use Hydrat\GroguCMS\Exceptions\BlueprintMissingException;
+use Hydrat\GroguCMS\Filament\Concerns as Parts;
+use Hydrat\GroguCMS\Models\Contracts\HasBlueprint;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
+use Throwable;
 
 abstract class CmsResource extends Resource
 {
-    use Parts\HasOverviewTab;
     use Parts\HasContentTab;
+    use Parts\HasOverviewTab;
     use Parts\HasSeoTab;
 
     public static function getBlueprint($filament = null): BlueprintContract
@@ -35,11 +35,11 @@ abstract class CmsResource extends Resource
             $record = null;
         }
 
-        if ($record && !($record instanceof $model)) {
+        if ($record && ! ($record instanceof $model)) {
             throw new InvalidParameterException('The component record does not match the resource model.');
         }
 
-        if (!in_array(HasBlueprint::class, class_implements($model))) {
+        if (! in_array(HasBlueprint::class, class_implements($model))) {
             throw new BlueprintMissingException(sprintf('The `%s` model must implement the `%s` contract.', $model, HasBlueprint::class));
         }
 
@@ -111,7 +111,7 @@ abstract class CmsResource extends Resource
                 ->getStateUsing(function (Model $record) {
                     return match ($record->published_at) {
                         null => __('Draft'),
-                        default => __('Published at') . ' ' . $record->published_at->format('d/m/Y'),
+                        default => __('Published at').' '.$record->published_at->format('d/m/Y'),
                     };
                 })
                 ->color(fn (Model $record) => $record->published_at ? 'success' : 'warning')
@@ -127,8 +127,8 @@ abstract class CmsResource extends Resource
                 ->label('SEO')
                 ->badge()
                 ->getStateUsing(fn (Model $record) => Cache::get(GenerateSeoScore::getCacheKey($record))?->getScore())
-                ->formatStateUsing(fn (string | Htmlable | null $state) => $state ? $state . '/100' : '')
-                ->color(fn (string | Htmlable | null $state) => match (true) {
+                ->formatStateUsing(fn (string|Htmlable|null $state) => $state ? $state.'/100' : '')
+                ->color(fn (string|Htmlable|null $state) => match (true) {
                     $state < 50 => 'danger',
                     $state < 85 => 'warning',
                     default => 'success',
@@ -151,12 +151,12 @@ abstract class CmsResource extends Resource
         ];
     }
 
-    public static function getGloballySearchableAttributes() : array
+    public static function getGloballySearchableAttributes(): array
     {
         return ['title', 'slug', 'user.name', 'content', 'excerpt'];
     }
 
-    public static function getGlobalSearchResultTitle(Model $record): string | Htmlable
+    public static function getGlobalSearchResultTitle(Model $record): string|Htmlable
     {
         return $record->title;
     }

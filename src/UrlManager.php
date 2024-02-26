@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Routing\Route;
 use Hydrat\GroguCMS\Concerns\Makeable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Routing\Route;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 class UrlManager
 {

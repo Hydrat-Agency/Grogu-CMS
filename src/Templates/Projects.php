@@ -23,7 +23,7 @@ class Projects extends Template
     public function blocks(): array
     {
         return [
-          // Layouts\ListingProjects::create(),
+            // Layouts\ListingProjects::create(),
         ];
     }
 }
