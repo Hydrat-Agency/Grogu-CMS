@@ -1,0 +1,51 @@
+<?php
+
+namespace {{ namespace }};
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Hydrat\GroguCMS\Models\CmsModel;
+use Illuminate\Http\Resources\Json\JsonResource;
+use App\Blueprints\{{ class }}Blueprint;
+
+class {{ class }} extends CmsModel
+{
+    use HasFactory;
+
+    /**
+     * The CMS model related Blueprint.
+     *
+     * @var string<BlueprintContract>
+     */
+    protected static string $blueprintSchema = {{ class }}Blueprint::class;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
+    protected $fillable = [
+        'user_id',
+        'parent_id',
+        'title',
+        'slug',
+        'template',
+        'published_at',
+        'excerpt',
+        'description',
+        'content',
+        'blocks',
+        'manually_updated_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'blocks' => 'array',
+        'published_at' => 'datetime',
+        'manually_updated_at' => 'datetime',
+    ];
+}

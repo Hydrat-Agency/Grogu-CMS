@@ -23,7 +23,15 @@
         "php": "^8.1",
         "filament/filament": "^3.0",
         "spatie/laravel-package-tools": "^1.15.0",
-        "illuminate/contracts": "^10.0"
+        "hydrat/filament-table-layout-toggle": "^1.1",
+        "jeffgreco13/filament-breezy": "^2.2",
+        "illuminate/contracts": "^10.0",
+        "bezhansalleh/filament-language-switch": "^3.0",
+        "filament/spatie-laravel-media-library-plugin": "^3.1",
+        "filament/spatie-laravel-settings-plugin": "^3.1",
+        "spatie/laravel-permission": "^6.3",
+        "vormkracht10/laravel-seo-scanner": "^3.10",
+        "lorisleiva/laravel-actions": "^2.7"
     },
     "require-dev": {
         "nunomaduro/collision": "^7.9",

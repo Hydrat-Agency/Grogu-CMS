@@ -1,1 +1,52 @@
 @import '../../vendor/filament/filament/resources/css/theme.css';
+
+.fi-ac-icon-btn-action.table-soft-btn {
+  @apply ml-1 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm p-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700;
+}
+
+.fi-ac-icon-btn-action.table-soft-btn svg {
+  @apply w-4 h-4 text-gray-700 dark:text-gray-100;
+}
+
+.form-placeholder-section {
+  @apply !text-lg font-semibold leading-none text-gray-900 dark:text-white;
+}
+
+.fi-btn:not(.fi-btn-custom) {
+  @apply items-center hover:cursor-pointer focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg dark:shadow-lg;
+
+  &.fi-btn-color-gray {
+    @apply shadow-none text-gray-900 bg-white ring-0 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700;
+  }
+}
+
+.fi-modal-footer-actions {
+  @apply flex-row-reverse justify-start;
+}
+
+.fi-pagination {
+  .fi-input-wrp {
+    @apply py-0 bg-transparent;
+  }
+
+  .fi-select-input {
+    @apply py-2 pe-4;
+  }
+}
+
+.grid-revert-lg .grid:first-child > .col-\[--col-span-default\]:first-child {
+  @apply order-last lg:order-first;
+}
+
+.fi-in-entry-wrp:has(.fi-inline-label-grow .fi-in-affixes) {
+  & > .grid > .flex {
+    @apply col-span-2;
+  }
+  & > .grid > .sm\:col-span-2 {
+    @apply col-span-1;
+  }
+}
+
+.fi-ta-actions {
+  @apply gap-2;
+}

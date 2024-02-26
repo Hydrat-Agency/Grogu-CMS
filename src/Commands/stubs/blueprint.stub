@@ -1,0 +1,22 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ model }};
+use App\Templates;
+use Hydrat\GroguCMS\Blueprints\Blueprint;
+
+class {{ class }} extends Blueprint
+{
+    protected string $model = {{ model }}::class;
+
+    protected ?string $view = '{{ modelPlural }}.show';
+
+    protected ?string $routeName = '{{ modelPlural }}.show';
+
+    protected bool $hierarchical = true;
+
+    protected array $templates = [
+        // Templates\Home::class,
+    ];
+}

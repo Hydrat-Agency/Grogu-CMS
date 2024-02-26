@@ -2,19 +2,19 @@
 
 namespace Hydrat\GroguCMS;
 
-use Filament\Support\Assets\AlpineComponent;
-use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Facades\FilamentIcon;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Asset;
 use Illuminate\Filesystem\Filesystem;
-use Livewire\Features\SupportTesting\Testable;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Hydrat\GroguCMS\Commands\GroguCMSCommand;
+use Filament\Support\Facades\FilamentIcon;
 use Hydrat\GroguCMS\Testing\TestsGroguCMS;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Assets\AlpineComponent;
+use Livewire\Features\SupportTesting\Testable;
+use Hydrat\GroguCMS\Commands;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class GroguCMSServiceProvider extends PackageServiceProvider
 {
@@ -36,7 +36,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
                     ->publishConfigFile()
                     ->publishMigrations()
                     ->askToRunMigrations()
-                    ->askToStarRepoOnGitHub('hydrat/grogu-cms');
+                    ->askToStarRepoOnGitHub('Hydrat-Agency/Grogu-CMS');
             });
 
         $configFileName = $package->shortName();
@@ -60,6 +60,8 @@ class GroguCMSServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
+        $this->app->register(Providers\FilamentServiceProvider::class);
+        $this->app->register(Providers\EventServiceProvider::class);
     }
 
     public function packageBooted(): void
@@ -114,7 +116,8 @@ class GroguCMSServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            GroguCMSCommand::class,
+            Commands\CmsModelMakeCommand::class,
+            Commands\BlueprintMakeCommand::class,
         ];
     }
 
@@ -148,7 +151,8 @@ class GroguCMSServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_grogu-cms_table',
+            'create_menus_table',
+            'create_menu_items_table',
         ];
     }
 }
