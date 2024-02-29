@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Concerns;
 
 use Filament\Forms;
-use Filament\Forms\Get;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 
 trait HasContentTab

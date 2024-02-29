@@ -10,7 +10,7 @@ class GenerateUniqueSlug
 {
     use AsAction;
 
-    public function handle(?string $title = null, string $class, ?Model $model = null): string
+    public function handle(?string $title, string $class, ?Model $model = null): string
     {
         if (! $title) {
             return '';

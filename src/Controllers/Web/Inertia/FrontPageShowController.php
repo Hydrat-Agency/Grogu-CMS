@@ -3,11 +3,11 @@
 namespace Hydrat\GroguCMS\Controllers\Web\Inertia;
 
 use App\Models\Page;
-use Inertia\Response;
-use Illuminate\Routing\Controller;
 use Hydrat\GroguCMS\Facades\GroguCMS;
-use Hydrat\GroguCMS\Settings\GeneralSettings;
 use Hydrat\GroguCMS\Models\Contracts\Resourceable;
+use Hydrat\GroguCMS\Settings\GeneralSettings;
+use Illuminate\Routing\Controller;
+use Inertia\Response;
 
 class FrontPageShowController extends Controller
 {
@@ -18,7 +18,7 @@ class FrontPageShowController extends Controller
     {
         $page = Page::find($settings->front_page);
 
-        if (!$page || (!$page->published_at && auth()->guest())) {
+        if (! $page || (! $page->published_at && auth()->guest())) {
             abort(404);
         }
 

@@ -4,14 +4,14 @@ namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
 use Closure;
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Get;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Support\Arr;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 use Illuminate\Database\Eloquent\Model;
-use Filament\Resources\RelationManagers\RelationManager;
+use Illuminate\Support\Arr;
 
 class ItemsRelationManager extends RelationManager
 {
@@ -95,7 +95,7 @@ class ItemsRelationManager extends RelationManager
                     ->iconSoftButton('heroicon-o-pencil-square')
                     ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
                     ->mutateRecordDataUsing(function (array $data): array {
-                        if (!Arr::get($data, 'linkeable_type')) {
+                        if (! Arr::get($data, 'linkeable_type')) {
                             $data['linkeable_type'] = 'url';
                         }
 

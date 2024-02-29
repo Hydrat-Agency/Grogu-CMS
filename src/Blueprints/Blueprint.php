@@ -122,7 +122,7 @@ abstract class Blueprint implements BlueprintContract
 
     public function frontUri(bool $includeSelf = true): ?string
     {
-        if (!$this->routeName() || !($record = $this->record())) {
+        if (! $this->routeName() || ! ($record = $this->record())) {
             return null;
         }
 
