@@ -2,8 +2,10 @@
 
 namespace Hydrat\GroguCMS;
 
-use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Contracts\Plugin;
+use Hydrat\GroguCMS\Facades\GroguCMS as GroguCMSFacade;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 
 class GroguCMSPlugin implements Plugin
 {
@@ -14,7 +16,27 @@ class GroguCMSPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        //
+        $panel
+            ->resources([
+                MenuResource::class,
+            ])
+            ->pages([
+                // Settings::class,
+            ]);
+    }
+
+    public function discoverTemplates(string $in, string $for): static
+    {
+        GroguCMSFacade::make()->discoverTemplates($in, $for);
+
+        return $this;
+    }
+
+    public function discoverBlueprints(string $in, string $for): static
+    {
+        GroguCMSFacade::make()->discoverBlueprints($in, $for);
+
+        return $this;
     }
 
     public function boot(Panel $panel): void

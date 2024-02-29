@@ -11,6 +11,13 @@ return [
     ],
 
     /**
+     * Define the resource that should be registred.
+     */
+    'resources' => [
+        Hydrat\GroguCMS\Filament\Resources\MenuResource::class,
+    ],
+
+    /**
      * Configure how the navigation should be handled.
      */
     'menus' => [
