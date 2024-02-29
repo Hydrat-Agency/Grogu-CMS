@@ -104,8 +104,8 @@ class GroguCMSServiceProvider extends PackageServiceProvider
     {
         return [
             // AlpineComponent::make('grogu-cms', __DIR__ . '/../resources/dist/components/grogu-cms.js'),
-            Css::make('grogu-cms-styles', __DIR__.'/../resources/dist/grogu-cms.css'),
-            Js::make('grogu-cms-scripts', __DIR__.'/../resources/dist/grogu-cms.js'),
+            // Css::make('grogu-cms-styles', __DIR__.'/../resources/dist/grogu-cms.css'),
+            // Js::make('grogu-cms-scripts', __DIR__.'/../resources/dist/grogu-cms.js'),
         ];
     }
 
