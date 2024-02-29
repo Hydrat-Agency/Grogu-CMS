@@ -95,9 +95,9 @@ class GroguCMS
 
     public function menuLocations(): Collection
     {
-        $shouldTranslate = config('grogu-cms.menu.translate_labels');
+        $shouldTranslate = config('grogu-cms.menus.translate_labels');
 
-        return collect(config('grogu-cms.menu.locations', []))
+        return collect(config('grogu-cms.menus.locations', []))
             ->map(fn ($name) => $shouldTranslate ? __($name) : $name)
             ->unique();
     }

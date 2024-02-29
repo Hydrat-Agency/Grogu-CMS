@@ -44,12 +44,16 @@ trait HasOverviewTab
                         ->required()
                         ->maxLength(255)
                         ->live(debounce: 250)
-                        ->afterStateUpdated(function (Set $set, $state, ?Model $record, string $operation) {
+                        ->afterStateUpdated(function (Set $set, $state, ?Model $record, string $operation) use ($blueprint) {
                             if ($operation !== 'create') {
                                 return;
                             }
 
-                            $slug = GenerateUniqueSlug::run($state, $record);
+                            $slug = GenerateUniqueSlug::run(
+                                title: $state,
+                                class: $blueprint->model(),
+                            );
+
                             $set('slug', $slug);
                         }),
 

@@ -122,11 +122,11 @@ abstract class Blueprint implements BlueprintContract
 
     public function frontUri(bool $includeSelf = true): ?string
     {
-        if (! $this->routeName()) {
+        if (!$this->routeName() || !($record = $this->record())) {
             return null;
         }
 
-        if (($record = $this->record()) && get_class($record) === 'App\\Models\\Page') {
+        if (get_class($record) === 'App\\Models\\Page') {
             $settings = app(GeneralSettings::class);
 
             if ($settings->front_page === $record->id) {

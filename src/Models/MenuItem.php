@@ -35,6 +35,15 @@ class MenuItem extends Model
         'url',
     ];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = [
+        'linkeable',
+    ];
+
     public function menu(): Relations\BelongsTo
     {
         return $this->belongsTo(Menu::class);
@@ -48,10 +57,9 @@ class MenuItem extends Model
     public function url(): Attribute
     {
         return new Attribute(
-            get: fn () => $this->linkeable_type !== 'url'
+            get: fn ($value) => $this->linkeable_type !== null
                 ? $this->linkeable?->url
-                : $this->url,
-            set: fn ($value) => $this->url = $value,
+                : $value,
         );
     }
 }

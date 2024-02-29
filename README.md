@@ -147,6 +147,15 @@ It will :
 
 ### Rendering your models
 
+#### Create the routes
+
+First, you need to create the route to your pages. Here, we define the root path to use FrontPageController, as it will read the settings defined on the admin panel.
+
+```php
+Route::get('/', Web\FrontPageShowController::class)->name('front-page.show');
+Route::get('/{slug}', Web\PageShowController::class)->where('slug', '(.*)')->name('pages.show');
+```
+
 #### Using blade/livewire
 
 

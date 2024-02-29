@@ -2,10 +2,10 @@
 
 namespace Hydrat\GroguCMS\Filament\Concerns;
 
-use App\Facades\FilamentCms;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Forms\Form;
+use Hydrat\GroguCMS\Facades\GroguCMS;
 
 trait HasContentTab
 {
@@ -43,7 +43,7 @@ trait HasContentTab
 
     protected static function getContentTabInnerSchema(Form $form): array
     {
-        $selectedTemplate = fn (Get $get) => FilamentCms::getTemplate($get('template'));
+        $selectedTemplate = fn (Get $get) => GroguCMS::getTemplate($get('template'));
 
         return [
             Forms\Components\MarkdownEditor::make('content')

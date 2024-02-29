@@ -4,12 +4,14 @@ namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
 use Closure;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Forms\Get;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Arr;
 use Hydrat\GroguCMS\Facades\GroguCMS;
+use Illuminate\Database\Eloquent\Model;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class ItemsRelationManager extends RelationManager
 {
@@ -75,7 +77,8 @@ class ItemsRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('linkeable_type')
                     ->label('Link type')
-                    ->formatStateUsing(fn (string $state): string => $blueprintsTypes->get($state, $state)),
+                    ->getStateUsing(fn (Model $record): string => $record->linkeable_type ?: 'url')
+                    ->formatStateUsing(fn (string $state): string => $blueprintsTypes->get($state, strtoupper($state))),
             ])
             ->filters([
                 //
@@ -90,7 +93,14 @@ class ItemsRelationManager extends RelationManager
 
                 Tables\Actions\EditAction::make()
                     ->iconSoftButton('heroicon-o-pencil-square')
-                    ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving'])),
+                    ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
+                    ->mutateRecordDataUsing(function (array $data): array {
+                        if (!Arr::get($data, 'linkeable_type')) {
+                            $data['linkeable_type'] = 'url';
+                        }
+
+                        return $data;
+                    }),
 
                 Tables\Actions\DeleteAction::make()
                     ->iconSoftButton('heroicon-o-trash'),

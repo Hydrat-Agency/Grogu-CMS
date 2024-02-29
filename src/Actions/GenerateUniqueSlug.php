@@ -10,7 +10,7 @@ class GenerateUniqueSlug
 {
     use AsAction;
 
-    public function handle(?string $title = null, ?Model $model = null): string
+    public function handle(?string $title = null, string $class, ?Model $model = null): string
     {
         if (! $title) {
             return '';
@@ -21,7 +21,7 @@ class GenerateUniqueSlug
         $i = 1;
 
         while (
-            $model::class::where('slug', $slug)
+            $class::where('slug', $slug)
                 ->when($model, fn ($q) => $q->where('id', '!=', $model->id))
                 ->when($parentId, fn ($q) => $q->where('parent_id', $parentId))
                 ->when(! $parentId, fn ($q) => $q->whereNull('parent_id'))
