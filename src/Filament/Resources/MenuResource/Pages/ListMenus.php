@@ -2,9 +2,9 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages;
 
-use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 
 class ListMenus extends ListRecords
 {

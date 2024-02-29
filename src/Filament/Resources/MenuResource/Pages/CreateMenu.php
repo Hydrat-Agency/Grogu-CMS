@@ -2,9 +2,8 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages;
 
-use Hydrat\GroguCMS\Filament\Resources\MenuResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 
 class CreateMenu extends CreateRecord
 {
