@@ -9,6 +9,10 @@ use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 
 class GroguCMSPlugin implements Plugin
 {
+    public function __construct(
+        public GroguCMS $groguCMS = new GroguCMS(),
+    ) {}
+
     public function getId(): string
     {
         return 'grogu-cms';
@@ -27,14 +31,14 @@ class GroguCMSPlugin implements Plugin
 
     public function discoverTemplates(string $in, string $for): static
     {
-        GroguCMSFacade::make()->discoverTemplates($in, $for);
+        $this->groguCMS->discoverTemplates($in, $for);
 
         return $this;
     }
 
     public function discoverBlueprints(string $in, string $for): static
     {
-        GroguCMSFacade::make()->discoverBlueprints($in, $for);
+        $this->groguCMS->discoverBlueprints($in, $for);
 
         return $this;
     }
