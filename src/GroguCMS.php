@@ -3,8 +3,9 @@
 namespace Hydrat\GroguCMS;
 
 use Hydrat\GroguCMS\Concerns\HasComponents;
-use Hydrat\GroguCMS\Templates\Template;
 use Illuminate\Support\Collection;
+use Hydrat\GroguCMS\Templates\Template;
+use Hydrat\GroguCMS\Blueprints\Blueprint;
 
 class GroguCMS
 {
@@ -55,6 +56,13 @@ class GroguCMS
             ->keyBy(fn ($template) => $template->name());
     }
 
+    public function getBlueprints(?string $model = null): Collection
+    {
+        return collect($this->blueprints)
+            ->map(fn ($blueprint) => new $blueprint())
+            ->when($model, fn ($c) => $c->filter(fn ($b) => $b->model() === $model));
+    }
+
     public function discoverTemplates(string $in, string $for): static
     {
         $this->templateDirectories[] = $in;
@@ -76,7 +84,7 @@ class GroguCMS
         $this->blueprintNamespaces[] = $for;
 
         $this->discoverComponents(
-            Template::class,
+            Blueprint::class,
             $this->blueprints,
             directory: $in,
             namespace: $for,
