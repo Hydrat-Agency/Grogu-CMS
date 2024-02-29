@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS;
 
-use Filament\Panel;
 use Filament\Contracts\Plugin;
+use Filament\Panel;
 use Hydrat\GroguCMS\Facades\GroguCMS as GroguCMSFacade;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 
