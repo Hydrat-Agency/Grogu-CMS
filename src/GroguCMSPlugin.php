@@ -4,14 +4,14 @@ namespace Hydrat\GroguCMS;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
-use Hydrat\GroguCMS\Facades\GroguCMS as GroguCMSFacade;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 
 class GroguCMSPlugin implements Plugin
 {
     public function __construct(
         public GroguCMS $groguCMS = new GroguCMS(),
-    ) {}
+    ) {
+    }
 
     public function getId(): string
     {
