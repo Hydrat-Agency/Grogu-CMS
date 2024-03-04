@@ -63,9 +63,9 @@ trait HasOverviewTab
                             fn () => Str::finish($blueprint->frontUrl(includeSelf: false), '/'),
                         )
                         ->unique($form->getModel(), 'slug', ignoreRecord: true),
-                        // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
-                        //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
-                        // }),
+                    // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
+                    //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
+                    // }),
 
                     Forms\Components\MarkdownEditor::make('excerpt')
                         ->maxLength(65535)

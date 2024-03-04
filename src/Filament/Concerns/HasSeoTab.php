@@ -21,7 +21,7 @@ trait HasSeoTab
     {
         $blueprint = static::getBlueprint($form);
 
-        if (!$blueprint->hasSeo()) {
+        if (! $blueprint->hasSeo()) {
             return [];
         }
 

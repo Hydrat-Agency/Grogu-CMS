@@ -18,7 +18,7 @@ trait HasContentTab
     {
         $blueprint = static::getBlueprint($form);
 
-        if (!$blueprint->hasContent() && !$blueprint->hasBlocks()) {
+        if (! $blueprint->hasContent() && ! $blueprint->hasBlocks()) {
             return [];
         }
 
