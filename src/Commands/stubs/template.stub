@@ -1,0 +1,30 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models;
+use App\Content\Layouts;
+use Hydrat\GroguCMS\Templates\Template;
+
+class {{ class }} extends Template
+{
+    protected string $name = '{{ name }}';
+
+    protected ?string $view = '';
+
+    protected array $for = [
+        Models\Page::class,
+    ];
+
+    public function label(): string
+    {
+        return __('{{ name }}');
+    }
+
+    public function blocks(): array
+    {
+        return [
+            // Layouts\Heading::create(),
+        ];
+    }
+}

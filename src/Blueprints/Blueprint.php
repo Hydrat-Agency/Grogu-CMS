@@ -139,7 +139,7 @@ abstract class Blueprint implements BlueprintContract
         $binds = $this->bindRouteParameters();
 
         if (! $includeSelf) {
-            $parent = $record->parent;
+            $parent = $this->hierarchical() ? $record->parent : null;
 
             $binds = [
                 ...$binds,

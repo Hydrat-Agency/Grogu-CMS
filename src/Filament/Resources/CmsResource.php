@@ -68,9 +68,6 @@ abstract class CmsResource extends Resource
             ->columns([
                 ...static::getTableColumns(),
             ])
-            ->filters([
-                Tables\Filters\TrashedFilter::make(),
-            ])
             ->actions([
                 Tables\Actions\Action::make('visit')
                     ->iconSoftButton('heroicon-o-arrow-up-right')
@@ -79,13 +76,6 @@ abstract class CmsResource extends Resource
 
                 Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
                 Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
-                ]),
             ]);
     }
 

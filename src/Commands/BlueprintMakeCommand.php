@@ -97,7 +97,7 @@ class BlueprintMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Blueprints';
+        return $rootNamespace.'\Content\Blueprints';
     }
 
     /**

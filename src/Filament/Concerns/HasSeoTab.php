@@ -19,6 +19,12 @@ trait HasSeoTab
 
     protected static function getSeoTabSchema(Form $form): array
     {
+        $blueprint = static::getBlueprint($form);
+
+        if (!$blueprint->hasSeo()) {
+            return [];
+        }
+
         $scheme = static::seoTabIsContained()
             ? static::getSeoTabSchemaContentSectionSchema($form)
             : static::getSeoTabInnerSchema($form);

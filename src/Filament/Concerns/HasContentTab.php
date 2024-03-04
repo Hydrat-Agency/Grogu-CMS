@@ -16,6 +16,12 @@ trait HasContentTab
 
     protected static function getContentTabSchema(Form $form): array
     {
+        $blueprint = static::getBlueprint($form);
+
+        if (!$blueprint->hasContent() && !$blueprint->hasBlocks()) {
+            return [];
+        }
+
         $scheme = static::contentTabIsContained()
             ? static::getContentTabSchemaContentSectionSchema($form)
             : static::getContentTabInnerSchema($form);

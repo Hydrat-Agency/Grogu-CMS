@@ -16,15 +16,15 @@ class GenerateUniqueSlug
             return '';
         }
 
-        $parentId = $model?->parent_id ?: null;
+        // $parentId = $model?->parent_id ?: null;
         $slug = $model?->slug ?: Str::slug($title);
         $i = 1;
 
         while (
             $class::where('slug', $slug)
                 ->when($model, fn ($q) => $q->where('id', '!=', $model->id))
-                ->when($parentId, fn ($q) => $q->where('parent_id', $parentId))
-                ->when(! $parentId, fn ($q) => $q->whereNull('parent_id'))
+                // ->when($parentId, fn ($q) => $q->where('parent_id', $parentId))
+                // ->when(! $parentId, fn ($q) => $q->whereNull('parent_id'))
                 ->exists()
         ) {
             $slug = Str::slug($title.'-'.$i++);

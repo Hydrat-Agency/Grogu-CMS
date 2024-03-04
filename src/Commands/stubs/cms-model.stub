@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Hydrat\GroguCMS\Models\CmsModel;
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Blueprints\{{ class }}Blueprint;
+use App\Content\Blueprints\{{ class }}Blueprint;
 
 class {{ class }} extends CmsModel
 {

@@ -2,7 +2,6 @@
 
 namespace Hydrat\GroguCMS\Filament\Concerns;
 
-use App\Models\Page;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
@@ -63,9 +62,10 @@ trait HasOverviewTab
                         ->prefix(
                             fn () => Str::finish($blueprint->frontUrl(includeSelf: false), '/'),
                         )
-                        ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
-                            return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
-                        }),
+                        ->unique($form->getModel(), 'slug', ignoreRecord: true),
+                        // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
+                        //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
+                        // }),
 
                     Forms\Components\MarkdownEditor::make('excerpt')
                         ->maxLength(65535)
@@ -106,6 +106,7 @@ trait HasOverviewTab
                         )
                         ->searchable()
                         ->live(debounce: 250)
+                        ->visible($blueprint->hierarchical())
                         ->nullable()
                         ->preload(),
 
@@ -137,13 +138,13 @@ trait HasOverviewTab
                         ->schema([
                             Forms\Components\Placeholder::make('created_at')
                                 ->label('Created at')
-                                ->content(fn (Page $page): ?string => $page->created_at?->isoFormat('LLL')),
+                                ->content(fn (Model $record): ?string => $record->created_at?->isoFormat('LLL')),
 
                             Forms\Components\Placeholder::make('updated_at')
                                 ->label('Last modified at')
-                                ->content(fn (Page $page): ?string => $page->updated_at?->isoFormat('LLL')),
+                                ->content(fn (Model $record): ?string => $record->updated_at?->isoFormat('LLL')),
                         ])
-                        ->hidden(fn (?Page $record) => $record === null),
+                        ->hidden(fn (?Model $record) => $record === null),
                 ]),
         ];
     }
