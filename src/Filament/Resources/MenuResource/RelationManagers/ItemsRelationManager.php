@@ -117,10 +117,17 @@ class ItemsRelationManager extends RelationManager
         if ($data['linkeable_type'] === 'url') {
             $data['linkeable_id'] = null;
             $data['linkeable_type'] = null;
+            $data['external'] = match (true) {
+                strpos($data['url'], config('app.url')) === 0 => false,
+                strpos($data['url'], '#') === 0 => false,
+                strpos($data['url'], '?') === 0 => false,
+                default => true,
+            };
 
             return $data;
         }
 
+        $data['external'] = false;
         $data['url'] = null;
 
         return $data;

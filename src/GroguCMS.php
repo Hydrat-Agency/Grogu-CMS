@@ -2,10 +2,11 @@
 
 namespace Hydrat\GroguCMS;
 
+use Hydrat\GroguCMS\Models\Menu;
+use Illuminate\Support\Collection;
+use Hydrat\GroguCMS\Templates\Template;
 use Hydrat\GroguCMS\Blueprints\Blueprint;
 use Hydrat\GroguCMS\Concerns\HasComponents;
-use Hydrat\GroguCMS\Templates\Template;
-use Illuminate\Support\Collection;
 
 class GroguCMS
 {
@@ -100,5 +101,19 @@ class GroguCMS
         return collect(config('grogu-cms.menus.locations', []))
             ->map(fn ($name) => $shouldTranslate ? __($name) : $name)
             ->unique();
+    }
+
+    public function menus(bool $asResource = false)
+    {
+        $model = config('grogu-cms.models.menu', Menu::class);
+
+        return $model::query()
+            ->with('items')
+            ->get()
+            ->mapWithKeys(fn ($menu) => [
+                $menu->location => $asResource
+                    ? $menu->items->map->toResource()
+                    : $menu->items,
+            ]);
     }
 }

@@ -2,12 +2,14 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Hydrat\GroguCMS\Models\Contracts\Resourceable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class MenuItem extends Model
+class MenuItem extends Model implements Resourceable
 {
     use HasFactory;
 
@@ -44,6 +46,11 @@ class MenuItem extends Model
         'linkeable',
     ];
 
+    public function toResource(): JsonResource
+    {
+        return new \Hydrat\GroguCMS\Http\Resources\MenuItemResource($this);
+    }
+
     public function menu(): Relations\BelongsTo
     {
         return $this->belongsTo(Menu::class);
@@ -57,9 +64,10 @@ class MenuItem extends Model
     public function url(): Attribute
     {
         return new Attribute(
-            get: fn ($value) => $this->linkeable_type !== null
+            get: fn ($value, $attributes) => $attributes['linkeable_type'] && $attributes['linkeable_type'] !== 'url'
                 ? $this->linkeable?->url
-                : $value,
+                : $attributes['url'],
+            set: fn ($value) => $value
         );
     }
 }
