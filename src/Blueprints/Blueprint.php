@@ -86,7 +86,7 @@ abstract class Blueprint implements BlueprintContract
     public function hasDefaultTemplate(): bool
     {
         return $this->hasTemplates()
-            && !$this->hasMandatoryTemplate();
+            && ! $this->hasMandatoryTemplate();
     }
 
     public function hasExcerpt(): bool
