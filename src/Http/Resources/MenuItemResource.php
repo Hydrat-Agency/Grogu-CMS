@@ -2,9 +2,9 @@
 
 namespace Hydrat\GroguCMS\Http\Resources;
 
-use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Arr;
 
 class MenuItemResource extends JsonResource
 {

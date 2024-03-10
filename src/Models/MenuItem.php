@@ -2,12 +2,12 @@
 
 namespace Hydrat\GroguCMS\Models;
 
+use Hydrat\GroguCMS\Models\Contracts\Resourceable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Hydrat\GroguCMS\Models\Contracts\Resourceable;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MenuItem extends Model implements Resourceable
 {
