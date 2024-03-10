@@ -2,15 +2,17 @@
 
 namespace Hydrat\GroguCMS;
 
-use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Contracts\Plugin;
+use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 
 class GroguCMSPlugin implements Plugin
 {
     public function __construct(
-        public GroguCMS $groguCMS = new GroguCMS(),
+        //
     ) {
+        //
     }
 
     public function getId(): string
@@ -31,14 +33,14 @@ class GroguCMSPlugin implements Plugin
 
     public function discoverTemplates(string $in, string $for): static
     {
-        $this->groguCMS->discoverTemplates($in, $for);
+        GroguCMS::discoverTemplates($in, $for);
 
         return $this;
     }
 
     public function discoverBlueprints(string $in, string $for): static
     {
-        $this->groguCMS->discoverBlueprints($in, $for);
+        GroguCMS::discoverBlueprints($in, $for);
 
         return $this;
     }
