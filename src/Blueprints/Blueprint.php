@@ -53,6 +53,62 @@ abstract class Blueprint implements BlueprintContract
         return $this->model;
     }
 
+    public function templates(): array
+    {
+        return $this->templates;
+    }
+
+    public function hierarchical(): bool
+    {
+        return $this->hierarchical;
+    }
+
+    public function routeName(): ?string
+    {
+        return $this->routeName;
+    }
+
+    public function showInMenus(): bool
+    {
+        return filled($this->routeName());
+    }
+
+    public function hasTemplates(): bool
+    {
+        return filled($this->templates());
+    }
+
+    public function hasMandatoryTemplate(): bool
+    {
+        return $this->hasMandatoryTemplate;
+    }
+
+    public function hasDefaultTemplate(): bool
+    {
+        return $this->hasTemplates()
+            && !$this->hasMandatoryTemplate();
+    }
+
+    public function hasExcerpt(): bool
+    {
+        return $this->supportsExcerpt;
+    }
+
+    public function hasSeo(): bool
+    {
+        return $this->supportsSeo;
+    }
+
+    public function hasContent(): bool
+    {
+        return blank($this->blocks());
+    }
+
+    public function hasBlocks(): bool
+    {
+        return filled($this->blocks());
+    }
+
     public function modelSingularName(): string
     {
         $model = $this->model();
@@ -74,14 +130,20 @@ abstract class Blueprint implements BlueprintContract
             ->toString();
     }
 
-    public function templates(): array
+    public function modelSingularLabel(): string
     {
-        return $this->templates;
+        return str()
+            ->of($this->modelSingularName())
+            ->title()
+            ->toString();
     }
 
-    public function hierarchical(): bool
+    public function modelPluralLabel(): string
     {
-        return $this->hierarchical;
+        return str()
+            ->of($this->modelPluralName())
+            ->title()
+            ->toString();
     }
 
     public function computeHierarchicalPath(?Model $record = null): ?string
@@ -101,11 +163,6 @@ abstract class Blueprint implements BlueprintContract
         }
 
         return Arr::join(array_reverse($extends), '/');
-    }
-
-    public function routeName(): ?string
-    {
-        return $this->routeName;
     }
 
     // public function frontUrl(?Model $record = null): string
@@ -166,47 +223,11 @@ abstract class Blueprint implements BlueprintContract
         ];
     }
 
-    public function hasTemplates(): bool
-    {
-        return filled($this->templates());
-    }
-
-    public function hasMandatoryTemplate(): bool
-    {
-        return $this->hasMandatoryTemplate;
-    }
-
-    public function hasDefaultTemplate(): bool
-    {
-        return $this->hasTemplates()
-            && ! $this->hasMandatoryTemplate();
-    }
-
     public function getTemplates(): Collection
     {
         return collect($this->templates())
             ->map(fn ($template) => new $template())
             ->keyBy(fn ($template) => $template->name());
-    }
-
-    public function hasExcerpt(): bool
-    {
-        return $this->supportsExcerpt;
-    }
-
-    public function hasSeo(): bool
-    {
-        return $this->supportsSeo;
-    }
-
-    public function hasContent(): bool
-    {
-        return blank($this->blocks());
-    }
-
-    public function hasBlocks(): bool
-    {
-        return filled($this->blocks());
     }
 
     public function blocks(): array
