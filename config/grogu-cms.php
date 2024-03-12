@@ -32,4 +32,11 @@ return [
         ],
     ],
 
+    /**
+     * Configure how the SEO features should be handled.
+     */
+    'seo' => [
+        'on_save' => true,
+    ],
+
 ];

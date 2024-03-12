@@ -26,8 +26,12 @@ class GenerateSeoScore
         return sprintf('grogu-cms.seo-score.%s.%s', get_class($record), $record->id);
     }
 
-    public function asListener(...$parameters): SeoScore
+    public function asListener(...$parameters): ?SeoScore
     {
+        if (!config('grogu-cms.seo.on_save', true)) {
+            return null;
+        }
+
         $event = $parameters[0];
 
         if ($event instanceof CmsModelSaved) {
