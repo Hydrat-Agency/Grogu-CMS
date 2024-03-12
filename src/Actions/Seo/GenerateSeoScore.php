@@ -28,7 +28,7 @@ class GenerateSeoScore
 
     public function asListener(...$parameters): ?SeoScore
     {
-        if (!config('grogu-cms.seo.on_save', true)) {
+        if (! config('grogu-cms.seo.on_save', true)) {
             return null;
         }
 
