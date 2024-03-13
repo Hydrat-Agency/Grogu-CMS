@@ -34,7 +34,6 @@ class ItemsRelationManager extends RelationManager
         );
 
         return $form
-            ->reorderable('order')
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
@@ -82,6 +81,8 @@ class ItemsRelationManager extends RelationManager
 
         return $table
             ->recordTitleAttribute('title')
+            ->reorderable('order')
+            ->defaultSort('order')
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('linkeable_type')

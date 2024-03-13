@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('url')->nullable();
             $table->boolean('external')->default(false);
             $table->boolean('new_tab')->default(false);
+            $table->integer('order')->default(0);
             $table->timestamps();
 
             $table->index(["linkeable_type", "linkeable_id"]);

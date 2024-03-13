@@ -112,8 +112,8 @@ class GroguCMS
             ->get()
             ->mapWithKeys(fn ($menu) => [
                 $menu->location => $asResource
-                    ? $menu->items->map->toResource()
-                    : $menu->items,
+                    ? $menu->items->sortBy('order')->map->toResource()
+                    : $menu->items->sortBy('order'),
             ]);
     }
 }
