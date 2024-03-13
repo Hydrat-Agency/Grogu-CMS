@@ -4,18 +4,26 @@ namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
 use Closure;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Forms\Get;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Illuminate\Support\Arr;
+use Hydrat\GroguCMS\Models\MenuItem;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Arr;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
+
+    public function reorderTable(array $order): void
+    {
+        $model = config('grogu-cms.models.menu_item', MenuItem::class);
+
+        $model::setNewOrder($order);
+    }
 
     public function form(Form $form): Form
     {
@@ -26,6 +34,7 @@ class ItemsRelationManager extends RelationManager
         );
 
         return $form
+            ->reorderable('order')
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()

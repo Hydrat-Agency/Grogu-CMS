@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class MenuItem extends Model implements Resourceable
+class MenuItem extends Model implements Resourceable, Sortable
 {
     use HasFactory;
+    use SortableTrait;
 
     /**
      * The attributes that are mass assignable.
