@@ -89,7 +89,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
         }
 
         // Testing
-        Testable::mixin(new TestsGroguCMS());
+        Testable::mixin(new TestsGroguCMS);
     }
 
     protected function getAssetPackageName(): ?string

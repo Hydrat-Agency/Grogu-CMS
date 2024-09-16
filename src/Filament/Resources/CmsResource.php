@@ -16,8 +16,8 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
-use Symfony\Component\Routing\Exception\InvalidParameterException;
 use RalphJSmit\Filament\MediaLibrary\Tables\Columns\MediaColumn;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
 use Throwable;
 
 abstract class CmsResource extends Resource

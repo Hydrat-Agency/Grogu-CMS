@@ -7,9 +7,9 @@ use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
 use Hydrat\GroguCMS\Models\Contracts as CmsContracts;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
+use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
-use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 
 abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
 {

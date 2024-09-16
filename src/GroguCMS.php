@@ -52,7 +52,7 @@ class GroguCMS
     public function getTemplates(?string $model = null): Collection
     {
         return collect($this->templates)
-            ->map(fn ($template) => new $template())
+            ->map(fn ($template) => new $template)
             ->when($model, fn ($c) => $c->filter->isEnabledFor($model))
             ->keyBy(fn ($template) => $template->name());
     }
@@ -60,7 +60,7 @@ class GroguCMS
     public function getBlueprints(?string $model = null): Collection
     {
         return collect($this->blueprints)
-            ->map(fn ($blueprint) => new $blueprint())
+            ->map(fn ($blueprint) => new $blueprint)
             ->when($model, fn ($c) => $c->filter(fn ($b) => $b->model() === $model));
     }
 

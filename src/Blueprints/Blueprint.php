@@ -30,8 +30,7 @@ abstract class Blueprint implements BlueprintContract
 
     public function __construct(
         protected ?Model $record = null,
-    ) {
-    }
+    ) {}
 
     public function hasRecord(): bool
     {
@@ -226,7 +225,7 @@ abstract class Blueprint implements BlueprintContract
     public function getTemplates(): Collection
     {
         return collect($this->templates())
-            ->map(fn ($template) => new $template())
+            ->map(fn ($template) => new $template)
             ->keyBy(fn ($template) => $template->name());
     }
 

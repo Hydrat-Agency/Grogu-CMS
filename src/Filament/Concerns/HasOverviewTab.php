@@ -4,12 +4,12 @@ namespace Hydrat\GroguCMS\Filament\Concerns;
 
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Hydrat\GroguCMS\Actions\GenerateUniqueSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
 
 trait HasOverviewTab
 {

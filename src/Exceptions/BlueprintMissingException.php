@@ -4,6 +4,4 @@ namespace Hydrat\GroguCMS\Exceptions;
 
 use Exception;
 
-class BlueprintMissingException extends Exception
-{
-}
+class BlueprintMissingException extends Exception {}
