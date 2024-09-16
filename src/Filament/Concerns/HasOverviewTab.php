@@ -135,9 +135,8 @@ trait HasOverviewTab
                     //     ->imageResizeTargetWidth('1920')
                     //     ->visibility('public'),
 
-                    MediaPicker::make('image')
-                        ->label(__('Choose image'))
-                        ->required()
+                    MediaPicker::make('thumbnail_id')
+                        ->label(__('Thumbnail'))
                         ->acceptedFileTypes(['image/*']),
 
                     Forms\Components\Group::make()

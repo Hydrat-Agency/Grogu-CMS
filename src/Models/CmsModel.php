@@ -29,6 +29,7 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsC
         'title',
         'slug',
         'template',
+        'thumbnail_id',
         'published_at',
         'excerpt',
         'description',

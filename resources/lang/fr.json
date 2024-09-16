@@ -54,6 +54,7 @@
   "Item": "Élément",
   "Website": "Site web",
   "Choose image": "Choisir une image",
+  "Thumbnail": "Miniature",
   "A short description used on social previews and Google vignette.": "Une courte description utilisée sur les aperçus sociaux et la vignette Google.",
   "When not set, the article is considered as a draft.": "Lorsque non défini, l'article est considéré comme un brouillon.",
   "An overview of the page, used in feeds with the intent to entice readers to click through.": "Une vue d'ensemble de la page, utilisée dans les flux dans le but d'inciter les lecteurs à cliquer pour en savoir plus."
