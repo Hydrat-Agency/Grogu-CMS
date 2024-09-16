@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Relations;
 use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Support\Fluent;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
 {
@@ -44,7 +46,6 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsC
      * @var array
      */
     protected $casts = [
-        'blocks' => 'array',
         'published_at' => 'datetime',
         'manually_updated_at' => 'datetime',
     ];
@@ -77,5 +78,13 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsC
     public function thumbnail(): Relations\BelongsTo
     {
         return $this->belongsTo(MediaLibraryItem::class, 'thumbnail_id');
+    }
+
+    public function blocks(): Attribute
+    {
+        return new Attribute(
+            get: fn ($value) => collect(json_decode($value, true) ?: [])->map(fn ($block) => new Fluent($block)),
+            set: fn ($value) => json_encode($value),
+        );
     }
 }
