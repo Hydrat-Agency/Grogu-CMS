@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 
 abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
 {
@@ -70,5 +71,10 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsC
     public function children(): Relations\HasMany
     {
         return $this->hasMany(static::class, 'parent_id');
+    }
+
+    public function thumbnail(): Relations\BelongsTo
+    {
+        return $this->belongsTo(MediaLibraryItem::class, 'thumbnail_id');
     }
 }

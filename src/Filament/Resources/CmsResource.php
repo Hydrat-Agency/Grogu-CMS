@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
+use RalphJSmit\Filament\MediaLibrary\Tables\Columns\MediaColumn;
 use Throwable;
 
 abstract class CmsResource extends Resource
@@ -125,12 +126,16 @@ abstract class CmsResource extends Resource
                 })
                 ->toggleable(isToggledHiddenByDefault: false),
 
-            Tables\Columns\SpatieMediaLibraryImageColumn::make('image')
-                ->collection('image')
-                ->conversion('small')
-                ->disk('media-library')
-                ->circular(true)
-                ->toggleable(isToggledHiddenByDefault: false),
+            // Tables\Columns\SpatieMediaLibraryImageColumn::make('image')
+            //     ->collection('image')
+            //     ->conversion('small')
+            //     ->disk('media-library')
+            //     ->circular(true)
+            //     ->toggleable(isToggledHiddenByDefault: false),
+
+            MediaColumn::make('thumbnail')
+                ->circular()
+                ->size(40),
         ];
     }
 

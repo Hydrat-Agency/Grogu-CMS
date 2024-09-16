@@ -4,6 +4,7 @@ namespace Hydrat\GroguCMS\Filament\Concerns;
 
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Hydrat\GroguCMS\Actions\GenerateUniqueSlug;
@@ -122,17 +123,22 @@ trait HasOverviewTab
                         ->searchable()
                         ->preload(),
 
-                    SpatieMediaLibraryFileUpload::make('image')
-                        ->collection('image')
-                        ->conversion('small')
-                        ->disk('media-library')
-                        ->downloadable()
-                        ->imageCropAspectRatio('16:9')
-                        ->imageEditor()
-                        ->imageResizeMode('cover')
-                        ->imageResizeTargetHeight('1080')
-                        ->imageResizeTargetWidth('1920')
-                        ->visibility('public'),
+                    // SpatieMediaLibraryFileUpload::make('image')
+                    //     ->collection('image')
+                    //     ->conversion('small')
+                    //     ->disk('media-library')
+                    //     ->downloadable()
+                    //     ->imageCropAspectRatio('16:9')
+                    //     ->imageEditor()
+                    //     ->imageResizeMode('cover')
+                    //     ->imageResizeTargetHeight('1080')
+                    //     ->imageResizeTargetWidth('1920')
+                    //     ->visibility('public'),
+
+                    MediaPicker::make('image')
+                        ->label(__('Choose image'))
+                        ->required()
+                        ->acceptedFileTypes(['image/*']),
 
                     Forms\Components\Group::make()
                         ->schema([
