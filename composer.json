@@ -25,7 +25,7 @@
         "filament/filament": "^3.0",
         "filament/spatie-laravel-media-library-plugin": "^3.1",
         "filament/spatie-laravel-settings-plugin": "^3.1",
-        "hydrat/filament-table-layout-toggle": "^1.1",
+        "hydrat/filament-table-layout-toggle": ">=1.1",
         "illuminate/contracts": "^10.0",
         "jeffgreco13/filament-breezy": "^2.2",
         "lorisleiva/laravel-actions": "^2.7",
