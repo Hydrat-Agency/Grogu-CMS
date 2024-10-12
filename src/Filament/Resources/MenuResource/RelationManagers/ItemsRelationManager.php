@@ -29,6 +29,8 @@ class ItemsRelationManager extends RelationManager
         $model = config('grogu-cms.models.menu_item', MenuItem::class);
 
         $model::setNewOrder($order);
+
+        $this->dispatch('refreshTree');
     }
 
     public function form(Form $form): Form
@@ -127,7 +129,8 @@ class ItemsRelationManager extends RelationManager
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make()
-                    ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving'])),
+                    ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
+                    ->after(fn () => $this->dispatch('refreshTree')),
             ])
             ->actions([
                 Tables\Actions\ReplicateAction::make()
@@ -136,7 +139,8 @@ class ItemsRelationManager extends RelationManager
                 Tables\Actions\EditAction::make()
                     ->iconSoftButton('heroicon-o-pencil-square')
                     ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
-                    ->mutateRecordDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeEditing'])),
+                    ->mutateRecordDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeEditing']))
+                    ->after(fn () => $this->dispatch('refreshTree')),
 
                 Tables\Actions\DeleteAction::make()
                     ->iconSoftButton('heroicon-o-trash'),
