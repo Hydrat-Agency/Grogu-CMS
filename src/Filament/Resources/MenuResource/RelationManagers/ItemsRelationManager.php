@@ -52,7 +52,7 @@ class ItemsRelationManager extends RelationManager
                     ->relationship(
                         name: 'parent',
                         titleAttribute: 'title',
-                        modifyQueryUsing: fn (Builder $query, Model $record) => $query->where('menu_id', $record->menu_id),
+                        modifyQueryUsing: fn (Builder $query) => $query->where('menu_id', $this->getOwnerRecord()->id),
                         ignoreRecord: true,
                     )
                     ->label('Parent'),
