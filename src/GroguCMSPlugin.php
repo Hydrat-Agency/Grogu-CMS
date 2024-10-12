@@ -2,10 +2,11 @@
 
 namespace Hydrat\GroguCMS;
 
-use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Filament\Contracts\Plugin;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget;
 
 class GroguCMSPlugin implements Plugin
 {
@@ -23,12 +24,15 @@ class GroguCMSPlugin implements Plugin
     public function register(Panel $panel): void
     {
         $panel
-            ->resources([
-                MenuResource::class,
-            ])
+            ->resources(
+                config('grogu-cms.resources') ?: []
+            )
             ->pages([
                 // Settings::class,
-            ]);
+            ])
+            ->widgets([])
+            ->discoverResources(in: __DIR__.'/Filament/Resources', for: 'Hydrat\\GroguCMS\\Filament\\Resources')
+            ->discoverWidgets(in: __DIR__.'/Filament/Widgets', for: 'Hydrat\\GroguCMS\\Filament\\Widgets');
     }
 
     public function discoverTemplates(string $in, string $for): static

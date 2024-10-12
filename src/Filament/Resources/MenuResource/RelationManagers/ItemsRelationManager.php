@@ -4,19 +4,25 @@ namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
 use Closure;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Forms\Get;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Hydrat\GroguCMS\Facades\GroguCMS;
-use Hydrat\GroguCMS\Models\MenuItem;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Filament\Tables\Grouping\Group;
+use Hydrat\GroguCMS\Models\MenuItem;
+use Hydrat\GroguCMS\Facades\GroguCMS;
+use Illuminate\Database\Eloquent\Model;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class ItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'items';
+
+    public static function getTitle(Model $ownerRecord, string $pageClass): string
+    {
+        return __('Items');
+    }
 
     public function reorderTable(array $order): void
     {
@@ -37,8 +43,11 @@ class ItemsRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->required()
-                    ->columnSpanFull()
                     ->maxLength(255),
+
+                Forms\Components\Select::make('parent_id')
+                    ->relationship(name: 'parent', titleAttribute: 'title', ignoreRecord: true)
+                    ->label('Parent'),
 
                 Forms\Components\Select::make('linkeable_type')
                     ->label('Link type')
@@ -84,11 +93,34 @@ class ItemsRelationManager extends RelationManager
             ->reorderable('order')
             ->defaultSort('order')
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('title')
+                    ->sortable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('parent.title')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+
+                Tables\Columns\TextColumn::make('path')
+                    ->getStateUsing(fn (Model $record) => $record->joinAncestors()->reverse()->implode('title', ' > '))
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(),
+
                 Tables\Columns\TextColumn::make('linkeable_type')
                     ->label('Link type')
                     ->getStateUsing(fn (Model $record): string => $record->linkeable_type ?: 'url')
-                    ->formatStateUsing(fn (string $state): string => $blueprintsTypes->get($state, strtoupper($state))),
+                    ->formatStateUsing(fn (string $state): string => $blueprintsTypes->get($state, strtoupper($state)))
+                    ->sortable()
+                    ->toggleable(),
+
+                Tables\Columns\TextColumn::make('destination')
+                    ->getStateUsing(fn (Model $record): ?string => match (filled($record->linkeable)) {
+                        true => $record->linkeable->title,
+                        default => $record->url,
+                    })
+                    ->toggleable(),
             ])
             ->filters([
                 //
@@ -104,13 +136,7 @@ class ItemsRelationManager extends RelationManager
                 Tables\Actions\EditAction::make()
                     ->iconSoftButton('heroicon-o-pencil-square')
                     ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
-                    ->mutateRecordDataUsing(function (array $data): array {
-                        if (! Arr::get($data, 'linkeable_type')) {
-                            $data['linkeable_type'] = 'url';
-                        }
-
-                        return $data;
-                    }),
+                    ->mutateRecordDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeEditing'])),
 
                 Tables\Actions\DeleteAction::make()
                     ->iconSoftButton('heroicon-o-trash'),
@@ -119,11 +145,36 @@ class ItemsRelationManager extends RelationManager
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
+            ])
+            ->groups([
+                Group::make('parent.title')
+                    ->collapsible(),
+
+                Group::make('linkeable_type')
+                    ->label(__('Link type'))
+                    ->getTitleFromRecordUsing(fn (Model $record): ?string => $blueprintsTypes->get($record->linkeable_type))
+                    ->collapsible(),
             ]);
+    }
+
+    protected function mutateDataBeforeEditing(array $data): array
+    {
+        if (!Arr::get($data, 'linkeable_type')) {
+            $data = Arr::set($data, 'linkeable_type', 'url');
+        }
+
+        return [
+            ...$data,
+            'path' => $data['path']?->getValue(),
+        ];
     }
 
     protected function mutateDataBeforeSaving(array $data): array
     {
+        if (isset($data['path'])) {
+            unset($data['path']);
+        }
+
         if ($data['linkeable_type'] === 'url') {
             $data['linkeable_id'] = null;
             $data['linkeable_type'] = null;

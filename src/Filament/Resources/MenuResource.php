@@ -3,10 +3,12 @@
 namespace Hydrat\GroguCMS\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
+use Filament\Resources\Resource;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
@@ -14,6 +16,8 @@ use Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 class MenuResource extends Resource
 {
     protected static ?string $navigationIcon = 'heroicon-o-bars-3';
+
+    protected static bool $isDiscovered = false;
 
     public static function getNavigationGroup(): ?string
     {
@@ -37,6 +41,16 @@ class MenuResource extends Resource
                     ->options(
                         GroguCMS::menuLocations()->toArray()
                     ),
+            ]);
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\TextEntry::make('title'),
+                Infolists\Components\TextEntry::make('location')
+                    ->formatStateUsing(fn ($state) => GroguCMS::menuLocations()->get($state, $state)),
             ]);
     }
 
@@ -71,6 +85,7 @@ class MenuResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()->iconSoftButton('heroicon-o-eye'),
                 Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
                 Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
@@ -93,6 +108,7 @@ class MenuResource extends Resource
         return [
             'index' => Pages\ListMenus::route('/'),
             'create' => Pages\CreateMenu::route('/create'),
+            'view' => Pages\ViewMenu::route('/{record}'),
             'edit' => Pages\EditMenu::route('/{record}/edit'),
         ];
     }
