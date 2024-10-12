@@ -22,6 +22,14 @@ class Menu extends Model
 
     public function items(): Relations\HasMany
     {
-        return $this->hasMany(config('grogu-cms.models.menu_item') ?: MenuItem::class);
+        return $this->hasMany(config('grogu-cms.models.menu_item') ?: MenuItem::class)
+            ->orderBy('order');
+    }
+
+    public function elements(): Relations\HasMany
+    {
+        return $this->hasMany(config('grogu-cms.models.menu_item') ?: MenuItem::class)
+            ->orderBy('order')
+            ->whereNull('parent_id');
     }
 }
