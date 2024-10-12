@@ -108,12 +108,12 @@ class GroguCMS
         $model = config('grogu-cms.models.menu', Menu::class);
 
         return $model::query()
-            ->with('items')
+            ->with('elements.descendants')
             ->get()
             ->mapWithKeys(fn ($menu) => [
                 $menu->location => $asResource
-                    ? $menu->items->sortBy('order')->map->toResource()
-                    : $menu->items->sortBy('order'),
+                    ? $menu->elements->map->toResource()
+                    : $menu->elements,
             ]);
     }
 }
