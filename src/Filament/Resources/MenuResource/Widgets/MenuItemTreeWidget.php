@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets;
 
 use Filament\Forms;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use SolutionForest\FilamentTree\Widgets\Tree as BaseWidget;
 
 class MenuItemTreeWidget extends BaseWidget
