@@ -2,11 +2,9 @@
 
 namespace Hydrat\GroguCMS;
 
-use Filament\Panel;
 use Filament\Contracts\Plugin;
+use Filament\Panel;
 use Hydrat\GroguCMS\Facades\GroguCMS;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget;
 
 class GroguCMSPlugin implements Plugin
 {

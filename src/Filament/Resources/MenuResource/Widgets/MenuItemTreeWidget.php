@@ -4,7 +4,6 @@ namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets;
 
 use Filament\Forms;
 use SolutionForest\FilamentTree\Widgets\Tree as BaseWidget;
-use Illuminate\Database\Eloquent\Builder;
 
 class MenuItemTreeWidget extends BaseWidget
 {
