@@ -4,16 +4,17 @@ namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
 use Closure;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
-use Filament\Tables\Grouping\Group;
+use Filament\Forms\Get;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Hydrat\GroguCMS\Facades\GroguCMS;
-use Hydrat\GroguCMS\Models\MenuItem;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Filament\Tables\Grouping\Group;
+use Hydrat\GroguCMS\Models\MenuItem;
+use Hydrat\GroguCMS\Facades\GroguCMS;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class ItemsRelationManager extends RelationManager
 {
@@ -48,7 +49,12 @@ class ItemsRelationManager extends RelationManager
                     ->maxLength(255),
 
                 Forms\Components\Select::make('parent_id')
-                    ->relationship(name: 'parent', titleAttribute: 'title', ignoreRecord: true)
+                    ->relationship(
+                        name: 'parent',
+                        titleAttribute: 'title',
+                        modifyQueryUsing: fn (Builder $query, Model $record) => $query->where('menu_id', $record->menu_id),
+                        ignoreRecord: true,
+                    )
                     ->label('Parent'),
 
                 Forms\Components\Select::make('linkeable_type')
