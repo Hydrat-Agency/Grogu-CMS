@@ -2,20 +2,16 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
-use Filament\Forms;
-use Filament\Tables;
-use Filament\Actions;
+use Filament\Forms\Components;
+use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Forms\Components;
-use Hydrat\GroguCMS\Enums\FormFieldType;
-use Illuminate\Database\Eloquent\Builder;
 use Filament\Resources\Pages\ManageRelatedRecords;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Hydrat\GroguCMS\Enums\FormFieldType;
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
+use Illuminate\Support\Str;
 
 class ManageFormFields extends ManageRelatedRecords
 {
@@ -181,7 +177,7 @@ class ManageFormFields extends ManageRelatedRecords
                 Tables\Actions\EditAction::make()
                     ->iconSoftButton('heroicon-o-pencil-square'),
                 Tables\Actions\DeleteAction::make()
-                    ->iconSoftButton('heroicon-o-trash')
+                    ->iconSoftButton('heroicon-o-trash'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

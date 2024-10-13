@@ -6,7 +6,7 @@ use Filament\Support\Contracts\HasColor;
 use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 
-enum FormFieldType: string implements HasLabel, HasColor, HasIcon
+enum FormFieldType: string implements HasColor, HasIcon, HasLabel
 {
     case Text = 'text';
     case Textarea = 'textarea';
@@ -24,8 +24,8 @@ enum FormFieldType: string implements HasLabel, HasColor, HasIcon
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::Text =>  'gray',
-            self::Textarea =>  'gray',
+            self::Text => 'gray',
+            self::Textarea => 'gray',
             self::Number => 'info',
             self::Date => 'info',
             self::DateTime => 'info',
@@ -47,8 +47,8 @@ enum FormFieldType: string implements HasLabel, HasColor, HasIcon
             self::Number => __('Number'),
             self::Date => __('Date'),
             self::DateTime => __('Date time'),
-            self::Radio =>  __('Radio selection'),
-            self::Checkbox =>  __('Checkbox'),
+            self::Radio => __('Radio selection'),
+            self::Checkbox => __('Checkbox'),
             self::Select => __('Dropdown'),
             self::Image => __('Image'),
             self::Attachment => __('Attachment'),

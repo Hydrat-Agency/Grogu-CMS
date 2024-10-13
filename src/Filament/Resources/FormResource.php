@@ -2,17 +2,14 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
-use Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
-use Hydrat\GroguCMS\Models\Form as FormModel;
-use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Resources\Pages\Page;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
+use Hydrat\GroguCMS\Models\Form as FormModel;
 
 class FormResource extends Resource
 {

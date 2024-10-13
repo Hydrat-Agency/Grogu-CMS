@@ -2,9 +2,9 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
-use Hydrat\GroguCMS\Filament\Resources\FormResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Hydrat\GroguCMS\Filament\Resources\FormResource;
 
 class EditForm extends EditRecord
 {

@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Hydrat\GroguCMS\Enums\FormFieldType;
-use Spatie\EloquentSortable\SortableTrait;
-use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
+use Spatie\EloquentSortable\SortableTrait;
 
 class FormField extends Model
 {
