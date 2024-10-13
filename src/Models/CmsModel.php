@@ -62,7 +62,7 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsC
 
     public function user(): Relations\BelongsTo
     {
-        return $this->belongsTo(\Hydrat\GroguCMS\Models\User::class);
+        return $this->belongsTo(\App\Models\User::class);
     }
 
     public function parent(): Relations\BelongsTo

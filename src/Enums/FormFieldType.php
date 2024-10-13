@@ -10,6 +10,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
 {
     case Text = 'text';
     case Textarea = 'textarea';
+    case Email = 'email';
     case Number = 'number';
     case Date = 'date';
     case DateTime = 'date_time';
@@ -20,22 +21,25 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
     case Attachment = 'attachment';
     case Signature = 'signature';
     case Placeholder = 'placeholder';
+    case Confirm = 'confirm';
 
     public function getColor(): string|array|null
     {
         return match ($this) {
-            self::Text => 'gray',
-            self::Textarea => 'gray',
+            self::Text => 'info',
+            self::Textarea => 'info',
+            self::Email => 'info',
             self::Number => 'info',
-            self::Date => 'info',
-            self::DateTime => 'info',
-            self::Radio => 'warning',
-            self::Checkbox => 'warning',
+            self::Date => 'warning',
+            self::DateTime => 'warning',
+            self::Radio => 'danger',
+            self::Checkbox => 'danger',
             self::Select => 'danger',
             self::Image => 'success',
             self::Attachment => 'success',
             self::Signature => 'success',
             self::Placeholder => 'gray',
+            self::Confirm => 'danger',
         };
     }
 
@@ -43,7 +47,8 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             self::Text => __('Text'),
-            self::Textarea => __('Long text'),
+            self::Textarea => __('Text zone'),
+            self::Email => __('Email'),
             self::Number => __('Number'),
             self::Date => __('Date'),
             self::DateTime => __('Date time'),
@@ -54,6 +59,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Attachment => __('Attachment'),
             self::Signature => __('Signature'),
             self::Placeholder => __('Placeholder'),
+            self::Confirm => __('Confirm'),
         };
     }
 
@@ -62,6 +68,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
         return match ($this) {
             self::Text => 'radix-text',
             self::Textarea => 'radix-text-align-left',
+            self::Email => 'radix-envelope-closed',
             self::Number => 'phosphor-number-circle-one-light',
             self::Date => 'phosphor-calendar-blank-light',
             self::DateTime => 'phosphor-calendar-light',
@@ -72,6 +79,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Attachment => 'radix-file',
             self::Signature => 'phosphor-signature-light',
             self::Placeholder => 'phosphor-chat-centered-text-light',
+            self::Confirm => 'radix-check',
         };
     }
 
@@ -87,6 +95,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
         return match ($this) {
             self::Text => true,
             self::Textarea => true,
+            self::Email => true,
             self::Number => true,
             self::Date => true,
             self::DateTime => true,
@@ -119,6 +128,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             self::Placeholder => true,
+            self::Confirm => true,
             default => false,
         };
     }
@@ -128,6 +138,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
         return match ($this) {
             self::Text => true,
             self::Textarea => true,
+            self::Email => true,
             self::Number => true,
             self::Checkbox => true,
             default => false,
@@ -154,7 +165,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
     public function minLabel(): string
     {
         return match ($this) {
-            self::Text, self::Textarea => __('Minimum length'),
+            self::Text, self::Textarea, self::Email => __('Minimum length'),
             self::Number => __('Minimum value'),
             self::Checkbox, self::Select, self::Image, self::Attachment => __('Minimum number of selections'),
             self::Date, self::DateTime => __('Minimum date'),
@@ -165,7 +176,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
     public function maxLabel(): string
     {
         return match ($this) {
-            self::Text, self::Textarea => __('Maximum length'),
+            self::Text, self::Textarea, self::Email => __('Maximum length'),
             self::Number => __('Maximum value'),
             self::Checkbox, self::Select, self::Image, self::Attachment => __('Maximum number of selections'),
             self::Date, self::DateTime => __('Maximum date'),

@@ -2,16 +2,17 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
-use Filament\Forms\Components;
-use Filament\Forms\Form;
+use Filament\Tables;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Filament\Resources\Pages\ManageRelatedRecords;
-use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Hydrat\GroguCMS\Enums\FormFieldType;
-use Hydrat\GroguCMS\Filament\Resources\FormResource;
 use Illuminate\Support\Str;
+use Filament\Forms\Components;
+use Hydrat\GroguCMS\Enums\FormFieldType;
+use Illuminate\Contracts\Support\Htmlable;
+use Filament\Resources\Pages\ManageRelatedRecords;
+use Hydrat\GroguCMS\Filament\Resources\FormResource;
 
 class ManageFormFields extends ManageRelatedRecords
 {
@@ -32,9 +33,14 @@ class ManageFormFields extends ManageRelatedRecords
         return __('Fields');
     }
 
+    public function getTitle(): string | Htmlable
+    {
+        return __('Manage form fields');
+    }
+
     public function reorderTable(array $order): void
     {
-        static::getResource()::getModel()::setNewOrder($order);
+        $this->getTable()->getModel()::setNewOrder($order);
     }
 
     public function form(Form $form): Form
@@ -118,12 +124,12 @@ class ManageFormFields extends ManageRelatedRecords
                             ->default(12)
                             ->columnSpan('full')
                             ->options([
-                                12 => __('Full width (1/1)'),
-                                6 => __('Half width (1/2)'),
-                                4 => __('Third width (1/3)'),
-                                8 => __('Two thirds width (2/3)'),
-                                3 => __('Quarter width (1/4)'),
-                                9 => __('Three quarters width (3/4)'),
+                                '12' => __('Full width (1/1)'),
+                                '6' => __('Half width (1/2)'),
+                                '4' => __('Third width (1/3)'),
+                                '8' => __('Two thirds width (2/3)'),
+                                '3' => __('Quarter width (1/4)'),
+                                '9' => __('Three quarters width (3/4)'),
                             ]),
 
                         Components\RichEditor::make('content')
@@ -178,18 +184,36 @@ class ManageFormFields extends ManageRelatedRecords
             ->reorderable('order')
             ->defaultSort('order')
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('form.name')
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('name')
+                    ->sortable()
+                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('type')
-                    ->badge(),
-                Tables\Columns\TextColumn::make('order'),
-                Tables\Columns\TextColumn::make('options')
-                    ->badge(),
-                Tables\Columns\TextColumn::make('rules')
-                    ->badge(),
+                    ->badge()
+                    ->toggleable()
+                    ->searchable(),
+
+                Tables\Columns\TextColumn::make('column_span')
+                    ->label('Field size')
+                    ->badge()
+                    ->color('gray')
+                    ->toggleable()
+                    ->formatStateUsing(fn ($state): string => match($state) {
+                        '12', 'full' => __('Full width (1/1)'),
+                        '6' => __('Half width (1/2)'),
+                        '4' => __('Third width (1/3)'),
+                        '8' => __('Two thirds width (2/3)'),
+                        '3' => __('Quarter width (1/4)'),
+                        '9' => __('Three quarters width (3/4)'),
+                    }),
+
                 Tables\Columns\TextColumn::make('created_at')
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->date(),
+
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->dateTime(),
             ])
             ->filters([
                 //
