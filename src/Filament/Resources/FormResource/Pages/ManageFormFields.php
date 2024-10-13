@@ -2,17 +2,17 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
-use Filament\Tables;
+use Filament\Forms\Components;
+use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
-use Filament\Forms\Components;
-use Hydrat\GroguCMS\Enums\FormFieldType;
-use Illuminate\Contracts\Support\Htmlable;
 use Filament\Resources\Pages\ManageRelatedRecords;
+use Filament\Tables;
+use Filament\Tables\Table;
+use Hydrat\GroguCMS\Enums\FormFieldType;
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Str;
 
 class ManageFormFields extends ManageRelatedRecords
 {
@@ -33,7 +33,7 @@ class ManageFormFields extends ManageRelatedRecords
         return __('Fields');
     }
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return __('Manage form fields');
     }
@@ -198,7 +198,7 @@ class ManageFormFields extends ManageRelatedRecords
                     ->badge()
                     ->color('gray')
                     ->toggleable()
-                    ->formatStateUsing(fn ($state): string => match($state) {
+                    ->formatStateUsing(fn ($state): string => match ($state) {
                         '12', 'full' => __('Full width (1/1)'),
                         '6' => __('Half width (1/2)'),
                         '4' => __('Third width (1/3)'),
