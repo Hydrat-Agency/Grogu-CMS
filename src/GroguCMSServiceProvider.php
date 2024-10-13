@@ -150,8 +150,11 @@ class GroguCMSServiceProvider extends PackageServiceProvider
     protected function getMigrations(): array
     {
         return [
-            'create_menus_table',
-            'create_menu_items_table',
+            '2024_02_29_084302_create_menus_table',
+            '2024_02_29_084303_create_menu_items_table',
+            '2024_10_12_154450_create_forms_table',
+            '2024_10_12_154456_create_form_fields_table',
+            '2024_10_12_155440_create_form_entries_table',
         ];
     }
 }

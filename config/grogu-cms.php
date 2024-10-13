@@ -3,18 +3,22 @@
 return [
 
     /**
-     * Define the models that the CMS should use.
+     * Define the models that Grogu CMS core should use.
      */
     'models' => [
         'menu' => Hydrat\GroguCMS\Models\Menu::class,
         'menu_item' => Hydrat\GroguCMS\Models\MenuItem::class,
+        'form' => Hydrat\GroguCMS\Models\Form::class,
+        'form_field' => Hydrat\GroguCMS\Models\FormField::class,
+        'form_entry' => Hydrat\GroguCMS\Models\FormEntry::class,
     ],
 
     /**
-     * Define the resource that should be registred.
+     * Define the resources that should be registred by the plugin.
      */
     'resources' => [
         Hydrat\GroguCMS\Filament\Resources\MenuResource::class,
+        Hydrat\GroguCMS\Filament\Resources\FormResource::class,
     ],
 
     /**
