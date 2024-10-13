@@ -134,6 +134,15 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
         };
     }
 
+    public function hasDateMinMax(): bool
+    {
+        return match ($this) {
+            self::Date => true,
+            self::DateTime => true,
+            default => false,
+        };
+    }
+
     public function hasRows(): bool
     {
         return match ($this) {
@@ -148,6 +157,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Text, self::Textarea => __('Minimum length'),
             self::Number => __('Minimum value'),
             self::Checkbox, self::Select, self::Image, self::Attachment => __('Minimum number of selections'),
+            self::Date, self::DateTime => __('Minimum date'),
             default => __('Minimum'),
         };
     }
@@ -158,6 +168,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Text, self::Textarea => __('Maximum length'),
             self::Number => __('Maximum value'),
             self::Checkbox, self::Select, self::Image, self::Attachment => __('Maximum number of selections'),
+            self::Date, self::DateTime => __('Maximum date'),
             default => __('Maximum'),
         };
     }

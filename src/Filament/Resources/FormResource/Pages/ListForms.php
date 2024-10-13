@@ -8,7 +8,13 @@ use Hydrat\GroguCMS\Filament\Resources\FormResource;
 
 class ListForms extends ListRecords
 {
-    protected static string $resource = FormResource::class;
+    /**
+     * @return class-string
+     */
+    public static function getResource(): string
+    {
+        return config('grogu-cms.resources.form_resource') ?: FormResource::class;
+    }
 
     protected function getHeaderActions(): array
     {

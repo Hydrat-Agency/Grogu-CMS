@@ -7,5 +7,11 @@ use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 
 class CreateMenu extends CreateRecord
 {
-    protected static string $resource = MenuResource::class;
+    /**
+     * @return class-string
+     */
+    public static function getResource(): string
+    {
+        return config('grogu-cms.resources.menu_resource') ?: MenuResource::class;
+    }
 }

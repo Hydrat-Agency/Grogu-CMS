@@ -17,8 +17,8 @@ return [
      * Define the resources that should be registred by the plugin.
      */
     'resources' => [
-        Hydrat\GroguCMS\Filament\Resources\MenuResource::class,
-        Hydrat\GroguCMS\Filament\Resources\FormResource::class,
+        'menu_resource' => Hydrat\GroguCMS\Filament\Resources\MenuResource::class,
+        'form_resource' => Hydrat\GroguCMS\Filament\Resources\FormResource::class,
     ],
 
     /**

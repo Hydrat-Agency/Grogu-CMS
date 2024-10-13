@@ -8,7 +8,18 @@ use Hydrat\GroguCMS\Filament\Resources\FormResource;
 
 class EditForm extends EditRecord
 {
-    protected static string $resource = FormResource::class;
+    /**
+     * @return class-string
+     */
+    public static function getResource(): string
+    {
+        return config('grogu-cms.resources.form_resource') ?: FormResource::class;
+    }
+
+    public static function getNavigationLabel(): string
+    {
+        return __('Form');
+    }
 
     protected function getHeaderActions(): array
     {

@@ -68,6 +68,14 @@ return [
 ];
 ```
 
+You will need then to register the plugin into your Filament Panel :
+
+```php
+GroguCMSPlugin::make()
+    ->discoverTemplates(in: app_path('Content/Templates'), for: 'App\\Content\\Templates')
+    ->discoverBlueprints(in: app_path('Content/Blueprints'), for: 'App\\Content\\Blueprints'),
+```
+
 In addition, to setup dependancies, you will need to run the following commands:
 
 - [vormkracht10/laravel-seo-scanner](https://github.com/vormkracht10/laravel-seo-scanner)
@@ -192,6 +200,16 @@ class Page extends Model implements Resourceable
 ```
 
 You can then configure your resource as needed.
+
+## Deploy to production
+
+### Icons
+
+As this package makes use of multiple blade icon packages (Radix, Phosphor...) it is highly recommended to cache your icons in your production environment. You should add this to your deployment script :
+
+```bash
+php artisan icons:clear
+```
 
 ## Testing
 

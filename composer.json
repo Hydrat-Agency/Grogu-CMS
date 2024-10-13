@@ -28,6 +28,8 @@
     "require": {
         "php": "^8.1",
         "bezhansalleh/filament-language-switch": "^3.0",
+        "codeat3/blade-phosphor-icons": "^2.2",
+        "codeat3/blade-radix-icons": "^1.7",
         "filament/filament": "^3.0",
         "filament/spatie-laravel-settings-plugin": "^3.1",
         "hydrat/filament-table-layout-toggle": ">=1.1",

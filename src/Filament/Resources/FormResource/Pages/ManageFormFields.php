@@ -15,15 +15,26 @@ use Illuminate\Support\Str;
 
 class ManageFormFields extends ManageRelatedRecords
 {
-    protected static string $resource = FormResource::class;
-
     protected static string $relationship = 'fields';
 
     protected static ?string $navigationIcon = 'heroicon-o-queue-list';
 
+    /**
+     * @return class-string
+     */
+    public static function getResource(): string
+    {
+        return config('grogu-cms.resources.form_resource') ?: FormResource::class;
+    }
+
     public static function getNavigationLabel(): string
     {
         return __('Fields');
+    }
+
+    public function reorderTable(array $order): void
+    {
+        static::getResource()::getModel()::setNewOrder($order);
     }
 
     public function form(Form $form): Form
@@ -33,7 +44,6 @@ class ManageFormFields extends ManageRelatedRecords
                 Components\Grid::make(2)
                     ->schema([
                         Components\TextInput::make('name')
-                            ->label('Question')
                             ->required()
                             ->columnSpan('full'),
 
@@ -77,6 +87,24 @@ class ManageFormFields extends ManageRelatedRecords
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasMinMax() || $get('multiple') === true
                             ),
 
+                        Components\DateTimePicker::make('min_date')
+                            ->translateLabel(false)
+                            ->label(
+                                fn (Get $get) => FormFieldType::tryFrom($get('type'))?->minLabel()
+                            )
+                            ->visible(
+                                fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasDateMinMax()
+                            ),
+
+                        Components\DateTimePicker::make('max_date')
+                            ->translateLabel(false)
+                            ->label(
+                                fn (Get $get) => FormFieldType::tryFrom($get('type'))?->maxLabel()
+                            )
+                            ->visible(
+                                fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasDateMinMax()
+                            ),
+
                         Components\TextInput::make('rows')
                             ->numeric()
                             ->columnSpanFull()
@@ -105,10 +133,6 @@ class ManageFormFields extends ManageRelatedRecords
                             ),
 
                         Components\Toggle::make('required')
-                            ->columnSpanFull()
-                            ->inline(true),
-
-                        Components\Toggle::make('customer_editable')
                             ->columnSpanFull()
                             ->inline(true),
 
@@ -151,6 +175,8 @@ class ManageFormFields extends ManageRelatedRecords
     {
         return $table
             ->recordTitleAttribute('name')
+            ->reorderable('order')
+            ->defaultSort('order')
             ->columns([
                 Tables\Columns\TextColumn::make('name'),
                 Tables\Columns\TextColumn::make('form.name')
@@ -184,6 +210,7 @@ class ManageFormFields extends ManageRelatedRecords
                     Tables\Actions\DissociateBulkAction::make(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
-            ]);
+            ])
+            ->emptyStateDescription(__('Create a new field to get started.'));
     }
 }
