@@ -2,17 +2,17 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
-use Filament\Forms\Components;
-use Filament\Forms\Form;
+use Filament\Tables;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Filament\Resources\Pages\ManageRelatedRecords;
-use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Hydrat\GroguCMS\Enums\FormFieldType;
-use Hydrat\GroguCMS\Filament\Resources\FormResource;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Str;
+use Filament\Forms;
+use Hydrat\GroguCMS\Enums\FormFieldType;
+use Illuminate\Contracts\Support\Htmlable;
+use Filament\Resources\Pages\ManageRelatedRecords;
+use Hydrat\GroguCMS\Filament\Resources\FormResource;
 
 class ManageFormFields extends ManageRelatedRecords
 {
@@ -33,7 +33,7 @@ class ManageFormFields extends ManageRelatedRecords
         return __('Fields');
     }
 
-    public function getTitle(): string|Htmlable
+    public function getTitle(): string | Htmlable
     {
         return __('Manage form fields');
     }
@@ -47,33 +47,33 @@ class ManageFormFields extends ManageRelatedRecords
     {
         return $form
             ->schema([
-                Components\Grid::make(2)
+                Forms\Components\Grid::make(2)
                     ->schema([
-                        Components\TextInput::make('name')
+                        Forms\Components\TextInput::make('name')
                             ->required()
                             ->columnSpan('full'),
 
-                        Components\Select::make('type')
+                        Forms\Components\Select::make('type')
                             ->required()
                             ->live()
                             ->searchable()
                             ->options(FormFieldType::class)
                             ->columnSpan('full'),
 
-                        Components\TextInput::make('helper_text')
+                        Forms\Components\TextInput::make('helper_text')
                             ->label('Instructions')
                             ->columnSpan('full')
                             ->visible(
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasHelperText()
                             ),
 
-                        Components\TextInput::make('placeholder')
+                        Forms\Components\TextInput::make('placeholder')
                             ->columnSpan('full')
                             ->visible(
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasPlaceholder()
                             ),
 
-                        Components\TextInput::make('min')
+                        Forms\Components\TextInput::make('min')
                             ->numeric()
                             ->translateLabel(false)
                             ->label(
@@ -83,7 +83,7 @@ class ManageFormFields extends ManageRelatedRecords
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasMinMax() || $get('multiple') === true
                             ),
 
-                        Components\TextInput::make('max')
+                        Forms\Components\TextInput::make('max')
                             ->numeric()
                             ->translateLabel(false)
                             ->label(
@@ -93,7 +93,7 @@ class ManageFormFields extends ManageRelatedRecords
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasMinMax() || $get('multiple') === true
                             ),
 
-                        Components\DateTimePicker::make('min_date')
+                        Forms\Components\DateTimePicker::make('min_date')
                             ->translateLabel(false)
                             ->label(
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->minLabel()
@@ -102,7 +102,7 @@ class ManageFormFields extends ManageRelatedRecords
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasDateMinMax()
                             ),
 
-                        Components\DateTimePicker::make('max_date')
+                        Forms\Components\DateTimePicker::make('max_date')
                             ->translateLabel(false)
                             ->label(
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->maxLabel()
@@ -111,14 +111,14 @@ class ManageFormFields extends ManageRelatedRecords
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasDateMinMax()
                             ),
 
-                        Components\TextInput::make('rows')
+                        Forms\Components\TextInput::make('rows')
                             ->numeric()
                             ->columnSpanFull()
                             ->visible(
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasRows()
                             ),
 
-                        Components\Select::make('column_span')
+                        Forms\Components\Select::make('column_span')
                             ->label('Field size')
                             ->required()
                             ->default(12)
@@ -132,17 +132,17 @@ class ManageFormFields extends ManageRelatedRecords
                                 '9' => __('Three quarters width (3/4)'),
                             ]),
 
-                        Components\RichEditor::make('content')
+                        Forms\Components\RichEditor::make('content')
                             ->columnSpan('full')
                             ->visible(
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->hasContent()
                             ),
 
-                        Components\Toggle::make('required')
+                        Forms\Components\Toggle::make('required')
                             ->columnSpanFull()
                             ->inline(true),
 
-                        Components\Toggle::make('multiple')
+                        Forms\Components\Toggle::make('multiple')
                             ->inline(true)
                             ->columnSpanFull()
                             ->live()
@@ -150,7 +150,7 @@ class ManageFormFields extends ManageRelatedRecords
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->canBeMultiple()
                             ),
 
-                        Components\Repeater::make('options')
+                        Forms\Components\Repeater::make('options')
                             ->addActionLabel(__('Add option'))
                             ->columnSpan('full')
                             ->columns(2)
@@ -158,7 +158,7 @@ class ManageFormFields extends ManageRelatedRecords
                             ->collapsed(fn (string $operation): bool => $operation === 'edit')
                             ->itemLabel(fn (array $state): ?string => $state['label'] ?? null)
                             ->schema([
-                                Components\TextInput::make('label')
+                                Forms\Components\TextInput::make('label')
                                     ->prefixIcon('heroicon-o-tag')
                                     ->required()
                                     ->live(onBlur: true)
@@ -166,7 +166,7 @@ class ManageFormFields extends ManageRelatedRecords
                                         $set('value', $get('value') ?: Str::slug($state));
                                     }),
 
-                                Components\TextInput::make('value')
+                                Forms\Components\TextInput::make('value')
                                     ->prefixIcon('heroicon-o-variable')
                                     ->required(),
                             ])

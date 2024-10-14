@@ -21,7 +21,7 @@ class Form extends Model
 
     public function fields(): Relations\HasMany
     {
-        return $this->hasMany(FormField::class);
+        return $this->hasMany(FormField::class)->orderBy('order');
     }
 
     public function entries(): Relations\HasMany
