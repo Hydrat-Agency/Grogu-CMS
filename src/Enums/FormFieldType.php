@@ -11,6 +11,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
     case Text = 'text';
     case Textarea = 'textarea';
     case Email = 'email';
+    case Telephone = 'telephone';
     case Number = 'number';
     case Date = 'date';
     case DateTime = 'date_time';
@@ -29,6 +30,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Text => 'info',
             self::Textarea => 'info',
             self::Email => 'info',
+            self::Telephone => 'info',
             self::Number => 'info',
             self::Date => 'warning',
             self::DateTime => 'warning',
@@ -49,6 +51,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Text => __('Text'),
             self::Textarea => __('Text zone'),
             self::Email => __('Email'),
+            self::Telephone => __('Telephone'),
             self::Number => __('Number'),
             self::Date => __('Date'),
             self::DateTime => __('Date time'),
@@ -69,6 +72,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Text => 'radix-text',
             self::Textarea => 'radix-text-align-left',
             self::Email => 'radix-envelope-closed',
+            self::Telephone => 'phosphor-phone',
             self::Number => 'phosphor-number-circle-one-light',
             self::Date => 'phosphor-calendar-blank-light',
             self::DateTime => 'phosphor-calendar-light',
@@ -108,8 +112,17 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             self::Select => true,
+            self::Checkbox => true,
             self::Image => true,
             self::Attachment => true,
+            default => false,
+        };
+    }
+
+    public function alwaysMultiple(): bool
+    {
+        return match ($this) {
+            self::Checkbox => true,
             default => false,
         };
     }
@@ -139,6 +152,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Text => true,
             self::Textarea => true,
             self::Email => true,
+            self::Telephone => true,
             self::Number => true,
             self::Checkbox => true,
             default => false,

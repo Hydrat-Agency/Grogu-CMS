@@ -38,6 +38,11 @@ class FormField extends Model implements Sortable
         'max_date',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
     protected $casts = [
         'options' => 'collection',
         'rules' => 'collection',

@@ -16,7 +16,20 @@ class FormEntry extends Model
      * @var array<string>
      */
     protected $fillable = [
-        //
+        'form_id',
+        'user_id',
+        'values',
+        'submitted_at',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'values' => 'collection',
+        'submitted_at' => 'datetime',
     ];
 
     public function form(): Relations\BelongsTo
