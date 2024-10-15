@@ -18,7 +18,7 @@ class GetFormValidationAttributes
     ): array {
         $form->loadMissing('fields');
 
-        $getKeyUsing ??= fn (FormField $field) => ((string) $prefixKey) . $field->key;
+        $getKeyUsing ??= fn (FormField $field) => ((string) $prefixKey).$field->key;
         $getAttributNameUsing ??= fn (FormField $field) => $field->name;
 
         return $form->fields->mapWithKeys(

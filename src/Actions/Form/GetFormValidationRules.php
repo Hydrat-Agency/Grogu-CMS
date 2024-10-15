@@ -2,9 +2,9 @@
 
 namespace Hydrat\GroguCMS\Actions\Form;
 
+use Hydrat\GroguCMS\Enums\FormFieldType;
 use Hydrat\GroguCMS\Models\Form;
 use Hydrat\GroguCMS\Models\FormField;
-use Hydrat\GroguCMS\Enums\FormFieldType;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class GetFormValidationRules
@@ -19,7 +19,7 @@ class GetFormValidationRules
     ): array {
         $form->loadMissing('fields');
 
-        $getKeyUsing ??= fn (FormField $field) => ((string) $prefixKey) . $field->key;
+        $getKeyUsing ??= fn (FormField $field) => ((string) $prefixKey).$field->key;
         $getRulesUsing ??= fn (FormField $field, ?string $key = null) => $this->getRulesForField($field, $key);
 
         return $form->fields->reduce(function (array $carry, FormField $field) use ($getKeyUsing, $getRulesUsing) {
@@ -70,15 +70,15 @@ class GetFormValidationRules
             $rules[$key][] = 'array';
 
             if ($field->type->hasOptions()) {
-                if (!isset($rules[$key.'*'])) {
+                if (! isset($rules[$key.'*'])) {
                     $rules[$key.'*'] = [];
                 }
 
-                $rules[$key.'*'][] = 'in:' . collect($field->options)->pluck('value')->join(',');
+                $rules[$key.'*'][] = 'in:'.collect($field->options)->pluck('value')->join(',');
             }
         } else {
             if ($field->type->hasOptions()) {
-                $rules[$key][] = 'in:' . collect($field->options)->pluck('value')->join(',');
+                $rules[$key][] = 'in:'.collect($field->options)->pluck('value')->join(',');
             }
         }
 
