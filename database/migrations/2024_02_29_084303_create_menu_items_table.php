@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->mophs('linkeable');
             $table->string('url')->nullable();
+            $table->string('anchor')->nullable();
             $table->boolean('external')->default(false);
             $table->boolean('new_tab')->default(false);
             $table->integer('order')->default(0);

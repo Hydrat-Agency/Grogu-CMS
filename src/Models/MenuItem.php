@@ -2,16 +2,17 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Hydrat\GroguCMS\Models\Contracts\Resourceable;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations;
-use Illuminate\Http\Resources\Json\JsonResource;
 use Nevadskiy\Tree\AsTree;
-use Nevadskiy\Tree\Collections\NodeCollection;
+use Illuminate\Support\Str;
 use Spatie\EloquentSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
 use Spatie\EloquentSortable\SortableTrait;
+use Illuminate\Database\Eloquent\Relations;
+use Nevadskiy\Tree\Collections\NodeCollection;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Hydrat\GroguCMS\Models\Contracts\Resourceable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class MenuItem extends Model implements Resourceable, Sortable
 {
@@ -35,6 +36,7 @@ class MenuItem extends Model implements Resourceable, Sortable
         'linkeable_id',
         'linkeable_type',
         'url',
+        'anchor',
         'external',
         'new_tab',
     ];
@@ -97,9 +99,12 @@ class MenuItem extends Model implements Resourceable, Sortable
     public function url(): Attribute
     {
         return new Attribute(
-            get: fn ($value, $attributes) => $attributes['linkeable_type'] && $attributes['linkeable_type'] !== 'url'
-                ? $this->linkeable?->url
-                : $attributes['url'],
+            get: fn ($value, $attributes) => match ($attributes['linkeable_type']) {
+                'url' => $attributes['url'],
+                default => ($anchor = $attributes['anchor'])
+                    ? Str::finish(Str::beforeLast($this->linkeable?->url ?: '', '#'), '#'.$anchor)
+                    : $this->linkeable?->url,
+            },
             set: fn ($value) => $value
         );
     }
