@@ -63,7 +63,7 @@ class FormField extends Model implements Sortable
 
     public function buildSortQuery()
     {
-        return static::query()->where('survey_id', $this->survey_id);
+        return static::query()->where('form_id', $this->form_id);
     }
 
     public function getKeyAttribute()
