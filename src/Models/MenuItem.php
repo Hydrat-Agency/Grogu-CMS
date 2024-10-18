@@ -2,17 +2,17 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Nevadskiy\Tree\AsTree;
-use Illuminate\Support\Str;
-use Spatie\EloquentSortable\Sortable;
-use Illuminate\Database\Eloquent\Model;
-use Spatie\EloquentSortable\SortableTrait;
-use Illuminate\Database\Eloquent\Relations;
-use Nevadskiy\Tree\Collections\NodeCollection;
-use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Hydrat\GroguCMS\Models\Contracts\Resourceable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
+use Nevadskiy\Tree\AsTree;
+use Nevadskiy\Tree\Collections\NodeCollection;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
 class MenuItem extends Model implements Resourceable, Sortable
 {
