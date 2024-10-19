@@ -32,6 +32,11 @@ class FormEntry extends Model
         'submitted_at' => 'datetime',
     ];
 
+    public function user(): Relations\BelongsTo
+    {
+        return $this->belongsTo(config('auth.providers.users.model', 'App\Models\User'));
+    }
+
     public function form(): Relations\BelongsTo
     {
         return $this->belongsTo(Form::class);

@@ -42,6 +42,23 @@ class FormResource extends Resource
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
+
+                Forms\Components\TextInput::make('submit_button_label')
+                    ->required()
+                    ->default(__('Submit'))
+                    ->maxLength(255),
+
+                Forms\Components\Textarea::make('submit_success_message')
+                    ->rows(3)
+                    ->columnSpanFull()
+                    ->maxLength(5000),
+
+                Forms\Components\TextInput::make('notify_subject')
+                    ->default(__('New form submission'))
+                    ->maxLength(255),
+
+                Forms\Components\TextInput::make('notify_email')
+                    ->maxLength(255),
             ]);
     }
 
@@ -86,6 +103,7 @@ class FormResource extends Resource
         return $page->generateNavigationItems([
             Pages\EditForm::class,
             Pages\ManageFormFields::class,
+            Pages\ManageFormEntries::class,
         ]);
     }
 }

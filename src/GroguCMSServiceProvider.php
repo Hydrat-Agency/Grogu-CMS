@@ -2,18 +2,21 @@
 
 namespace Hydrat\GroguCMS;
 
-use Filament\Support\Assets\AlpineComponent;
-use Filament\Support\Assets\Asset;
-use Filament\Support\Assets\Css;
+use Livewire\Livewire;
 use Filament\Support\Assets\Js;
-use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Asset;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Support\Facades\Blade;
+use Spatie\LaravelPackageTools\Package;
 use Filament\Support\Facades\FilamentIcon;
 use Hydrat\GroguCMS\Testing\TestsGroguCMS;
-use Illuminate\Filesystem\Filesystem;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Assets\AlpineComponent;
 use Livewire\Features\SupportTesting\Testable;
-use Spatie\LaravelPackageTools\Commands\InstallCommand;
-use Spatie\LaravelPackageTools\Package;
+use Hydrat\GroguCMS\Livewire as LivewireComponents;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Spatie\LaravelPackageTools\Commands\InstallCommand;
 
 class GroguCMSServiceProvider extends PackageServiceProvider
 {
@@ -65,6 +68,9 @@ class GroguCMSServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
+        $this->loadLivewireComponents();
+        $this->loadBladeComponents();
+
         // Asset Registration
         FilamentAsset::register(
             $this->getAssets(),
@@ -95,6 +101,19 @@ class GroguCMSServiceProvider extends PackageServiceProvider
     protected function getAssetPackageName(): ?string
     {
         return 'hydrat/grogu-cms';
+    }
+
+    protected function loadLivewireComponents(): void
+    {
+        Livewire::component('grogu-contact-form', LivewireComponents\ContactForm::class);
+    }
+
+    protected function loadBladeComponents(): void
+    {
+        Blade::component('forms.input', 'grogu-cms::components.forms.input', 'grogu');
+        Blade::component('forms.textarea', 'grogu-cms::components.forms.textarea', 'grogu');
+        Blade::component('forms.select', 'grogu-cms::components.forms.select', 'grogu');
+        Blade::component('forms.checkbox-confirm', 'grogu-cms::components.forms.checkbox-confirm', 'grogu');
     }
 
     /**

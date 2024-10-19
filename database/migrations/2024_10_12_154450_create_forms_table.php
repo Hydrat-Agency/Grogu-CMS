@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('notify_subject')->nullable();
+            $table->string('notify_emails')->nullable();
+            $table->string('submit_button_label')->nullable();
+            $table->text('submit_success_message')->nullable();
             $table->timestamps();
         });
     }

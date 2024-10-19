@@ -18,7 +18,7 @@ class ManageFormFields extends ManageRelatedRecords
 {
     protected static string $relationship = 'fields';
 
-    protected static ?string $navigationIcon = 'heroicon-o-queue-list';
+    protected static ?string $navigationIcon = 'radix-section'; // heroicon-o-queue-list
 
     /**
      * @return class-string
@@ -220,18 +220,13 @@ class ManageFormFields extends ManageRelatedRecords
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
-                // Tables\Actions\AssociateAction::make(),
             ])
             ->actions([
-                // Tables\Actions\DissociateAction::make(),
-                Tables\Actions\EditAction::make()
-                    ->iconSoftButton('heroicon-o-pencil-square'),
-                Tables\Actions\DeleteAction::make()
-                    ->iconSoftButton('heroicon-o-trash'),
+                Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DissociateBulkAction::make(),
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ])
