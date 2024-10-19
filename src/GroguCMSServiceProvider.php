@@ -2,21 +2,21 @@
 
 namespace Hydrat\GroguCMS;
 
-use Livewire\Livewire;
-use Filament\Support\Assets\Js;
-use Filament\Support\Assets\Css;
+use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
+use Filament\Support\Assets\Css;
+use Filament\Support\Assets\Js;
+use Filament\Support\Facades\FilamentAsset;
+use Filament\Support\Facades\FilamentIcon;
+use Hydrat\GroguCMS\Livewire as LivewireComponents;
+use Hydrat\GroguCMS\Testing\TestsGroguCMS;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;
-use Spatie\LaravelPackageTools\Package;
-use Filament\Support\Facades\FilamentIcon;
-use Hydrat\GroguCMS\Testing\TestsGroguCMS;
-use Filament\Support\Facades\FilamentAsset;
-use Filament\Support\Assets\AlpineComponent;
 use Livewire\Features\SupportTesting\Testable;
-use Hydrat\GroguCMS\Livewire as LivewireComponents;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
+use Livewire\Livewire;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
+use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 class GroguCMSServiceProvider extends PackageServiceProvider
 {
