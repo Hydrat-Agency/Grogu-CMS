@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS\Datas;
 
-use Spatie\LaravelData\Data;
 use Hydrat\GroguCMS\Enums\FormFieldType;
+use Spatie\LaravelData\Data;
 
 class FormEntryValue extends Data
 {
@@ -13,6 +13,5 @@ class FormEntryValue extends Data
         public string $label,
         public mixed $value = null,
         public bool $required = false,
-    ) {
-    }
+    ) {}
 }

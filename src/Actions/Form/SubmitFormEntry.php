@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Actions\Form;
 
+use Hydrat\GroguCMS\Events\FormEntryCreated;
 use Hydrat\GroguCMS\Models\Form;
 use Hydrat\GroguCMS\Models\FormEntry;
 use Hydrat\GroguCMS\Models\FormField;
 use Lorisleiva\Actions\Concerns\AsAction;
-use Hydrat\GroguCMS\Events\FormEntryCreated;
 
 class SubmitFormEntry
 {

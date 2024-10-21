@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Spatie\LaravelData\DataCollection;
-use Illuminate\Database\Eloquent\Model;
 use Hydrat\GroguCMS\Datas\FormEntryValue;
-use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
+use Spatie\LaravelData\DataCollection;
 
 class FormEntry extends Model
 {

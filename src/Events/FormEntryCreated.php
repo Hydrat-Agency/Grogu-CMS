@@ -3,10 +3,10 @@
 namespace Hydrat\GroguCMS\Events;
 
 use Hydrat\GroguCMS\Models\FormEntry;
-use Illuminate\Queue\SerializesModels;
+use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Queue\SerializesModels;
 
 class FormEntryCreated
 {
