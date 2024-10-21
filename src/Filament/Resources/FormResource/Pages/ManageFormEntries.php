@@ -36,19 +36,29 @@ class ManageFormEntries extends ManageRelatedRecords
 
     public function form(Form $form): Form
     {
+        $fields = $this->getRecord()->fields()->get()->mapWithKeys(
+            fn ($field) => [$field->key => $field->name]
+        );
+
         return $form
             ->schema([
-                Forms\Components\TextInput::make('submitted_at')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\DateTimePicker::make('submitted_at')
+                    ->required(),
 
-                Forms\Components\TextInput::make('user_id')
+                Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
-                    ->required()
-                    ->maxLength(255),
+                    ->required(),
 
                 Forms\Components\KeyValue::make('values')
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->keyLabel(fn () => __('Field'))
+                    ->formatStateUsing(
+                        fn ($state) => collect($state ?: [])
+                            ->mapWithKeys(fn ($value, $key) => [
+                                $fields[$key] ?? $key => $value,
+                            ])
+                            ->all()
+                    ),
             ]);
     }
 
@@ -56,9 +66,15 @@ class ManageFormEntries extends ManageRelatedRecords
     {
         return $table
             ->recordTitleAttribute('submitted_at')
+            ->defaultSort('submitted_at', 'desc')
             ->columns([
-                Tables\Columns\TextColumn::make('submitted_at'),
-                Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('submitted_at')
+                    ->sortable()
+                    ->searchable()
+                    ->dateTime('d/m/Y H:i:s'),
+                Tables\Columns\TextColumn::make('user.name')
+                    ->sortable()
+                    ->searchable(),
             ])
             ->filters([
                 //
@@ -67,7 +83,7 @@ class ManageFormEntries extends ManageRelatedRecords
                 // Tables\Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
+                Tables\Actions\ViewAction::make()->iconSoftButton('heroicon-o-eye'),
                 Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
                 Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])

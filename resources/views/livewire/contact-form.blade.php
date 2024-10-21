@@ -3,7 +3,7 @@
 @endphp
 
 <div>
-  <form wire:submit.prevent="submit">
+  <form wire:submit.prevent="submit" x-data="{ altcha: $wire.entangle('altcha') }">
     <div class="grid grid-cols-12 gap-4 p-2">
       @foreach ($form->fields as $field)
         <div class="col-span-{{ $field->column_span ?: 'full' }}">
@@ -81,7 +81,13 @@
               {{-- Nothing. --}}
           @endswitch
 
-          <altcha-widget wire:model="altcha" challengeurl="/altcha-challenge"></altcha-widget>
+          <div wire:ignore>
+            <altcha-widget
+              challengeurl="/altcha-challenge"
+              x-on:statechange="$event.detail.state === 'verified' ? (altcha = $event.detail.payload) : null"
+              floating
+            ></altcha-widget>
+          </div>
         </div>
       @endforeach
     </div>
@@ -94,8 +100,8 @@
     </button>
 
     @if ($onSuccessMessage)
-      <div>
-        <div class="pt-2 text-green-600">{{ $onSuccessMessage }}</div>
+      <div class="mt-4">
+        <div class="text-green-600">{{ $onSuccessMessage }}</div>
       </div>
     @endif
   </form>

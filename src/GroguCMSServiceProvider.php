@@ -99,7 +99,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
         Testable::mixin(new TestsGroguCMS);
 
         Blade::directive('groguScripts', function () {
-            return "<?php echo '<script type=\"text/javascript\" src=\"/vendor/grogu-cms.js\"></script>'; ?>";
+            return "<?php echo '<script type=\"text/javascript\" src=\"/vendor/grogu-cms/grogu-cms.js\"></script>'; ?>";
         });
     }
 
@@ -110,7 +110,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
 
     protected function loadLivewireComponents(): void
     {
-        Livewire::component('grogu-contact-form', LivewireComponents\ContactForm::class);
+        Livewire::component('grogu-cms::contact-form', LivewireComponents\ContactForm::class);
     }
 
     protected function loadBladeComponents(): void
