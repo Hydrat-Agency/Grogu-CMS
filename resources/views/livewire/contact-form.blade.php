@@ -80,16 +80,18 @@
             @default
               {{-- Nothing. --}}
           @endswitch
-
-          <div wire:ignore>
-            <altcha-widget
-              challengeurl="/altcha-challenge"
-              x-on:statechange="$event.detail.state === 'verified' ? (altcha = $event.detail.payload) : null"
-              floating
-            ></altcha-widget>
-          </div>
         </div>
       @endforeach
+
+      <div class="col-span-full">
+        <div wire:ignore>
+          <altcha-widget
+            challengeurl="/altcha-challenge"
+            x-on:statechange="$event.detail.state === 'verified' ? (altcha = $event.detail.payload) : null"
+            floating
+          ></altcha-widget>
+        </div>
+      </div>
     </div>
 
     <button
