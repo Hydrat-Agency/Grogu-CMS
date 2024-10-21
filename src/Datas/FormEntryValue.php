@@ -13,8 +13,7 @@ class FormEntryValue extends Data
         public string $label,
         public mixed $value = null,
         public bool $required = false,
-    ) {
-    }
+    ) {}
 
     public function displayValue(): string
     {
