@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Livewire;
 
-use Livewire\Component;
-use Livewire\Attributes\Locked;
-use Hydrat\GroguCMS\Models\Form;
 use GrantHolle\Altcha\Rules\ValidAltcha;
 use Hydrat\GroguCMS\Actions\Form as Actions;
+use Hydrat\GroguCMS\Models\Form;
+use Livewire\Attributes\Locked;
+use Livewire\Component;
 
 class ContactForm extends Component
 {
@@ -14,6 +14,7 @@ class ContactForm extends Component
     public Form $form;
 
     public array $data = [];
+
     public string $altcha;
 
     public string $onSuccessMessage = '';
@@ -23,7 +24,7 @@ class ContactForm extends Component
         $validationRules = Actions\GetFormValidationRules::run($this->form, prefixKey: 'data.');
         $validationAttributes = Actions\GetFormValidationAttributes::run($this->form, prefixKey: 'data.');
 
-        $validationRules['altcha'] = ['required', new ValidAltcha()];
+        $validationRules['altcha'] = ['required', new ValidAltcha];
 
         if (filled($validationRules)) {
             $this->validate(

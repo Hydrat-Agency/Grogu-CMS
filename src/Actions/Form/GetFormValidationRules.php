@@ -2,7 +2,6 @@
 
 namespace Hydrat\GroguCMS\Actions\Form;
 
-use Hydrat\GroguCMS\Enums\FormFieldType;
 use Hydrat\GroguCMS\Models\Form;
 use Hydrat\GroguCMS\Models\FormField;
 use Lorisleiva\Actions\Concerns\AsAction;
