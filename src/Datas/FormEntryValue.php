@@ -19,6 +19,7 @@ class FormEntryValue extends Data
     {
         return match (true) {
             is_array($this->value) => implode(', ', $this->value),
+            $this->type === FormFieldType::Confirm => $this->value ? __('Yes') : __('No'),
             default => (string) $this->value,
         };
     }
