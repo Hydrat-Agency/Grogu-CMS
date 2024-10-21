@@ -35,35 +35,11 @@ class GetFormValidationRules
         $key ??= $field->key;
 
         $rules = [
-            $key => [],
+            $key => $field->type->getValidationRules(),
         ];
 
         if ($field->required) {
             $rules[$key][] = 'required';
-        }
-
-        if ($field->type === FormFieldType::Email) {
-            $rules[$key][] = 'email';
-        }
-
-        if ($field->type === FormFieldType::Number) {
-            $rules[$key][] = 'numeric';
-        }
-
-        if ($field->type === FormFieldType::Telephone) {
-            $rules[$key][] = 'regex:/^\+?[0-9]+$/';
-        }
-
-        if ($field->type === FormFieldType::Date) {
-            $rules[$key][] = 'date';
-        }
-
-        if ($field->type === FormFieldType::DateTime) {
-            $rules[$key][] = 'date';
-        }
-
-        if ($field->type === FormFieldType::Confirm) {
-            $rules[$key][] = 'boolean';
         }
 
         if ($field->type->canBeMultiple() && ($field->type->alwaysMultiple() || $field->multiple)) {

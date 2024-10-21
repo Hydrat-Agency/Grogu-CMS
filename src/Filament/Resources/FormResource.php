@@ -45,7 +45,7 @@ class FormResource extends Resource
 
                 Forms\Components\TextInput::make('submit_button_label')
                     ->required()
-                    ->default(__('Submit'))
+                    ->default(fn () => __('Submit'))
                     ->maxLength(255),
 
                 Forms\Components\Textarea::make('submit_success_message')
@@ -54,10 +54,10 @@ class FormResource extends Resource
                     ->maxLength(5000),
 
                 Forms\Components\TextInput::make('notify_subject')
-                    ->default(__('New form submission'))
+                    ->default(fn () => __('New form submission'))
                     ->maxLength(255),
 
-                Forms\Components\TextInput::make('notify_email')
+                Forms\Components\TextInput::make('notify_emails')
                     ->maxLength(255),
             ]);
     }
@@ -95,6 +95,7 @@ class FormResource extends Resource
             'create' => Pages\CreateForm::route('/create'),
             'edit' => Pages\EditForm::route('/{record}/edit'),
             'fields' => Pages\ManageFormFields::route('/{record}/fields'),
+            'entries' => Pages\ManageFormEntries::route('/{record}/entries'),
         ];
     }
 

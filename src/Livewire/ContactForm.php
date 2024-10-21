@@ -2,10 +2,11 @@
 
 namespace Hydrat\GroguCMS\Livewire;
 
-use Hydrat\GroguCMS\Actions\Form as Actions;
-use Hydrat\GroguCMS\Models\Form;
-use Livewire\Attributes\Locked;
 use Livewire\Component;
+use Livewire\Attributes\Locked;
+use Hydrat\GroguCMS\Models\Form;
+use GrantHolle\Altcha\Rules\ValidAltcha;
+use Hydrat\GroguCMS\Actions\Form as Actions;
 
 class ContactForm extends Component
 {
@@ -13,21 +14,30 @@ class ContactForm extends Component
     public Form $form;
 
     public array $data = [];
+    public string $altcha;
+
+    public string $onSuccessMessage = '';
 
     public function submit()
     {
-        $this->validate(
-            rules: Actions\GetFormValidationRules::run($this->form, prefixKey: 'data.'),
-            attributes: Actions\GetFormValidationAttributes::run($this->form, prefixKey: 'data.'),
-        );
+        $validationRules = Actions\GetFormValidationRules::run($this->form, prefixKey: 'data.');
+        $validationAttributes = Actions\GetFormValidationAttributes::run($this->form, prefixKey: 'data.');
+
+        $validationRules['altcha'] = ['required', new ValidAltcha()];
+
+        if (filled($validationRules)) {
+            $this->validate(
+                rules: $validationRules,
+                attributes: $validationAttributes,
+            );
+        }
 
         $this->dispatch('form-validated');
 
         Actions\SubmitFormEntry::run($this->form, $this->data);
 
         $this->data = [];
-
-        // add success message from form settings ?
+        $this->onSuccessMessage = $this->form->submit_success_message;
 
         $this->dispatch('form-submitted');
     }

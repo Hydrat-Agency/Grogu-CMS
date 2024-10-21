@@ -197,4 +197,17 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             default => __('Maximum'),
         };
     }
+
+    public function getValidationRules(): array
+    {
+        return match ($this) {
+            self::Text, self::Textarea => ['string'],
+            self::Email => ['email'],
+            self::Telephone => ['regex:/^\+?[0-9]+$/'],
+            self::Number => ['numeric'],
+            self::Date, self::DateTime => ['date'],
+            self::Confirm => ['boolean'],
+            default => [],
+        };
+    }
 }

@@ -5,30 +5,24 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/hydrat/grogu-cms/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/hydrat/grogu-cms/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/hydrat/grogu-cms.svg?style=flat-square)](https://packagist.org/packages/hydrat/grogu-cms)
 
+This package aims to help you building a fast, reliable, and SEO-friendly website, by providing a set of tools to manage your content, settings, and SEO from your [Filament](filamentphp.com) panel.
 
+It is designed to be used with a front-end stack of your choice, or as a headless CMS.
 
-This package brings CMS features to Laravel, based on top of Filament, as a drop-in replacement for Wordpress. It is designed to be used with a front-end stack of your choice, or as a headless CMS.
-The package brings pre-defined resources to manage your content, settings pages, and a set of SEO tools to help you optimize your content for search engines.
-
-While the package helps you defining your models Resources, It also comes with a predefined panel so you can also quickly get up and running.
-
-Features :
-  - Page/Post/Model management :
-    - Status
-    - Slug
-    - Excerpt
-    - Thumbnail
-    - Templates
-    - Flexible content blocks
-    - Hierarchical structure (parent/child)
-  - Custom "post types", configured via Blueprints and Template classes to avoid bloated models
-  - SEO tools (meta title, meta description, meta tags, sitemap, structured data, SEO checks)
-  - Menus
-  - Settings pages
+What this package provides :
   - Users and Permissions management
   - Multilingual dashboard
-  - You keep control on your models, migrations, routes, and views
-  - Native front-end support for blade, livewire, inertia
+  - Content management
+    - Pages
+    - Menus
+    - Forms
+    - Blueprints and Templates
+    - Flexible content blocks
+    - Hierarchical structure
+    - SEO tools
+    - Settings pages
+
+This CMS is developer friendly : You are keeping the entire control on your models, migrations, routes, and views.
 
 ## Screenshots
 
@@ -55,6 +49,12 @@ You can publish the config file with:
 php artisan vendor:publish --tag="grogu-cms-config"
 ```
 
+You can publish the assets with:
+
+```bash
+php artisan vendor:publish --tag="grogu-cms-assets"
+```
+
 Optionally, you can publish the views using
 
 ```bash
@@ -74,6 +74,12 @@ You will need then to register the plugin into your Filament Panel :
 GroguCMSPlugin::make()
     ->discoverTemplates(in: app_path('Content/Templates'), for: 'App\\Content\\Templates')
     ->discoverBlueprints(in: app_path('Content/Blueprints'), for: 'App\\Content\\Blueprints'),
+```
+
+To include Grogu scripts to your front-end, you should add the `@groguScripts` directive to your layout, preferably before the closing `</body>` tag :
+
+```html
+@groguScripts
 ```
 
 In addition, to setup dependancies, you will need to run the following commands:
@@ -109,6 +115,13 @@ class Page extends CmsModel implements Resourceable
         return Seo::check(url: $this->url, useJavascript: true);
     }
 }
+```
+
+Please make sur to set the required environment variables in your `.env` file :
+
+```env
+ALTCHA_HMAC_KEY={generated_random_key}
+ALTCHA_ALGORITHM="SHA-256" # SHA-256, SHA-384 or SHA-512
 ```
 
 Please read the [laravel-seo-scanner documentation](https://github.com/vormkracht10/laravel-seo-scanner) for more details.
@@ -200,6 +213,62 @@ class Page extends Model implements Resourceable
 ```
 
 You can then configure your resource as needed.
+
+## Contact form
+
+The package provide a contact form resource that you can use to create forms on your website.
+
+To get started, create a new form from Filament panel. You can then crete your own content block to display the form on your website.
+
+```php
+// Using blade / livewire
+@livewire('grogu-cms::contact-form', ['form' => $form])
+```
+
+You can override models and resources by changing your configuration file :
+
+```php
+    /**
+     * Define the models that Grogu CMS core should use.
+     */
+    'models' => [
+        'form' => App\Models\Form::class,
+        'form_field' => App\Models\FormField::class,
+        'form_entry' => App\Models\FormEntry::class,
+    ],
+
+    /**
+     * Define the resources that should be registred by the plugin.
+     */
+    'resources' => [
+        'form_resource' => App\Filament\Resources\FormResource::class,
+    ],
+```
+
+Overriding the livewire component is even easier, as you can just create a new component extending the original one :
+
+```php
+<?php
+
+namespace App\Livewire;
+
+class MyContactForm extends Hydrat\GroguCMS\Livewire\ContactForm
+{
+    public function submit()
+    {
+        parent::submit();
+
+        // Do something else
+    }
+
+    public function render()
+    {
+        return view('my-contact-form');
+    }
+}
+
+// @livewire('my-contact-form', ['form' => $form])
+```
 
 ## Deploy to production
 

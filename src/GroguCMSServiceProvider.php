@@ -33,6 +33,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
          */
         $package->name(static::$name)
             ->hasCommands($this->getCommands())
+            ->hasAssets()
             ->hasInstallCommand(function (InstallCommand $command) {
                 $command
                     ->publishConfigFile()
@@ -96,6 +97,10 @@ class GroguCMSServiceProvider extends PackageServiceProvider
 
         // Testing
         Testable::mixin(new TestsGroguCMS);
+
+        Blade::directive('groguScripts', function () {
+            return "<?php echo '<script type=\"text/javascript\" src=\"/vendor/grogu-cms.js\"></script>'; ?>";
+        });
     }
 
     protected function getAssetPackageName(): ?string
@@ -110,10 +115,10 @@ class GroguCMSServiceProvider extends PackageServiceProvider
 
     protected function loadBladeComponents(): void
     {
-        Blade::component('forms.input', 'grogu-cms::components.forms.input', 'grogu');
-        Blade::component('forms.textarea', 'grogu-cms::components.forms.textarea', 'grogu');
-        Blade::component('forms.select', 'grogu-cms::components.forms.select', 'grogu');
-        Blade::component('forms.checkbox-confirm', 'grogu-cms::components.forms.checkbox-confirm', 'grogu');
+        Blade::component('grogu-cms::forms.input', 'forms.input');
+        Blade::component('grogu-cms::forms.textarea', 'forms.textarea');
+        Blade::component('grogu-cms::forms.select', 'forms.select');
+        Blade::component('grogu-cms::forms.checkbox-confirm', 'forms.checkbox-confirm');
     }
 
     /**

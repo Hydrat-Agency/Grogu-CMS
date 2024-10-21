@@ -9,7 +9,7 @@
         <div class="col-span-{{ $field->column_span ?: 'full' }}">
           @switch ($field->type)
             @case (FormFieldType::Text)
-              <x-grogu::forms.input
+              <x-grogu-cms::forms.input
                 type="text"
                 :label="$field->name"
                 name="data.{{ $field->key }}"
@@ -20,7 +20,7 @@
               />
               @break
             @case (FormFieldType::Email)
-              <x-grogu::forms.input
+              <x-grogu-cms::forms.input
                 type="email"
                 :label="$field->name"
                 name="data.{{ $field->key }}"
@@ -31,7 +31,7 @@
               />
               @break
             @case (FormFieldType::Telephone)
-              <x-grogu::forms.input
+              <x-grogu-cms::forms.input
                 type="tel"
                 :label="$field->name"
                 name="data.{{ $field->key }}"
@@ -42,7 +42,7 @@
               />
               @break
             @case (FormFieldType::Textarea)
-              <x-grogu::forms.textarea
+              <x-grogu-cms::forms.textarea
                 type="email"
                 :label="$field->name"
                 name="data.{{ $field->key }}"
@@ -54,7 +54,7 @@
               />
               @break
             @case (FormFieldType::Select)
-              <x-grogu::forms.select
+              <x-grogu-cms::forms.select
                 :label="$field->name"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
@@ -69,7 +69,7 @@
               </x-forms.select>
               @break
             @case (FormFieldType::Confirm)
-              <x-grogu::forms.checkbox-confirm
+              <x-grogu-cms::forms.checkbox-confirm
                 :label="$field->content"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
@@ -80,6 +80,8 @@
             @default
               {{-- Nothing. --}}
           @endswitch
+
+          <altcha-widget wire:model="altcha" challengeurl="/altcha-challenge"></altcha-widget>
         </div>
       @endforeach
     </div>
@@ -88,8 +90,13 @@
       type="submit"
       class="inline-flex items-center px-4 py-3 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
     >
-      {{-- Todo: custom submit label --}}
-      Envoyer
+      {{ $form->submit_button_label ?: __('Submit') }}
     </button>
+
+    @if ($onSuccessMessage)
+      <div>
+        <div class="pt-2 text-green-600">{{ $onSuccessMessage }}</div>
+      </div>
+    @endif
   </form>
 </div>

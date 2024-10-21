@@ -17,6 +17,10 @@ class Form extends Model
      */
     protected $fillable = [
         'name',
+        'submit_button_label',
+        'submit_success_message',
+        'notify_subject',
+        'notify_emails',
     ];
 
     public function fields(): Relations\HasMany
