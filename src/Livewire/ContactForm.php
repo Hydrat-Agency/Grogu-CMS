@@ -33,14 +33,14 @@ class ContactForm extends Component
             );
         }
 
-        $this->dispatch('form-validated');
+        $this->dispatch('form-validated', $this->form, $this->data);
 
-        Actions\SubmitFormEntry::run($this->form, $this->data);
+        $formEntry = Actions\SubmitFormEntry::run($this->form, $this->data);
 
         $this->data = [];
         $this->onSuccessMessage = $this->form->submit_success_message;
 
-        $this->dispatch('form-submitted');
+        $this->dispatch('form-submitted', $formEntry);
     }
 
     public function render()

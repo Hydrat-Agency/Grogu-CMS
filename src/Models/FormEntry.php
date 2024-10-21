@@ -2,9 +2,11 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Spatie\LaravelData\DataCollection;
 use Illuminate\Database\Eloquent\Model;
+use Hydrat\GroguCMS\Datas\FormEntryValue;
 use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class FormEntry extends Model
 {
@@ -28,8 +30,8 @@ class FormEntry extends Model
      * @var array
      */
     protected $casts = [
-        'values' => 'collection',
         'submitted_at' => 'datetime',
+        'values' => DataCollection::class.':'.FormEntryValue::class,
     ];
 
     public function user(): Relations\BelongsTo
