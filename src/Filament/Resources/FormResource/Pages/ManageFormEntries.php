@@ -36,10 +36,6 @@ class ManageFormEntries extends ManageRelatedRecords
 
     public function form(Form $form): Form
     {
-        $fields = $this->getRecord()->fields()->get()->mapWithKeys(
-            fn ($field) => [$field->key => $field->name]
-        );
-
         return $form
             ->schema([
                 Forms\Components\DateTimePicker::make('submitted_at')
@@ -53,11 +49,7 @@ class ManageFormEntries extends ManageRelatedRecords
                     ->columnSpanFull()
                     ->keyLabel(fn () => __('Field'))
                     ->formatStateUsing(
-                        fn ($state) => collect($state ?: [])
-                            ->mapWithKeys(fn ($value, $key) => [
-                                $fields[$key] ?? $key => $value,
-                            ])
-                            ->all()
+                        fn ($state) => collect($state ?: [])->pluck('value', 'label')
                     ),
             ]);
     }
