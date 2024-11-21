@@ -12,9 +12,11 @@ use ReflectionProperty;
  * Extract public properties from a composer to make available in a view.
  *
  * @copyright Taylor Otwell
+ *
  * @link https://github.com/illuminate/view/blob/v10.35.0/Component.php#L220-L342
  *
  * @copyright Roots.io
+ *
  * @link https://github.com/roots/acorn/blob/main/src/Roots/Acorn/View/Composers/Concerns/Extractable.php#L18
  */
 trait Extractable

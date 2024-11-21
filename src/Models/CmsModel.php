@@ -2,17 +2,17 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Hydrat\GroguCMS\Events;
-use Illuminate\Support\Fluent;
-use Spatie\MediaLibrary\HasMedia;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations;
-use Spatie\MediaLibrary\InteractsWithMedia;
 use Hydrat\GroguCMS\Collections\BlockCollection;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Hydrat\GroguCMS\Events;
 use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
 use Hydrat\GroguCMS\Models\Contracts as CmsContracts;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Support\Fluent;
 use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
 {
@@ -64,7 +64,7 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsC
 
     public function getBlocks(): ?BlockCollection
     {
-        if (blank($this->blocks) || !is_array($this->blocks)) {
+        if (blank($this->blocks) || ! is_array($this->blocks)) {
             return null;
         }
 

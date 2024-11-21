@@ -2,12 +2,12 @@
 
 namespace Hydrat\GroguCMS;
 
-use Hydrat\GroguCMS\Models\Menu;
-use Illuminate\Support\Collection;
-use Hydrat\GroguCMS\Templates\Template;
 use Hydrat\GroguCMS\Blueprints\Blueprint;
-use Hydrat\GroguCMS\Content\BlockComposer;
 use Hydrat\GroguCMS\Concerns\HasComponents;
+use Hydrat\GroguCMS\Content\BlockComposer;
+use Hydrat\GroguCMS\Models\Menu;
+use Hydrat\GroguCMS\Templates\Template;
+use Illuminate\Support\Collection;
 
 class GroguCMS
 {
@@ -87,7 +87,7 @@ class GroguCMS
             ->reduce(
                 function (Collection $carry, $composer) {
                     foreach ($composer as $type => $class) {
-                        if (!isset($carry[$type])) {
+                        if (! isset($carry[$type])) {
                             $carry[$type] = collect();
                         }
 

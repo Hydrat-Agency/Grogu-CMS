@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Collections;
 
 use Hydrat\GroguCMS\Datas\Block;
-use Illuminate\Support\Collection;
 use Hydrat\GroguCMS\Facades\GroguCMS;
+use Illuminate\Support\Collection;
 
 class BlockCollection extends Collection
 {

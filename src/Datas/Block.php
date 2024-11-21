@@ -2,10 +2,8 @@
 
 namespace Hydrat\GroguCMS\Datas;
 
-use Illuminate\Support\Fluent;
-use ArrayAccess;
-use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Fluent;
 use JsonSerializable;
 
 class Block implements Jsonable, JsonSerializable

@@ -3,11 +3,12 @@
 namespace Hydrat\GroguCMS\Content;
 
 use App\Cms\Block;
-use Illuminate\Support\Str;
 use Hydrat\GroguCMS\Concerns\Extractable;
+use Illuminate\Support\Str;
 
 /**
  * @copyright Roots.io
+ *
  * @link https://github.com/roots/acorn/blob/main/src/Roots/Acorn/block/Composer.php#L10
  */
 abstract class BlockComposer
