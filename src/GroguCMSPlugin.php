@@ -47,6 +47,13 @@ class GroguCMSPlugin implements Plugin
         return $this;
     }
 
+    public function discoverBlockComposers(string $in, string $for): static
+    {
+        GroguCMS::discoverBlockComposers($in, $for);
+
+        return $this;
+    }
+
     public function boot(Panel $panel): void
     {
         //

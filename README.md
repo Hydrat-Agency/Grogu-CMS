@@ -74,6 +74,7 @@ You will need then to register the plugin into your Filament Panel :
 GroguCMSPlugin::make()
     ->discoverTemplates(in: app_path('Content/Templates'), for: 'App\\Content\\Templates')
     ->discoverBlueprints(in: app_path('Content/Blueprints'), for: 'App\\Content\\Blueprints'),
+    ->discoverBlockComposers(in: app_path('Content/BlockComposers'), for: 'App\\Content\\BlockComposers'),
 ```
 
 To include Grogu scripts to your front-end, you should add the `@groguScripts` directive to your layout, preferably before the closing `</body>` tag :
