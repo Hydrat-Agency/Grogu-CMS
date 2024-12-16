@@ -100,7 +100,9 @@ class GroguCMS
             );
 
         if ($blockType) {
-            return $composers->get($blockType, collect());
+            return $composers->get($blockType, collect())
+                ->merge($composers->get('*', collect()))
+                ->unique();
         }
 
         return $composers;
