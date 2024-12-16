@@ -2,7 +2,7 @@
 
 namespace Hydrat\GroguCMS\Content;
 
-use App\Cms\Block;
+use Hydrat\GroguCMS\Datas\Block;
 use Hydrat\GroguCMS\Concerns\Extractable;
 use Illuminate\Support\Str;
 
@@ -64,7 +64,7 @@ abstract class BlockComposer
      */
     public static function blocks()
     {
-        if (static::$blocks) {
+        if (isset(static::$blocks)) {
             return static::$blocks;
         }
 

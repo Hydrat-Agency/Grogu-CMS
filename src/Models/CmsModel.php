@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Models;
 
+use Illuminate\Support\Collection;
 use Hydrat\GroguCMS\Collections\BlockCollection;
 use Hydrat\GroguCMS\Events;
 use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
@@ -64,8 +65,12 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsC
 
     public function getBlocks(): ?BlockCollection
     {
-        if (blank($this->blocks) || ! is_array($this->blocks)) {
+        if (blank($this->blocks)) {
             return null;
+        }
+
+        if (is_a($this->blocks, Collection::class)) {
+            return BlockCollection::fromArray($this->blocks->toArray());
         }
 
         return BlockCollection::fromArray($this->blocks);

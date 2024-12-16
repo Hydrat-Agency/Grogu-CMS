@@ -43,7 +43,7 @@ trait HasOverviewTab
                     Forms\Components\TextInput::make('title')
                         ->required()
                         ->maxLength(255)
-                        ->live(debounce: 250)
+                        ->live(onBlur: true)
                         ->afterStateUpdated(function (Set $set, $state, ?Model $record, string $operation) use ($blueprint) {
                             if ($operation !== 'create') {
                                 return;
