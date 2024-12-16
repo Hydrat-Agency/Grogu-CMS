@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS\Content;
 
-use Hydrat\GroguCMS\Datas\Block;
 use Hydrat\GroguCMS\Concerns\Extractable;
+use Hydrat\GroguCMS\Datas\Block;
 use Illuminate\Support\Str;
 
 /**

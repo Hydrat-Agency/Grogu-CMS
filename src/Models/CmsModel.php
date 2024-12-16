@@ -2,7 +2,6 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Illuminate\Support\Collection;
 use Hydrat\GroguCMS\Collections\BlockCollection;
 use Hydrat\GroguCMS\Events;
 use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
@@ -10,6 +9,7 @@ use Hydrat\GroguCMS\Models\Contracts as CmsContracts;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 use Spatie\MediaLibrary\HasMedia;
