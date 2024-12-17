@@ -10,15 +10,17 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
-use Hydrat\GroguCMS\Models\Form as FormModel;
 
 class FormResource extends Resource
 {
-    protected static ?string $model = FormModel::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-inbox-arrow-down';
 
     protected static ?string $recordTitleAttribute = 'name';
+
+    public static function getModel(): string
+    {
+        return config('grogu-cms.models.form') ?? \Hydrat\GroguCMS\Models\Form::class;
+    }
 
     public static function getLabel(): string
     {

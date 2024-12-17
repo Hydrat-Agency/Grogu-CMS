@@ -17,10 +17,10 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 abstract class CmsModel extends Model implements CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
 {
+    use InteractsWithMedia;
     use CmsConcerns\HasSlug;
     use CmsConcerns\InteractsWithBlueprint;
     use CmsConcerns\InteractsWithSeo;
-    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.

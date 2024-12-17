@@ -3,49 +3,26 @@
 namespace Hydrat\GroguCMS\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Hydrat\GroguCMS\Actions\Seo\GenerateSeoScore;
-use Hydrat\GroguCMS\Contracts\BlueprintContract;
-use Hydrat\GroguCMS\Exceptions\BlueprintMissingException;
-use Hydrat\GroguCMS\Filament\Concerns as Parts;
-use Hydrat\GroguCMS\Models\Contracts\HasBlueprint;
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
+use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Contracts\Support\Htmlable;
+use Hydrat\GroguCMS\Filament\Concerns as Parts;
+use Hydrat\GroguCMS\Actions\Seo\GenerateSeoScore;
+use Hydrat\GroguCMS\Filament\Contracts\HasBlueprint;
+use Hydrat\GroguCMS\Filament\Concerns\InteractsWithBlueprint;
 use RalphJSmit\Filament\MediaLibrary\Tables\Columns\MediaColumn;
-use Symfony\Component\Routing\Exception\InvalidParameterException;
-use Throwable;
 
-abstract class CmsResource extends Resource
+abstract class CmsResource extends Resource implements HasBlueprint
 {
+    use InteractsWithBlueprint;
     use Parts\HasContentTab;
     use Parts\HasOverviewTab;
     use Parts\HasSeoTab;
-
-    public static function getBlueprint($filament = null): BlueprintContract
-    {
-        $model = static::getModel();
-
-        try {
-            $record = $filament->getRecord();
-        } catch (Throwable $e) {
-            $record = null;
-        }
-
-        if ($record && ! ($record instanceof $model)) {
-            throw new InvalidParameterException('The component record does not match the resource model.');
-        }
-
-        if (! in_array(HasBlueprint::class, class_implements($model))) {
-            throw new BlueprintMissingException(sprintf('The `%s` model must implement the `%s` contract.', $model, HasBlueprint::class));
-        }
-
-        return $model::blueprintInstance($record);
-    }
 
     public static function form(Form $form): Form
     {

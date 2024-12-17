@@ -2,10 +2,10 @@
 
 namespace Hydrat\GroguCMS\Blueprints;
 
+use Hydrat\GroguCMS\Content\Blueprint;
+
 class PageBlueprint extends Blueprint
 {
-    protected string $model = \App\Models\Page::class;
-
     protected ?string $view = 'pages.show';
 
     protected ?string $routeName = 'pages.show';
@@ -15,4 +15,9 @@ class PageBlueprint extends Blueprint
     protected array $templates = [
         //
     ];
+
+    public function model(): string
+    {
+        return config('grogu-cms.models.page') ?? \Hydrat\GroguCMS\Models\Page::class;
+    }
 }

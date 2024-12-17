@@ -11,6 +11,7 @@ return [
         'form' => Hydrat\GroguCMS\Models\Form::class,
         'form_field' => Hydrat\GroguCMS\Models\FormField::class,
         'form_entry' => Hydrat\GroguCMS\Models\FormEntry::class,
+        'section' => Hydrat\GroguCMS\Models\Section::class,
     ],
 
     /**
@@ -19,6 +20,7 @@ return [
     'resources' => [
         'menu_resource' => Hydrat\GroguCMS\Filament\Resources\MenuResource::class,
         'form_resource' => Hydrat\GroguCMS\Filament\Resources\FormResource::class,
+        'section_resource' => Hydrat\GroguCMS\Filament\Resources\SectionResource::class,
     ],
 
     /**
