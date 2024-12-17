@@ -5,8 +5,8 @@ namespace Hydrat\GroguCMS\Filament\Concerns;
 use Hydrat\GroguCMS\Contracts\BlueprintContract;
 use Hydrat\GroguCMS\Exceptions\BlueprintMissingException;
 use Hydrat\GroguCMS\Models\Concerns\HasBlueprint as ModelHasBlueprint;
-use InvalidParameterException;
 use Throwable;
+use Symfony\Component\Routing\Exception\InvalidParameterException;
 
 trait InteractsWithBlueprint
 {

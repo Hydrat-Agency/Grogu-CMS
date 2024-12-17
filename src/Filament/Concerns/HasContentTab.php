@@ -47,6 +47,25 @@ trait HasContentTab
         ];
     }
 
+    public static function getBuilderField(): Forms\Components\Builder
+    {
+        $avaibleTemplates = static::getBlueprint()->templates();
+        $selectedTemplate = fn (Get $get) => GroguCMS::getTemplate($get('template'));
+
+        return Forms\Components\Builder::make('blocks')
+            ->addActionLabel(__('Add layout'))
+            ->collapsible()
+            ->persistCollapsed()
+            ->cloneable()
+            ->blockPickerColumns(2)
+            ->blocks(
+                fn (Get $get) => (array) (optional($selectedTemplate($get))->hasBlocks() ? $selectedTemplate($get)->blocks() : static::getBlueprint()->blocks())
+            )
+            ->visible(
+                fn (Get $get) => optional($selectedTemplate($get))->hasBlocks() || (blank($avaibleTemplates) && filled(static::getBlueprint()->blocks()))
+            );
+    }
+
     protected static function getContentTabInnerSchema(Form $form): array
     {
         $avaibleTemplates = static::getBlueprint()->templates();
@@ -61,18 +80,7 @@ trait HasContentTab
                     fn (Get $get) => optional($selectedTemplate($get))->hasContent() || (blank($avaibleTemplates) && blank(static::getBlueprint()->blocks()))
                 ),
 
-            Forms\Components\Builder::make('blocks')
-                ->addActionLabel(__('Add layout'))
-                ->collapsible()
-                ->persistCollapsed()
-                ->cloneable()
-                ->blockPickerColumns(2)
-                ->blocks(
-                    fn (Get $get) => (array) (optional($selectedTemplate($get))->hasBlocks() ? $selectedTemplate($get)->blocks() : static::getBlueprint()->blocks())
-                )
-                ->visible(
-                    fn (Get $get) => optional($selectedTemplate($get))->hasBlocks() || (blank($avaibleTemplates) && filled(static::getBlueprint()->blocks()))
-                ),
+            static::getBuilderField(),
         ];
     }
 }
