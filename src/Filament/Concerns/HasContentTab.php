@@ -49,15 +49,16 @@ trait HasContentTab
 
     protected static function getContentTabInnerSchema(Form $form): array
     {
+        $avaibleTemplates = static::getBlueprint()->templates();
         $selectedTemplate = fn (Get $get) => GroguCMS::getTemplate($get('template'));
 
         return [
-            Forms\Components\MarkdownEditor::make('content')
+            Forms\Components\RichEditor::make('content')
                 ->required()
                 ->maxLength(65535)
                 ->columnSpanFull()
                 ->visible(
-                    fn (Get $get) => optional($selectedTemplate($get))->hasContent()
+                    fn (Get $get) => optional($selectedTemplate($get))->hasContent() || (blank($avaibleTemplates) && blank(static::getBlueprint()->blocks()))
                 ),
 
             Forms\Components\Builder::make('blocks')
@@ -67,10 +68,10 @@ trait HasContentTab
                 ->cloneable()
                 ->blockPickerColumns(2)
                 ->blocks(
-                    fn (Get $get) => (array) optional($selectedTemplate($get))->blocks()
+                    fn (Get $get) => (array) (optional($selectedTemplate($get))->hasBlocks() ? $selectedTemplate($get)->blocks() : static::getBlueprint()->blocks())
                 )
                 ->visible(
-                    fn (Get $get) => optional($selectedTemplate($get))->hasBlocks()
+                    fn (Get $get) => optional($selectedTemplate($get))->hasBlocks() || (blank($avaibleTemplates) && filled(static::getBlueprint()->blocks()))
                 ),
         ];
     }
