@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Filament\Concerns;
 
-use Throwable;
 use Hydrat\GroguCMS\Contracts\BlueprintContract;
 use Hydrat\GroguCMS\Exceptions\BlueprintMissingException;
 use Hydrat\GroguCMS\Models\Contracts\HasBlueprint as ModelHasBlueprint;
 use Symfony\Component\Routing\Exception\InvalidParameterException;
+use Throwable;
 
 trait InteractsWithBlueprint
 {
