@@ -2,14 +2,13 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Hydrat\GroguCMS\Models\CmsModel;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Section extends CmsModel
 {
-    use SoftDeletes;
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * @var string<BlueprintContract>

@@ -2,16 +2,15 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Throwable;
 use Filament\Forms;
-use Filament\Tables;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
 use Filament\Resources\Resource;
-use Hydrat\GroguCMS\Models\Section;
-use Hydrat\GroguCMS\Filament\Contracts\HasBlueprint;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Concerns\InteractsWithBlueprint;
+use Hydrat\GroguCMS\Filament\Contracts\HasBlueprint;
 use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages;
+use Hydrat\GroguCMS\Models\Section;
 
 class SectionResource extends Resource implements HasBlueprint
 {

@@ -2,9 +2,8 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages;
 
-use Hydrat\GroguCMS\Filament\Resources\SectionResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Hydrat\GroguCMS\Filament\Resources\SectionResource;
 
 class CreateSection extends CreateRecord
 {
