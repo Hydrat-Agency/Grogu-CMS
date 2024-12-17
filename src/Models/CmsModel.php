@@ -13,13 +13,13 @@ use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-abstract class CmsModel extends Model implements HasMedia, CmsContracts\HasBlueprint, CmsContracts\HasSeo, CmsContracts\HasBlocks
+abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
 {
-    use InteractsWithMedia;
     use CmsConcerns\HasSlug;
+    use CmsConcerns\InteractsWithBlocks;
     use CmsConcerns\InteractsWithBlueprint;
     use CmsConcerns\InteractsWithSeo;
-    use CmsConcerns\InteractsWithBlocks;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
