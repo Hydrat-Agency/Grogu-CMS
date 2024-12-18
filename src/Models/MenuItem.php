@@ -100,7 +100,7 @@ class MenuItem extends Model implements Resourceable, Sortable
     {
         return new Attribute(
             get: fn ($value, $attributes) => match ($attributes['linkeable_type']) {
-                'url' => $attributes['url'],
+                null, 'url'  => $attributes['url'],
                 default => ($anchor = $attributes['anchor'])
                     ? Str::finish(Str::beforeLast($this->linkeable?->url ?: '', '#'), '#'.$anchor)
                     : $this->linkeable?->url,
