@@ -24,6 +24,20 @@ return [
     ],
 
     /**
+     * Define the pages that should be registred by the plugin.
+     */
+    'pages' => [
+        //
+    ],
+
+    /**
+     * Define the pages that should be registred by the plugin.
+     */
+    'widgets' => [
+        //
+    ],
+
+    /**
      * Configure how the navigation should be handled.
      */
     'menus' => [
