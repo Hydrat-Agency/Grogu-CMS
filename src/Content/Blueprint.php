@@ -2,13 +2,15 @@
 
 namespace Hydrat\GroguCMS\Content;
 
-use Hydrat\GroguCMS\Contracts\BlueprintContract;
-use Hydrat\GroguCMS\Settings\GeneralSettings;
-use Hydrat\GroguCMS\UrlManager;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Spatie\Sitemap\Tags\Url;
+use Hydrat\GroguCMS\UrlManager;
 use Illuminate\Support\Collection;
+use Hydrat\GroguCMS\Enums\PostStatus;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Model;
+use Hydrat\GroguCMS\Settings\GeneralSettings;
+use Hydrat\GroguCMS\Contracts\BlueprintContract;
 
 abstract class Blueprint implements BlueprintContract
 {
@@ -212,6 +214,22 @@ abstract class Blueprint implements BlueprintContract
         $uri = $this->frontUri($includeSelf);
 
         return app('url')->to($uri);
+    }
+
+    public function sitemapEntry(): Url | string | array | null
+    {
+        if (! $this->routeName() || ! ($record = $this->record())) {
+            return null;
+        }
+
+        if ($record->status !== PostStatus::Published) {
+            return null;
+        }
+
+        return Url::create($this->frontUrl())
+            ->setLastModificationDate($record->updated_at)
+            ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+            ->setPriority(0.5);
     }
 
     public function bindRouteParameters(): array

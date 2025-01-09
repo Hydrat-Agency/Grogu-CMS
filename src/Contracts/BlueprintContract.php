@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Contracts;
 
+use Spatie\Sitemap\Tags\Url;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -30,6 +31,8 @@ interface BlueprintContract
     public function frontUri(bool $includeSelf = true): ?string;
 
     public function frontUrl(bool $includeSelf = true): ?string;
+
+    public function sitemapEntry(): Url | string | array | null;
 
     public function bindRouteParameters(): array;
 

@@ -5,8 +5,9 @@ namespace Hydrat\GroguCMS\Commands;
 use Illuminate\Console\Command;
 use Spatie\Sitemap\SitemapGenerator;
 use Symfony\Component\Console\Attribute\AsCommand;
+use Spatie\Sitemap\Sitemap;
 
-#[AsCommand(name: 'sitemap:generate')]
+#[AsCommand(name: 'grogu:sitemap-generate')]
 class SitemapGenerateCommand extends Command
 {
     /**
@@ -14,7 +15,7 @@ class SitemapGenerateCommand extends Command
      *
      * @var string
      */
-    protected $name = 'sitemap:generate';
+    protected $name = 'grogu:sitemap-generate';
 
     /**
      * The console command description.
@@ -31,11 +32,24 @@ class SitemapGenerateCommand extends Command
     public function handle()
     {
         $path = base_path(config('grogu-cms.seo.sitemap.path', ''));
+        $crawl = config('grogu-cms.seo.sitemap.crawl', false);
+        $models = config('grogu-cms.seo.sitemap.models', []);
 
         $this->info('Outputting sitemap to '.$path.'...');
 
-        SitemapGenerator::create(app_url())
-            ->writeToFile($path);
+        if ($crawl) {
+            SitemapGenerator::create(url('/'))->writeToFile($path);
+        } else {
+            $sitemap = Sitemap::create();
+
+            foreach ($models as $model) {
+                $model::chunk(150, function ($records) use ($sitemap) {
+                    $sitemap->add($records);
+                });
+            }
+
+            $sitemap->writeToFile($path);
+        }
 
         $this->info('Sitemap generated successfully.');
 

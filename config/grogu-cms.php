@@ -59,8 +59,13 @@ return [
         'on_save' => false,
 
         'sitemap' => [
-            'path' => '/storage/public/sitemap.xml',
+            'path' => '/storage/app/public/sitemap.xml',
             'uri' => '/storage/sitemap.xml',
+
+            'crawl' => false,
+            'models' => [
+                // \App\Models\Page::class,
+            ],
         ],
     ],
 

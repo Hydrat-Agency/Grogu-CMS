@@ -12,18 +12,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Support\Fluent;
 use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
-use RalphJSmit\Laravel\SEO\Support\HasSEO;
-use RalphJSmit\Laravel\SEO\Support\SEOData;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Sitemap\Contracts\Sitemapable;
 
-abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
+abstract class CmsModel extends Model implements CmsContracts\HasBlocks,
+                                                 CmsContracts\HasBlueprint,
+                                                 CmsContracts\HasSeo,
+                                                 HasMedia,
+                                                 Sitemapable
 {
     use CmsConcerns\HasSlug;
     use CmsConcerns\InteractsWithBlocks;
     use CmsConcerns\InteractsWithBlueprint;
     use CmsConcerns\InteractsWithSeo;
-    use HasSEO;
     use InteractsWithMedia;
 
     /**
@@ -105,27 +107,5 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
     public function scopeDraft(Builder $query)
     {
         return $this->scopeStatus($query, PostStatus::Draft);
-    }
-
-    public function getDynamicSEOData(): SEOData
-    {
-        $this->loadMissing('seo', 'user');
-
-        return new SEOData(
-            title: $this->seo?->title ?: $this->title,
-            description: $this->seo?->description ?: $this->excerpt,
-            author: $this->user?->name,
-            robots: $this->seo?->robots,
-            // alternates: [
-            //     new AlternateTag(
-            //         hreflang: 'en',
-            //         href: "https://example.com/en",
-            //     ),
-            //     new AlternateTag(
-            //         hreflang: 'fr',
-            //         href: "https://example.com/fr",
-            //     ),
-            // ],
-        );
     }
 }
