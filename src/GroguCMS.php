@@ -2,7 +2,7 @@
 
 namespace Hydrat\GroguCMS;
 
-use Hydrat\GroguCMS\Blueprints\Blueprint;
+use Hydrat\GroguCMS\Content\Blueprint;
 use Hydrat\GroguCMS\Concerns\HasComponents;
 use Hydrat\GroguCMS\Content\BlockComposer;
 use Hydrat\GroguCMS\Models\Menu;
