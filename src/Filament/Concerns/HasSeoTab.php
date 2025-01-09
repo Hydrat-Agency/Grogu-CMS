@@ -14,7 +14,7 @@ trait HasSeoTab
 {
     public static function seoTabIsContained(): bool
     {
-        return false;
+        return true;
     }
 
     protected static function getSeoTabSchema(Form $form): array
@@ -45,7 +45,7 @@ trait HasSeoTab
     {
         return [
             Forms\Components\Section::make('seo')
-                ->label('SEO')
+                ->label('SEO Configuration')
                 ->schema([
                     ...static::getSeoTabInnerSchema($form),
                 ]),
@@ -55,13 +55,26 @@ trait HasSeoTab
     protected static function getSeoTabInnerSchema(Form $form): array
     {
         return [
-            Forms\Components\Textarea::make('description')
-                ->maxLength(65535)
-                ->rows(5)
-                ->helperText(__('A short description used on social previews and Google vignette.')),
+            Forms\Components\Grid::make(2)
+                ->schema([
+                    Forms\Components\TextInput::make('seo.title')
+                        ->columnSpanFull(),
 
-            Forms\Components\DatePicker::make('manually_updated_at')
-                ->timezone('UTC'),
+                    Forms\Components\FileUpload::make('seo.image')
+                        ->image()
+                        ->columnSpanFull(),
+
+                    Forms\Components\Textarea::make('seo.description')
+                        ->maxLength(65535)
+                        ->rows(5)
+                        ->helperText(__('A short description used on social previews and Google vignette.'))
+                        ->columnSpanFull(),
+
+                    Forms\Components\DatePicker::make('seo.modified_time')
+                        ->timezone('UTC'),
+
+                    Forms\Components\TextInput::make('seo.author'),
+                ]),
         ];
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Hydrat\GroguCMS\Controllers\Web\Inertia;
+namespace Hydrat\GroguCMS\Controllers\Web;
 
 use App\Models\Page;
 use Hydrat\GroguCMS\Facades\GroguCMS;
@@ -9,21 +9,22 @@ use Hydrat\GroguCMS\Settings\GeneralSettings;
 use Illuminate\Routing\Controller;
 use Inertia\Response;
 
-class FrontPageShowController extends Controller
+class PagePreviewController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(GeneralSettings $settings): Response
+    public function __invoke(string $token): Response
     {
-        $page = Page::find($settings->front_page);
+        $previewData = cache("preview-{$token}");
 
-        if (!$page || ($page->status !== PostStatus::Published && Auth::guest())) {
-            abort(404);
-        }
+        abort_unless($previewData, 404);
+
+        $page = $previewData['page'];
 
         $template = GroguCMS::getTemplate($page->template);
-        $view = $template?->view() ?: 'pages/Default/Default';
+        $blueprint = $page->blueprint();
+        $view = $template?->view() ?: $blueprint->view();
 
         return inertia($view, [
             'page' => $page instanceof Resourceable

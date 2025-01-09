@@ -23,7 +23,7 @@ class CmsModelMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new Eloquent model class that extends CmsModel';
+    protected $description = 'Create a new Eloquent model class that extends CmsModel.';
 
     /**
      * Execute the console command.

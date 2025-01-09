@@ -56,7 +56,12 @@ return [
      * Configure how the SEO features should be handled.
      */
     'seo' => [
-        'on_save' => true,
+        'on_save' => false,
+
+        'sitemap' => [
+            'path' => '/storage/public/sitemap.xml',
+            'uri' => '/storage/sitemap.xml',
+        ],
     ],
 
 ];

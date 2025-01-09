@@ -3,25 +3,31 @@
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
 use Filament\Actions;
-use Filament\Resources\Pages\EditRecord;
-use Filament\Support\Enums\IconPosition;
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\HtmlString;
+use Illuminate\Support\Facades\Blade;
+use Filament\Resources\Pages\EditRecord;
+use Illuminate\Contracts\Support\Htmlable;
+use Hydrat\GroguCMS\Contracts\BlueprintContract;
 
 abstract class EditPage extends EditRecord
 {
+    public static function getBlueprint($filament = null): BlueprintContract
+    {
+        return static::getResource()::getBlueprint($filament);
+    }
+
     public function getSubheading(): string|Htmlable|null
     {
         $blueprint = $this->getResource()::getBlueprint($this);
         $url = $blueprint->frontUrl();
 
-        $status = $this->record->published_at ? __('Published') : __('Draft');
-        $color = $this->record->published_at ? 'success' : 'warning';
+        $label = $this->record->status->getLabel();
+        $color = $this->record->status->getColor();
+        $icon = $this->record->status->getIcon();
 
         return new HtmlString(Blade::render(<<<"blade"
-            <x-filament::badge color="$color" class="inline-flex">
-                $status
+            <x-filament::badge color="$color" class="inline-flex align-middle" icon="$icon">
+                $label
             </x-filament::badge>
 
             <x-filament::link
@@ -31,7 +37,7 @@ abstract class EditPage extends EditRecord
                 icon="heroicon-m-arrow-up-right"
                 icon-position="after"
                 target="_blank"
-                class="pl-1"
+                class="pl-1 align-middle"
             >
                 $url
             </x-filament::link>
@@ -40,17 +46,10 @@ abstract class EditPage extends EditRecord
 
     protected function getHeaderActions(): array
     {
-        // $blueprint = $this->getResource()::getBlueprint($this);
-
         return [
             Actions\DeleteAction::make(),
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),
-            // Actions\Action::make('visit')
-            //     ->url(fn () => $blueprint->frontUrl())
-            //     ->openUrlInNewTab()
-            //     ->icon('heroicon-m-arrow-up-right')
-            //     ->iconPosition(IconPosition::After),
         ];
     }
 }

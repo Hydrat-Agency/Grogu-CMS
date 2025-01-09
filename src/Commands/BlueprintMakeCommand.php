@@ -23,7 +23,7 @@ class BlueprintMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $description = 'Create a new Blueprint class';
+    protected $description = 'Create a new Blueprint class.';
 
     /**
      * Execute the console command.

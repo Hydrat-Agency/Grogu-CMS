@@ -64,18 +64,21 @@ trait HasOverviewTab
                             fn () => Str::finish($blueprint->frontUrl(includeSelf: false), '/'),
                         )
                         ->unique($form->getModel(), 'slug', ignoreRecord: true),
-                    // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
-                    //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
-                    // }),
+                        // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
+                        //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
+                        // }),
 
                     Forms\Components\MarkdownEditor::make('excerpt')
                         ->maxLength(65535)
                         ->columnSpanFull()
                         ->helperText(__('An overview of the page, used in feeds with the intent to entice readers to click through.')),
 
-                    Forms\Components\DateTimePicker::make('published_at')
-                        ->timezone('UTC')
-                        ->helperText(__('When not set, the article is considered as a draft.')),
+                    Forms\Components\Select::make('status')
+                        ->options(PostStatus::class)
+                        ->default(PostStatus::default()->value)
+                        ->columnSpanFull()
+                        ->native(false)
+                        ->required(),
                 ]),
         ];
     }

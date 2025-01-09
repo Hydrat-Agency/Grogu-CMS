@@ -9,21 +9,22 @@ use Hydrat\GroguCMS\Settings\GeneralSettings;
 use Illuminate\Routing\Controller;
 use Inertia\Response;
 
-class FrontPageShowController extends Controller
+class PageShowController extends Controller
 {
     /**
      * Handle the incoming request.
      */
-    public function __invoke(GeneralSettings $settings): Response
+    public function __invoke(string $slug): Response
     {
-        $page = Page::find($settings->front_page);
+        $page = Page::findBySlug($slug);
 
         if (!$page || ($page->status !== PostStatus::Published && Auth::guest())) {
             abort(404);
         }
 
         $template = GroguCMS::getTemplate($page->template);
-        $view = $template?->view() ?: 'pages/Default/Default';
+        $blueprint = $page->blueprint();
+        $view = $template?->view() ?: $blueprint->view();
 
         return inertia($view, [
             'page' => $page instanceof Resourceable

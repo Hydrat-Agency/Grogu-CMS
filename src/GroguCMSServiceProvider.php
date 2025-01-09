@@ -141,6 +141,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
         return [
             Commands\CmsModelMakeCommand::class,
             Commands\BlueprintMakeCommand::class,
+            Commands\SitemapGenerateCommand::class,
         ];
     }
 

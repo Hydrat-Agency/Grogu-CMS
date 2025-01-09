@@ -39,10 +39,13 @@
         "lorisleiva/laravel-actions": "^2.7",
         "nevadskiy/laravel-tree": "^0.5.0",
         "ralphjsmit/laravel-filament-media-library": "^3.8",
+        "ralphjsmit/laravel-seo": "^1.6",
+        "spatie/crawler": "^8.4",
         "spatie/eloquent-sortable": "^4.2",
         "spatie/laravel-data": "^4.10",
         "spatie/laravel-package-tools": "^1.15.0",
         "spatie/laravel-permission": "^6.3",
+        "spatie/laravel-sitemap": "^7.3",
         "tgeorgel/filament-tree": "^2.1",
         "vormkracht10/laravel-seo-scanner": "^3.10"
     },

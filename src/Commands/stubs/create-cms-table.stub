@@ -17,18 +17,19 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->nullable()->index();
 
             $table->string('title');
-            $table->string('slug')->unique();
+            $table->string('status')->index();
+            $table->string('slug')->index();
+            $table->string('language')->index();
             $table->string('template')->nullable()->index();
 
             $table->text('content')->nullable();
             $table->text('excerpt')->nullable();
-            $table->text('description')->nullable();
             $table->json('blocks')->nullable();
 
-            $table->datetime('manually_updated_at')->nullable();
-            $table->datetime('published_at')->nullable();
             $table->softDeletes();
             $table->timestamps();
+
+            $table->unique(['slug', 'language']);
         });
     }
 

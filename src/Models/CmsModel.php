@@ -3,15 +3,19 @@
 namespace Hydrat\GroguCMS\Models;
 
 use Hydrat\GroguCMS\Events;
+use Illuminate\Support\Fluent;
+use Spatie\MediaLibrary\HasMedia;
+use Hydrat\GroguCMS\Enums\PostStatus;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
 use Hydrat\GroguCMS\Models\Contracts as CmsContracts;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations;
-use Illuminate\Support\Fluent;
 use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
+use RalphJSmit\Laravel\SEO\Support\HasSEO;
 
 abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
 {
@@ -20,6 +24,7 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
     use CmsConcerns\InteractsWithBlueprint;
     use CmsConcerns\InteractsWithSeo;
     use InteractsWithMedia;
+    use HasSEO;
 
     /**
      * The attributes that are mass assignable.
@@ -30,15 +35,13 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
         'user_id',
         'parent_id',
         'title',
+        'status',
         'slug',
         'template',
         'thumbnail_id',
-        'published_at',
         'excerpt',
-        'description',
         'content',
         'blocks',
-        'manually_updated_at',
     ];
 
     /**
@@ -47,9 +50,8 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
      * @var array
      */
     protected $casts = [
-        'published_at' => 'datetime',
-        'manually_updated_at' => 'datetime',
         'blocks' => 'array',
+        'status' => PostStatus::class,
     ];
 
     /**
@@ -87,6 +89,43 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
         return new Attribute(
             get: fn ($value) => collect(json_decode($value, true) ?: [])->map(fn ($block) => new Fluent($block)),
             set: fn ($value) => json_encode($value),
+        );
+    }
+
+    public function scopeStatus(Builder $query, PostStatus $status)
+    {
+        return $query->where('status', $status->value);
+    }
+
+    public function scopePublished(Builder $query)
+    {
+        return $this->scopeStatus($query, PostStatus::Published);
+    }
+
+    public function scopeDraft(Builder $query)
+    {
+        return $this->scopeStatus($query, PostStatus::Draft);
+    }
+
+    public function getDynamicSEOData(): SEOData
+    {
+        $this->loadMissing('seo', 'user');
+
+        return new SEOData(
+            title: $this->seo?->title ?: $this->title,
+            description: $this->seo?->description ?: $this->excerpt,
+            author: $this->user?->name,
+            robots: $this->seo?->robots,
+            // alternates: [
+            //     new AlternateTag(
+            //         hreflang: 'en',
+            //         href: "https://example.com/en",
+            //     ),
+            //     new AlternateTag(
+            //         hreflang: 'fr',
+            //         href: "https://example.com/fr",
+            //     ),
+            // ],
         );
     }
 }

@@ -11,18 +11,19 @@ It is designed to be used with a front-end stack of your choice, or as a headles
 
 What this package provides :
   - Users and Permissions management
-  - Multilingual dashboard
+  - Multilingual content (not using json columns)
   - Content management
-    - Pages
+    - Pages/Post or any Custom models
     - Menus
     - Forms
-    - Blueprints and Templates
+    - Page Templates
+    - Blueprints
     - Flexible content blocks
     - Hierarchical structure
     - SEO tools
     - Settings pages
 
-This CMS is developer friendly : You are keeping the entire control on your models, migrations, routes, and views.
+This CMS is developer friendly : You are keeping the entire control on your models, migrations, routes, and views. The content fields are all defined inside the code, using Filament resources.
 
 ## Screenshots
 
@@ -88,7 +89,14 @@ In addition, to setup dependancies, you will need to run the following commands:
 - [vormkracht10/laravel-seo-scanner](https://github.com/vormkracht10/laravel-seo-scanner)
 
 ```bash
+# vormkracht10/laravel-seo-scanner
 php artisan seo:install
+
+# ralphjsmit/laravel-seo
+php artisan vendor:publish --tag="seo-migrations"
+php artisan vendor:publish --tag="seo-config"
+
+php artisan migrate
 ```
 
 If using a Javascript front-end, such as Vue or React, you will also need to install puppeteer :
@@ -118,14 +126,14 @@ class Page extends CmsModel implements Resourceable
 }
 ```
 
-Please make sur to set the required environment variables in your `.env` file :
+Please read the [laravel-seo-scanner documentation](https://github.com/vormkracht10/laravel-seo-scanner) for more details.
+
+If you plan on using the forms with an embed [ALTCha](https://altcha.org), please make sure to set the required environment variables :
 
 ```env
 ALTCHA_HMAC_KEY={generated_random_key}
 ALTCHA_ALGORITHM="SHA-256" # SHA-256, SHA-384 or SHA-512
 ```
-
-Please read the [laravel-seo-scanner documentation](https://github.com/vormkracht10/laravel-seo-scanner) for more details.
 
 ## Usage
 
