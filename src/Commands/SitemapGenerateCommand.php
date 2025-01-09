@@ -3,9 +3,9 @@
 namespace Hydrat\GroguCMS\Commands;
 
 use Illuminate\Console\Command;
+use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\SitemapGenerator;
 use Symfony\Component\Console\Attribute\AsCommand;
-use Spatie\Sitemap\Sitemap;
 
 #[AsCommand(name: 'grogu:sitemap-generate')]
 class SitemapGenerateCommand extends Command

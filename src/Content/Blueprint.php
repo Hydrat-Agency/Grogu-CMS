@@ -2,15 +2,15 @@
 
 namespace Hydrat\GroguCMS\Content;
 
-use Illuminate\Support\Arr;
-use Spatie\Sitemap\Tags\Url;
-use Hydrat\GroguCMS\UrlManager;
-use Illuminate\Support\Collection;
-use Hydrat\GroguCMS\Enums\PostStatus;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Database\Eloquent\Model;
-use Hydrat\GroguCMS\Settings\GeneralSettings;
 use Hydrat\GroguCMS\Contracts\BlueprintContract;
+use Hydrat\GroguCMS\Enums\PostStatus;
+use Hydrat\GroguCMS\Settings\GeneralSettings;
+use Hydrat\GroguCMS\UrlManager;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
+use Spatie\Sitemap\Tags\Url;
 
 abstract class Blueprint implements BlueprintContract
 {
@@ -216,7 +216,7 @@ abstract class Blueprint implements BlueprintContract
         return app('url')->to($uri);
     }
 
-    public function sitemapEntry(): Url | string | array | null
+    public function sitemapEntry(): Url|string|array|null
     {
         if (! $this->routeName() || ! ($record = $this->record())) {
             return null;

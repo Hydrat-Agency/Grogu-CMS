@@ -2,22 +2,22 @@
 
 namespace Hydrat\GroguCMS\Models\Concerns;
 
-use Vormkracht10\Seo\Traits\HasSeoScore;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
 use Spatie\Sitemap\Tags\Url;
+use Vormkracht10\Seo\Traits\HasSeoScore;
 
 trait InteractsWithSeo
 {
-    use HasSeoScore;
     use HasSEO;
+    use HasSeoScore;
 
     public function getUrlAttribute(): string
     {
         return $this->blueprint()->frontUrl();
     }
 
-    public function toSitemapTag(): Url | string | array
+    public function toSitemapTag(): Url|string|array
     {
         return $this->blueprint()->sitemapEntry();
     }

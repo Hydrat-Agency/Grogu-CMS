@@ -16,11 +16,7 @@ use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sitemap\Contracts\Sitemapable;
 
-abstract class CmsModel extends Model implements CmsContracts\HasBlocks,
-                                                 CmsContracts\HasBlueprint,
-                                                 CmsContracts\HasSeo,
-                                                 HasMedia,
-                                                 Sitemapable
+abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia, Sitemapable
 {
     use CmsConcerns\HasSlug;
     use CmsConcerns\InteractsWithBlocks;
