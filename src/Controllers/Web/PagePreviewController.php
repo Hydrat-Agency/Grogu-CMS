@@ -2,10 +2,8 @@
 
 namespace Hydrat\GroguCMS\Controllers\Web;
 
-use App\Models\Page;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Models\Contracts\Resourceable;
-use Hydrat\GroguCMS\Settings\GeneralSettings;
 use Illuminate\Routing\Controller;
 use Inertia\Response;
 

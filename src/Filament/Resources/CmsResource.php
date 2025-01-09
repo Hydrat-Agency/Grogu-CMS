@@ -3,24 +3,24 @@
 namespace Hydrat\GroguCMS\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Tables;
-use Filament\Forms\Set;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Str;
+use Filament\Forms\Set;
 use Filament\Resources\Resource;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Contracts\Support\Htmlable;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Hydrat\GroguCMS\Actions\GenerateUniqueSlug;
-use Hydrat\GroguCMS\Filament\Concerns as Parts;
 use Hydrat\GroguCMS\Actions\Seo\GenerateSeoScore;
 use Hydrat\GroguCMS\Enums\PostStatus;
-use Hydrat\GroguCMS\Filament\Contracts\HasBlueprint;
+use Hydrat\GroguCMS\Filament\Concerns as Parts;
 use Hydrat\GroguCMS\Filament\Concerns\InteractsWithBlueprint;
-use RalphJSmit\Filament\MediaLibrary\Tables\Columns\MediaColumn;
+use Hydrat\GroguCMS\Filament\Contracts\HasBlueprint;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Str;
 use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
+use RalphJSmit\Filament\MediaLibrary\Tables\Columns\MediaColumn;
 
 abstract class CmsResource extends Resource implements HasBlueprint
 {
@@ -69,9 +69,9 @@ abstract class CmsResource extends Resource implements HasBlueprint
                             )
                             ->columnSpanFull()
                             ->unique($form->getModel(), 'slug', ignoreRecord: true),
-                            // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
-                            //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
-                            // }),
+                        // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
+                        //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
+                        // }),
 
                         Forms\Components\Select::make('parent_id')
                             ->relationship(

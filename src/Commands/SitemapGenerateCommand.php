@@ -2,10 +2,8 @@
 
 namespace Hydrat\GroguCMS\Commands;
 
-use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 use Spatie\Sitemap\SitemapGenerator;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'sitemap:generate')]
@@ -34,7 +32,7 @@ class SitemapGenerateCommand extends Command
     {
         $path = base_path(config('grogu-cms.seo.sitemap.path', ''));
 
-        $this->info('Outputting sitemap to '. $path .'...');
+        $this->info('Outputting sitemap to '.$path.'...');
 
         SitemapGenerator::create(app_url())
             ->writeToFile($path);

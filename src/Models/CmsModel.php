@@ -2,20 +2,20 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Hydrat\GroguCMS\Events;
-use Illuminate\Support\Fluent;
-use Spatie\MediaLibrary\HasMedia;
 use Hydrat\GroguCMS\Enums\PostStatus;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations;
-use RalphJSmit\Laravel\SEO\Support\SEOData;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Illuminate\Database\Eloquent\Casts\Attribute;
+use Hydrat\GroguCMS\Events;
 use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
 use Hydrat\GroguCMS\Models\Contracts as CmsContracts;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Support\Fluent;
 use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
+use RalphJSmit\Laravel\SEO\Support\SEOData;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia
 {
@@ -23,8 +23,8 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
     use CmsConcerns\InteractsWithBlocks;
     use CmsConcerns\InteractsWithBlueprint;
     use CmsConcerns\InteractsWithSeo;
-    use InteractsWithMedia;
     use HasSEO;
+    use InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.

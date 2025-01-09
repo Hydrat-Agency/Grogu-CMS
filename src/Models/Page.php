@@ -2,15 +2,15 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use RalphJSmit\Laravel\SEO\Support\HasSEO;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use RalphJSmit\Laravel\SEO\Support\HasSEO;
 
 class Page extends CmsModel
 {
     use HasFactory;
-    use SoftDeletes;
     use HasSEO;
+    use SoftDeletes;
 
     /**
      * @var string<BlueprintContract>

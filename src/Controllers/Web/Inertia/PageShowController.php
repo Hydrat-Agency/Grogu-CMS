@@ -5,7 +5,6 @@ namespace Hydrat\GroguCMS\Controllers\Web\Inertia;
 use App\Models\Page;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Models\Contracts\Resourceable;
-use Hydrat\GroguCMS\Settings\GeneralSettings;
 use Illuminate\Routing\Controller;
 use Inertia\Response;
 
@@ -18,7 +17,7 @@ class PageShowController extends Controller
     {
         $page = Page::findBySlug($slug);
 
-        if (!$page || ($page->status !== PostStatus::Published && Auth::guest())) {
+        if (! $page || ($page->status !== PostStatus::Published && Auth::guest())) {
             abort(404);
         }
 

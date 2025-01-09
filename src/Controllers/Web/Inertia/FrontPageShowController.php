@@ -18,7 +18,7 @@ class FrontPageShowController extends Controller
     {
         $page = Page::find($settings->front_page);
 
-        if (!$page || ($page->status !== PostStatus::Published && Auth::guest())) {
+        if (! $page || ($page->status !== PostStatus::Published && Auth::guest())) {
             abort(404);
         }
 
