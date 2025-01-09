@@ -2,9 +2,9 @@
 
 namespace Hydrat\GroguCMS;
 
-use Hydrat\GroguCMS\Content\Blueprint;
 use Hydrat\GroguCMS\Concerns\HasComponents;
 use Hydrat\GroguCMS\Content\BlockComposer;
+use Hydrat\GroguCMS\Content\Blueprint;
 use Hydrat\GroguCMS\Models\Menu;
 use Hydrat\GroguCMS\Templates\Template;
 use Illuminate\Support\Collection;
