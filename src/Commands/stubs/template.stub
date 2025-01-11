@@ -2,7 +2,7 @@
 
 namespace {{ namespace }};
 
-use App\Models;
+use App\Models\{{ model }};
 use App\Content\Layouts;
 use Hydrat\GroguCMS\Templates\Template;
 
@@ -10,10 +10,10 @@ class {{ class }} extends Template
 {
     protected string $name = '{{ name }}';
 
-    protected ?string $view = '';
+    protected ?string $view = 'pages.show';
 
     protected array $for = [
-        Models\Page::class,
+        {{ model }}::class,
     ];
 
     public function label(): string

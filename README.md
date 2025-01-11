@@ -44,6 +44,17 @@ The CMS plugins makes use of the following packages :
 
 ## Installation
 
+First, add the following repository to your composer file :
+
+```json
+"repositories": [
+    {
+        "type": "composer",
+        "url": "https://satis.ralphjsmit.com"
+    }
+],
+```
+
 You can install the package via composer:
 
 ```bash
@@ -209,9 +220,7 @@ content: [
 ```
 
 
-You'll also need to
-
-To include Grogu scripts to your front-end, you should add the `@groguScripts` directive to your layout, preferably before the closing `</body>` tag :
+You'll also need to include Grogu scripts to your front-end, you should add the `@groguScripts` directive to your layout, preferably before the closing `</body>` tag :
 
 ```html
 @groguScripts

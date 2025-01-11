@@ -4,7 +4,7 @@ namespace {{ namespace }};
 
 use App\Models\{{ model }};
 use App\Content\Templates;
-use Hydrat\GroguCMS\Blueprints\Blueprint;
+use Hydrat\GroguCMS\Content\Blueprint;
 
 class {{ class }} extends Blueprint
 {

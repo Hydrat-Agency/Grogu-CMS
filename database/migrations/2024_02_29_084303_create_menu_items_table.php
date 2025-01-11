@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->index()->nullable();
             $table->string('path')->nullable()->index();
             $table->string('title');
-            $table->mophs('linkeable');
+            $table->morphs('linkeable');
             $table->string('url')->nullable();
             $table->string('anchor')->nullable();
             $table->boolean('external')->default(false);
