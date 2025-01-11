@@ -16,10 +16,10 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         Events\CmsModelSaved::class => [
-            Actions\Seo\GenerateSeoScore::class,
+            // Actions\Seo\GenerateSeoScore::class,
         ],
         Events\CmsModelDeleted::class => [
-            Actions\Seo\DeleteSeoScore::class,
+            // Actions\Seo\DeleteSeoScore::class,
         ],
     ];
 

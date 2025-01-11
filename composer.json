@@ -38,14 +38,16 @@
         "jeffgreco13/filament-breezy": "^2.2",
         "lorisleiva/laravel-actions": "^2.7",
         "nevadskiy/laravel-tree": "^0.5.0",
+        "pboivin/filament-peek": "^2.2",
         "ralphjsmit/laravel-filament-media-library": "^3.8",
         "ralphjsmit/laravel-seo": "^1.6",
         "spatie/crawler": "^8.4",
         "spatie/eloquent-sortable": "^4.2",
         "spatie/laravel-data": "^4.10",
         "spatie/laravel-package-tools": "^1.15.0",
-        "spatie/laravel-permission": "^6.3",
+        "spatie/laravel-permission": "^6.10",
         "spatie/laravel-sitemap": "^7.3",
+        "spatie/laravel-welcome-notification": "^2.4",
         "tgeorgel/filament-tree": "^2.1",
         "vormkracht10/laravel-seo-scanner": "^3.10"
     },
@@ -66,7 +68,10 @@
     "autoload-dev": {
         "psr-4": {
             "Hydrat\\GroguCMS\\Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",

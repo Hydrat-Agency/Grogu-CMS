@@ -67,6 +67,13 @@ class GroguCMSServiceProvider extends PackageServiceProvider
         $this->app->register(Providers\EventServiceProvider::class);
     }
 
+    public function boot()
+    {
+        parent::boot();
+
+        app('config')->set('permissions.enable_wildcard_permission', true);
+    }
+
     public function packageBooted(): void
     {
         $this->loadLivewireComponents();

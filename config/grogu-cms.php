@@ -6,6 +6,8 @@ return [
      * Define the models that Grogu CMS core should use.
      */
     'models' => [
+        'user' => 'App\Models\User',
+        'page' => Hydrat\GroguCMS\Models\Page::class,
         'menu' => Hydrat\GroguCMS\Models\Menu::class,
         'menu_item' => Hydrat\GroguCMS\Models\MenuItem::class,
         'form' => Hydrat\GroguCMS\Models\Form::class,
@@ -18,6 +20,8 @@ return [
      * Define the resources that should be registred by the plugin.
      */
     'resources' => [
+        'user_resource' => Hydrat\GroguCMS\Filament\Resources\UserResource::class,
+        'page_resource' => Hydrat\GroguCMS\Filament\Resources\PageResource::class,
         'menu_resource' => Hydrat\GroguCMS\Filament\Resources\MenuResource::class,
         'form_resource' => Hydrat\GroguCMS\Filament\Resources\FormResource::class,
         'section_resource' => Hydrat\GroguCMS\Filament\Resources\SectionResource::class,
@@ -35,6 +39,20 @@ return [
      */
     'widgets' => [
         //
+    ],
+
+    /**
+     * Define user and permissions settings.
+     */
+    'users' => [
+        'guard' => 'web',
+        'permissions_registrar' => Hydrat\GroguCMS\PermissionRegistrar::class,
+        // 'guarded_resource' => [
+        //     Hydrat\GroguCMS\Filament\Resources\PageResource::class,
+        //     Hydrat\GroguCMS\Filament\Resources\MenuResource::class,
+        //     Hydrat\GroguCMS\Filament\Resources\UserResource::class,
+        //     Hydrat\GroguCMS\Filament\Resources\RoleResource::class,
+        // ],
     ],
 
     /**
