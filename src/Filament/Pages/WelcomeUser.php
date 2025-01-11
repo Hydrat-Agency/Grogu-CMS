@@ -3,23 +3,23 @@
 namespace Hydrat\GroguCMS\Filament\Pages;
 
 use App\Models\User;
+use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
+use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Filament\Actions\Action;
 use Filament\Facades\Filament;
-use Filament\Pages\SimplePage;
-use Livewire\Attributes\Locked;
-use Illuminate\Contracts\Support\Htmlable;
-use DanHarrin\LivewireRateLimiting\WithRateLimiting;
-use Filament\Pages\Concerns\InteractsWithFormActions;
-use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Http\Responses\Auth\Contracts\PasswordResetResponse;
 use Filament\Notifications\Notification;
+use Filament\Pages\Concerns\InteractsWithFormActions;
+use Filament\Pages\SimplePage;
 use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules\Password as PasswordRule;
+use Livewire\Attributes\Locked;
 
 class WelcomeUser extends SimplePage
 {
@@ -130,12 +130,12 @@ class WelcomeUser extends SimplePage
             ->dehydrated(false);
     }
 
-    public function getTitle(): string | Htmlable
+    public function getTitle(): string|Htmlable
     {
         return __('Welcome, :name', ['name' => $this->user->name]);
     }
 
-    public function getHeading(): string | Htmlable
+    public function getHeading(): string|Htmlable
     {
         return '';
     }

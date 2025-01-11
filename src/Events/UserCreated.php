@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Events;
 
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 class UserCreated
 {
