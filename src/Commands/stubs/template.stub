@@ -4,11 +4,11 @@ namespace {{ namespace }};
 
 use App\Models\{{ model }};
 use App\Content\Layouts;
-use Hydrat\GroguCMS\Templates\Template;
+use Hydrat\GroguCMS\Content\Template;
 
 class {{ class }} extends Template
 {
-    protected string $name = '{{ name }}';
+    protected string $name = '{{ templateName }}';
 
     protected ?string $view = 'pages.show';
 

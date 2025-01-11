@@ -38,6 +38,10 @@ class FilamentServiceProvider extends ServiceProvider
             Action::class,
             StaticAction::class,
         ]);
+
+        // LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
+        //     $switch->locales(['en', 'fr']);
+        // });
     }
 
     private function autoTranslateLabels(array $components = [])

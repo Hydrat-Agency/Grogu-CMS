@@ -48,8 +48,7 @@ class SectionResource extends Resource implements HasBlueprint
                 Forms\Components\Select::make('location')
                     ->options(config('grogu-cms.sections.locations'))
                     ->native(false)
-                    ->searchable()
-                    ->required(),
+                    ->searchable(),
 
                 Forms\Components\TextInput::make('title')->required(),
 

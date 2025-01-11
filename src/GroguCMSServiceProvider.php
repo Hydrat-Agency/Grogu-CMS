@@ -150,6 +150,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
         return [
             Commands\CmsModelMakeCommand::class,
             Commands\BlueprintMakeCommand::class,
+            Commands\TemplateMakeCommand::class,
             Commands\SitemapGenerateCommand::class,
             Commands\UpdatePermissionsCommand::class,
         ];
@@ -187,9 +188,12 @@ class GroguCMSServiceProvider extends PackageServiceProvider
         return [
             '2024_02_29_084302_create_menus_table',
             '2024_02_29_084303_create_menu_items_table',
+            '2024_09_16_083023_create_pages_table',
             '2024_10_12_154450_create_forms_table',
             '2024_10_12_154456_create_form_fields_table',
             '2024_10_12_155440_create_form_entries_table',
+            '2024_12_16_233023_create_sections_table',
+            '2025_01_11_130423_add_avatar_url_to_users_table',
         ];
     }
 }

@@ -46,6 +46,7 @@ class TemplateMakeCommand extends GeneratorCommand
     protected function buildClass($name)
     {
         $model = $this->option('model') ?: 'Page';
+        $templateName = $this->option('templateName') ?: Str::snake($this->getNameInput());
 
         if (! Str::startsWith($model, [
             $this->laravel->getNamespace(),
@@ -61,6 +62,14 @@ class TemplateMakeCommand extends GeneratorCommand
 
         $stub = str_replace(
             '{{ modelPlural }}', Str::of(class_basename($model))->lower()->plural(), $stub
+        );
+
+        $stub = str_replace(
+            '{{ templateName }}', $templateName, $stub
+        );
+
+        $stub = str_replace(
+            '{{ label }}', str($templateName)->title(), $stub
         );
 
         return $stub;
@@ -97,7 +106,7 @@ class TemplateMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Content\Blueprints';
+        return $rootNamespace.'\Content\Templates';
     }
 
     /**
@@ -110,6 +119,7 @@ class TemplateMakeCommand extends GeneratorCommand
         return [
             ['force', 'f', InputOption::VALUE_NONE, 'Create the class even if the model already exists'],
             ['model', 'm', InputOption::VALUE_OPTIONAL, 'The model class creating a Blueprint for'],
+            ['templateName', 'm', InputOption::VALUE_OPTIONAL, 'The template technical name'],
         ];
     }
 }
