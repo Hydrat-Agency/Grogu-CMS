@@ -63,15 +63,15 @@
         "psr-4": {
             "Hydrat\\GroguCMS\\": "src/",
             "Hydrat\\GroguCMS\\Database\\Factories\\": "database/factories/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Hydrat\\GroguCMS\\Tests\\": "tests/"
         },
         "files": [
             "src/helpers.php"
         ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hydrat\\GroguCMS\\Tests\\": "tests/"
+        }
     },
     "scripts": {
         "post-autoload-dump": "@php ./vendor/bin/testbench package:discover --ansi",
