@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\UserResource\Pages;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
-use Hydrat\GroguCMS\Filament\Resources\UserResource;
 use Filament\Resources\Pages\CreateRecord;
+use Hydrat\GroguCMS\Filament\Resources\UserResource;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class CreateUser extends CreateRecord
 {

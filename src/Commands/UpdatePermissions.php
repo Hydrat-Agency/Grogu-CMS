@@ -3,8 +3,6 @@
 namespace Hydrat\GroguCMS\Commands;
 
 use Illuminate\Console\Command;
-use Spatie\Sitemap\Sitemap;
-use Spatie\Sitemap\SitemapGenerator;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'grogu:update-permissions')]

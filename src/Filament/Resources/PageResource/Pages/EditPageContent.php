@@ -2,27 +2,27 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
 
-use Filament\Forms;
-use Filament\Forms\Get;
-use Filament\Forms\Form;
 use Filament\Actions\Action;
-use Pboivin\FilamentPeek\Support;
-use Illuminate\Support\Facades\Auth;
-use Hydrat\GroguCMS\Facades\GroguCMS;
+use Filament\Forms;
 use Filament\Forms\Components\Actions;
-use Hydrat\GroguCMS\Filament\Resources\PageResource;
 use Filament\Forms\Components\Component;
-use Illuminate\Contracts\Support\Htmlable;
+use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Hydrat\GroguCMS\Collections\BlockCollection;
-use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
-use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
-use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;
+use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditPage as EditRecord;
+use Hydrat\GroguCMS\Filament\Resources\PageResource;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Support\Facades\Auth;
+use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;
+use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
+use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
+use Pboivin\FilamentPeek\Support;
 
 class EditPageContent extends EditRecord
 {
-    use HasPreviewModal;
     use HasBuilderPreview;
+    use HasPreviewModal;
 
     protected static ?string $navigationIcon = 'phosphor-selection-all';
 
@@ -132,13 +132,13 @@ class EditPageContent extends EditRecord
 
                 return static::getResource()::getBlueprint()->blocks();
             });
-            // ->visible(function (Get $get, $record): bool {
-            //     if (filled($selectedTemplate = GroguCMS::getTemplate($get('template'))) && $selectedTemplate->hasBlocks()) {
-            //         return true;
-            //     }
+        // ->visible(function (Get $get, $record): bool {
+        //     if (filled($selectedTemplate = GroguCMS::getTemplate($get('template'))) && $selectedTemplate->hasBlocks()) {
+        //         return true;
+        //     }
 
-            //     return filled(static::getResource()::getBlueprint()->blocks());
-            // });
+        //     return filled(static::getResource()::getBlueprint()->blocks());
+        // });
     }
 
     protected function getHeaderActions(): array

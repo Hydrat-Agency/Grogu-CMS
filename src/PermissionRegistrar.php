@@ -16,18 +16,18 @@ class PermissionRegistrar
         $guard = config('grogu-cms.users.guard');
         $permissions = app()[SpatiePermissionRegistrar::class];
 
-        # Ensure to be on global context.
+        // Ensure to be on global context.
         setPermissionsTeamId(null);
 
-        # Reset cached roles and permissions.
+        // Reset cached roles and permissions.
         $permissions->forgetCachedPermissions();
 
-        # Register permissions.
+        // Register permissions.
         foreach ($this->permissions() as $permission) {
             $permissions->getPermissionClass()::findOrCreate($permission, $guard);
         }
 
-        # Register roles and assign created permissions.
+        // Register roles and assign created permissions.
         if ($permissions->getRoleClass()::where('guard_name', $guard)->count() === 0) {
             foreach ($this->roles() as $name => $permissions) {
                 $role = Role::findOrCreate($name, $guard);
@@ -40,7 +40,6 @@ class PermissionRegistrar
     /**
      * Define application permissions.
      *
-     * @return array
      * @see https://spatie.be/docs/laravel-permission/v6/basic-usage/wildcard-permissions
      */
     public function permissions(): array
@@ -96,7 +95,6 @@ class PermissionRegistrar
     /**
      * Define roles & related permissions.
      *
-     * @return array
      * @see https://spatie.be/docs/laravel-permission/v5/basic-usage/role-permissions
      */
     public function roles(): array

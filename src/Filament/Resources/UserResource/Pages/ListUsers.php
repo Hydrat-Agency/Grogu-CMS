@@ -2,9 +2,9 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\UserResource\Pages;
 
-use Hydrat\GroguCMS\Filament\Resources\UserResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Hydrat\GroguCMS\Filament\Resources\UserResource;
 
 class ListUsers extends ListRecords
 {

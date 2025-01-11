@@ -3,13 +3,13 @@
 namespace Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
 
 use Filament\Actions;
-use Illuminate\Support\Facades\Auth;
+use Hydrat\GroguCMS\Collections\BlockCollection;
+use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditPage as EditRecord;
 use Hydrat\GroguCMS\Filament\Resources\PageResource;
 use Illuminate\Contracts\Support\Htmlable;
-use Hydrat\GroguCMS\Collections\BlockCollection;
+use Illuminate\Support\Facades\Auth;
 use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
-use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditPage as EditRecord;
 
 class EditPage extends EditRecord
 {

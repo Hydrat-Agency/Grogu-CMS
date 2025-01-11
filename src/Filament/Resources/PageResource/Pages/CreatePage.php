@@ -2,9 +2,8 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
 
-use Hydrat\GroguCMS\Filament\Resources\PageResource;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
+use Hydrat\GroguCMS\Filament\Resources\PageResource;
 
 class CreatePage extends CreateRecord
 {

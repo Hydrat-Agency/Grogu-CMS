@@ -3,9 +3,9 @@
 namespace Hydrat\GroguCMS\Filament\Resources\UserResource\Pages;
 
 use Filament\Actions;
+use Filament\Resources\Pages\EditRecord;
 use Hydrat\GroguCMS\Filament\Resources\UserResource;
 use Illuminate\Support\Arr;
-use Filament\Resources\Pages\EditRecord;
 
 class EditUser extends EditRecord
 {

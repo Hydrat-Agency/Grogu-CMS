@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS\Actions\User;
 
-use Lorisleiva\Actions\Concerns\AsAction;
 use Illuminate\Foundation\Auth\User;
+use Lorisleiva\Actions\Concerns\AsAction;
 
 class WelcomeUser
 {

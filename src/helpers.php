@@ -1,11 +1,9 @@
 <?php
 
-if (! function_exists('update_permissions')) :
+if (! function_exists('update_permissions')) {
 
     /**
      * Update existing permissions.
-     *
-     * @return void
      */
     function update_permissions(): void
     {
@@ -14,4 +12,4 @@ if (! function_exists('update_permissions')) :
         (new $registrar)->run();
     }
 
-endif;
+}
