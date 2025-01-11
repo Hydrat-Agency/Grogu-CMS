@@ -59,6 +59,7 @@ You should also publish assets from dependancies :
 
 ```bash
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+php artisan vendor:publish --provider="Spatie\WelcomeNotification\WelcomeNotificationServiceProvider" --tag="migrations"
 php artisan vendor:publish --tag="seo-migrations"
 php artisan migrate
 ```

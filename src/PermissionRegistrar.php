@@ -14,23 +14,23 @@ class PermissionRegistrar
     public function run()
     {
         $guard = config('grogu-cms.users.guard');
-        $permissions = app()[SpatiePermissionRegistrar::class];
+        $registrar = app()->make(SpatiePermissionRegistrar::class);
 
         // Ensure to be on global context.
         setPermissionsTeamId(null);
 
         // Reset cached roles and permissions.
-        $permissions->forgetCachedPermissions();
+        $registrar->forgetCachedPermissions();
 
         // Register permissions.
         foreach ($this->permissions() as $permission) {
-            $permissions->getPermissionClass()::findOrCreate($permission, $guard);
+            $registrar->getPermissionClass()::findOrCreate($permission, $guard);
         }
 
         // Register roles and assign created permissions.
-        if ($permissions->getRoleClass()::where('guard_name', $guard)->count() === 0) {
+        if ($registrar->getRoleClass()::where('guard_name', $guard)->count() === 0) {
             foreach ($this->roles() as $name => $permissions) {
-                $role = Role::findOrCreate($name, $guard);
+                $role = $registrar->getRoleClass()::findOrCreate($name, $guard);
 
                 $role->syncPermissions($permissions);
             }

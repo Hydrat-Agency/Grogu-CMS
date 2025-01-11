@@ -15,6 +15,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
+        Events\UserCreated::class => [
+            Actions\User\WelcomeUser::class,
+        ],
         Events\CmsModelSaved::class => [
             // Actions\Seo\GenerateSeoScore::class,
         ],
@@ -28,7 +31,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        if ($userModel = config('grogu-cms.models.user')) {
+            $userModel::observe(UserObserver::class);
+        }
     }
 
     /**
