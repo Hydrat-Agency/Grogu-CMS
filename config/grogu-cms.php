@@ -71,6 +71,18 @@ return [
     ],
 
     /**
+     * Configure how the static sections should be handled.
+     */
+    'sections' => [
+        /**
+         * Define the available locations that sections can attach to.
+         */
+        'locations' => [
+            // 'pre-footer' => 'Before footer',
+        ],
+    ],
+
+    /**
      * Configure how the SEO features should be handled.
      */
     'seo' => [

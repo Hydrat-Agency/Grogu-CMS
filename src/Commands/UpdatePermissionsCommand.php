@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'grogu:update-permissions')]
-class UpdatePermissions extends Command
+class UpdatePermissionsCommand extends Command
 {
     /**
      * The console command name.
