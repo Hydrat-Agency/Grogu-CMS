@@ -30,10 +30,12 @@ This CMS is developer friendly : You are keeping the entire control on your mode
 
 The CMS plugins makes use of the following packages :
 
+  - [ralphjsmit/laravel-filament-media-library](https://filamentphp.com/plugins/ralphjsmit-media-library-manager) for media management (Paid plugin)
   - [spatie/laravel-permission](https://spatie.be/docs/laravel-permission/v6/introduction) for role and permissions in the CMS
   - [spatie/laravel-welcome-notification](https://github.com/spatie/laravel-welcome-notification) for sending welcome emails to new users, so they can set their password
   - [spatie/laravel-sitemap](https://github.com/spatie/laravel-sitemap)
   - [ralphjsmit/laravel-seo](https://github.com/ralphjsmit/laravel-seo) for SEO tools
+  - [jeffgreco13/filament-breezy](https://github.com/jeffgreco13/filament-breezy) for profile page, password change, two factor authentication, api tokens management
   - [grantholle/laravel-altcha](https://github.com/grantholle/laravel-altcha) for spam protection on forms
 
 ## Screenshots
@@ -60,7 +62,10 @@ You should also publish assets from dependancies :
 ```bash
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 php artisan vendor:publish --provider="Spatie\WelcomeNotification\WelcomeNotificationServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
 php artisan vendor:publish --tag="seo-migrations"
+php artisan vendor:publish --tag="filament-media-library-migrations"
+php artisan breezy:install
 php artisan migrate
 ```
 
@@ -92,10 +97,42 @@ return [
 You will need to register the plugin into your Filament Panel :
 
 ```php
-GroguCMSPlugin::make()
-    ->discoverTemplates(in: app_path('Content/Templates'), for: 'App\\Content\\Templates')
-    ->discoverBlueprints(in: app_path('Content/Blueprints'), for: 'App\\Content\\Blueprints'),
-    ->discoverBlockComposers(in: app_path('Content/BlockComposers'), for: 'App\\Content\\BlockComposers'),
+use Hydrat\GroguCMS\GroguCMSPlugin;
+use Pboivin\FilamentPeek\FilamentPeekPlugin;
+use Jeffgreco13\FilamentBreezy\BreezyCore;
+use RalphJSmit\Filament\MediaLibrary\FilamentMediaLibrary;
+
+class AdminPanelProvider extends PanelProvider
+{
+    public function panel(Panel $panel): Panel
+    {
+        return $panel
+            ...
+            ->plugin(
+                GroguCMSPlugin::make()
+                    ->discoverTemplates(in: app_path('Content/Templates'), for: 'App\\Content\\Templates')
+                    ->discoverBlueprints(in: app_path('Content/Blueprints'), for: 'App\\Content\\Blueprints')
+                    ->discoverBlockComposers(in: app_path('Content/BlockComposers'), for: 'App\\Content\\BlockComposers'),
+
+                FilamentPeekPlugin::make(),
+
+                BreezyCore::make()
+                    ->enableTwoFactorAuthentication()
+                    ->myProfile(
+                        hasAvatars: true,
+                        slug: 'my-profile'
+                    ),
+
+                FilamentMediaLibrary::make()
+                    ->navigationGroup(__('Site'))
+                    ->navigationLabel(__('Media Library'))
+                    ->navigationSort(1)
+                    ->acceptImage()
+                    ->acceptPdf()
+                    ->acceptVideo(),
+            );
+    }
+}
 ```
 
 Adapt your User model to include required traits and methods :
@@ -160,6 +197,19 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     }
 }
 ```
+
+If not done already, you must create a [custom Filament theme](https://filamentphp.com/docs/3.x/panels/themes#creating-a-custom-theme) for your Panel. Then, add the following lines to the `content` key of the `tailwind.config.js` file of the theme :
+
+```js
+content: [
+    // Your other files
+    './vendor/hydrat/grogu-cms/resources/**/*.blade.php',
+    './vendor/ralphjsmit/laravel-filament-media-library/resources/**/*.blade.php'
+],
+```
+
+
+You'll also need to
 
 To include Grogu scripts to your front-end, you should add the `@groguScripts` directive to your layout, preferably before the closing `</body>` tag :
 

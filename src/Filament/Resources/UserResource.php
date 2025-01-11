@@ -137,8 +137,8 @@ class UserResource extends Resource
                     ->action(fn (User $record) => WelcomeUser::run($record))
                     ->requiresConfirmation(),
 
-                Tables\Actions\EditAction::make()
-                    ->iconSoftButton('heroicon-o-pencil-square'),
+                Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

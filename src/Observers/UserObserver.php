@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Observers;
+namespace Hydrat\GroguCMS\Observers;
 
 use App\Models\User;
 use Hydrat\GroguCMS\Events\UserCreated;
@@ -12,6 +12,6 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        event(new UserCreated($entry));
+        event(new UserCreated($user));
     }
 }

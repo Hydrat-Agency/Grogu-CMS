@@ -10,13 +10,13 @@ class WelcomeUser
 {
     use AsAction;
 
-    public function handle(User $user)
+    public function handle(User $user): void
     {
         $expiresAt = now()->addDays(2);
         $user->sendWelcomeNotification($expiresAt);
     }
 
-    public function asListener(...$parameters): bool
+    public function asListener(...$parameters)
     {
         $event = $parameters[0];
 
