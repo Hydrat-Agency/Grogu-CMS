@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use Hydrat\GroguCMS\Filament\Pages\WelcomeUser;
+use Illuminate\Support\Facades\Route;
 use Spatie\WelcomeNotification\WelcomesNewUsers;
 
 Route::middleware('web')

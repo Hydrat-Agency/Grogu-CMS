@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Providers;
 
-use Hydrat\GroguCMS\Events;
 use Hydrat\GroguCMS\Actions;
-use Illuminate\Support\Facades\Event;
+use Hydrat\GroguCMS\Events;
 use Hydrat\GroguCMS\Observers\UserObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
