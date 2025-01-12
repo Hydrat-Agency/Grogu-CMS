@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable()->index();
             $table->unsignedBigInteger('parent_id')->nullable()->index();
+            $table->unsignedBigInteger('thumbnail_id')->nullable();
 
             $table->string('title');
             $table->string('status')->index();

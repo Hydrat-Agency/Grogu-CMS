@@ -73,6 +73,7 @@ You should also publish assets from dependancies :
 ```bash
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
 php artisan vendor:publish --provider="Spatie\WelcomeNotification\WelcomeNotificationServiceProvider" --tag="migrations"
+php artisan vendor:publish --provider="Spatie\LaravelSettings\LaravelSettingsServiceProvider"
 php artisan vendor:publish --provider="Spatie\MediaLibrary\MediaLibraryServiceProvider" --tag="medialibrary-migrations"
 php artisan vendor:publish --tag="seo-migrations"
 php artisan vendor:publish --tag="filament-media-library-migrations"

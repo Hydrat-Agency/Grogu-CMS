@@ -32,7 +32,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        if ($userModel = config('grogu-cms.models.user')) {
+        if (($userModel = config('grogu-cms.models.user')) && class_exists($userModel)) {
             $userModel::observe(UserObserver::class);
         }
     }

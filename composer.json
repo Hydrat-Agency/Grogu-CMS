@@ -46,6 +46,7 @@
         "spatie/laravel-data": "^4.10",
         "spatie/laravel-package-tools": "^1.15.0",
         "spatie/laravel-permission": "^6.10",
+        "spatie/laravel-settings": "^3.4",
         "spatie/laravel-sitemap": "^7.3",
         "spatie/laravel-welcome-notification": "^2.4",
         "tgeorgel/filament-tree": "^2.1",
