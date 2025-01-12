@@ -10,8 +10,6 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Hydrat\GroguCMS\Collections\BlockCollection;
 use Hydrat\GroguCMS\Facades\GroguCMS;
-use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditRecord;
-use Hydrat\GroguCMS\Filament\Resources\PageResource;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;
 use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;

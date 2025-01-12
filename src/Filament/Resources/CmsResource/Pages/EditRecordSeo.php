@@ -4,8 +4,6 @@ namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
 use Filament\Forms;
 use Filament\Forms\Form;
-use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditRecord;
-use Hydrat\GroguCMS\Filament\Resources\PageResource;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
 use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
