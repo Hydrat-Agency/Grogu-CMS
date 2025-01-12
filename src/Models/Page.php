@@ -15,5 +15,5 @@ class Page extends CmsModel
     /**
      * @var string<BlueprintContract>
      */
-    protected static string $blueprintSchema = \Hydrat\GroguCMS\Blueprints\PageBlueprint::class;
+    protected static string $blueprintSchema = \Hydrat\GroguCMS\Content\Blueprints\PageBlueprint::class;
 }

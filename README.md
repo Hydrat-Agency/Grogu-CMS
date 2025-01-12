@@ -120,7 +120,7 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ...
-            ->plugin(
+            ->plugins([
                 GroguCMSPlugin::make()
                     ->discoverTemplates(in: app_path('Content/Templates'), for: 'App\\Content\\Templates')
                     ->discoverBlueprints(in: app_path('Content/Blueprints'), for: 'App\\Content\\Blueprints')
@@ -142,7 +142,7 @@ class AdminPanelProvider extends PanelProvider
                     ->acceptImage()
                     ->acceptPdf()
                     ->acceptVideo(),
-            );
+            ]);
     }
 }
 ```

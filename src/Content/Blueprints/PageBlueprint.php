@@ -1,6 +1,6 @@
 <?php
 
-namespace Hydrat\GroguCMS\Blueprints;
+namespace Hydrat\GroguCMS\Content\Blueprints;
 
 use Hydrat\GroguCMS\Content\Blueprint;
 

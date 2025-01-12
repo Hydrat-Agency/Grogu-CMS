@@ -4,7 +4,7 @@ namespace Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
 
 use Filament\Actions;
 use Hydrat\GroguCMS\Collections\BlockCollection;
-use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditPage as EditRecord;
+use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditRecord as EditRecord;
 use Hydrat\GroguCMS\Filament\Resources\PageResource;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;

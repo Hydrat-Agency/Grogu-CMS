@@ -1,13 +1,10 @@
 <?php
 
-namespace Hydrat\GroguCMS\Layouts;
+namespace Hydrat\GroguCMS\Content;
 
 use Filament\Forms\Components\Builder\Block;
 use Illuminate\Support\Str;
 
-/**
- * @deprecated Use `Hydrat\GroguCMS\Content\Layout` instead.
- */
 abstract class Layout extends Block
 {
     public static function create(): static
