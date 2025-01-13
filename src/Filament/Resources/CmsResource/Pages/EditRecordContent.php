@@ -2,20 +2,21 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
-use Filament\Actions\Action;
 use Filament\Forms;
+use Filament\Forms\Get;
+use Filament\Forms\Form;
+use Filament\Actions\Action;
+use Pboivin\FilamentPeek\Support;
+use Illuminate\Support\Facades\Auth;
+use Hydrat\GroguCMS\Facades\GroguCMS;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Component;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Hydrat\GroguCMS\Collections\BlockCollection;
-use Hydrat\GroguCMS\Facades\GroguCMS;
 use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Support\Facades\Auth;
-use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;
-use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
+use Hydrat\GroguCMS\Collections\BlockCollection;
+use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
-use Pboivin\FilamentPeek\Support;
+use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
+use Pboivin\FilamentPeek\Forms\Actions\InlinePreviewAction;
 
 abstract class EditRecordContent extends EditRecord
 {
@@ -109,14 +110,22 @@ abstract class EditRecordContent extends EditRecord
         return 'page';
     }
 
+    protected function mutateInitialBuilderEditorData(string $builderName, array $editorData): array
+    {
+        return [
+            ...$editorData,
+            'template' => $this->data['template'],
+        ];
+    }
+
     public static function getBuilderEditorSchema(string $builderName): Component|array
     {
         return \Filament\Forms\Components\Builder::make('blocks')
             ->addActionLabel(__('Add layout'))
             ->collapsible()
             ->cloneable()
-            ->blocks(function (Get $get, $record): array {
-                if (filled($selectedTemplate = GroguCMS::getTemplate($get('template'))) && $selectedTemplate->hasBlocks()) {
+            ->blocks(function ($livewire): array {
+                if (filled($selectedTemplate = GroguCMS::getTemplate($livewire->editorData['template'])) && $selectedTemplate->hasBlocks()) {
                     return $selectedTemplate->blocks();
                 }
 
@@ -134,6 +143,8 @@ abstract class EditRecordContent extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            PreviewAction::make(),
+
             // Action::make('openBuilder')
             //     ->label('Builder')
             //     ->action(function ($livewire, $record) {
