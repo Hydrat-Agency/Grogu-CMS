@@ -77,6 +77,7 @@ abstract class CmsResource extends Resource implements HasBlueprint
                             ->relationship(
                                 name: 'parent',
                                 titleAttribute: 'title',
+                                ignoreRecord: true,
                                 // modifyQueryUsing: fn (Builder $q, ?Model $record = null) => $q->when($record?->id, fn ($q) => $q->where('id', '!=', $record->id))
                             )
                             ->searchable()
