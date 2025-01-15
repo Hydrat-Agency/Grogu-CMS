@@ -60,6 +60,16 @@ class MenuItem extends Model implements Resourceable, Sortable
         'children',
     ];
 
+    /**
+     * The spatie/eloquent-sortable configuration.
+     *
+     * @var array
+     */
+    public $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true,
+    ];
+
     public function toResource(): JsonResource
     {
         return new \Hydrat\GroguCMS\Http\Resources\MenuItemResource($this);

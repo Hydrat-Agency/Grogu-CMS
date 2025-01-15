@@ -118,6 +118,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
 
     protected function loadLivewireComponents(): void
     {
+        Livewire::component('grogu-cms::menu-item-tree-widget', \Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget::class);
         Livewire::component('grogu-cms::welcome-user', \Hydrat\GroguCMS\Filament\Pages\WelcomeUser::class);
         Livewire::component('grogu-cms::contact-form', LivewireComponents\ContactForm::class);
     }
