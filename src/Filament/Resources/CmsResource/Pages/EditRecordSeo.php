@@ -72,11 +72,22 @@ abstract class EditRecordSeo extends EditRecord
      * @param  array<string, mixed>  $data
      * @return array<string, mixed>
      */
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        data_set($data, 'seo', $this->record->seo?->toArray() ?: []);
+
+        return $data;
+    }
+
+    /**
+     * @param  array<string, mixed>  $data
+     * @return array<string, mixed>
+     */
     protected function mutateFormDataBeforeSave(array $data): array
     {
         $seo = Arr::pull($data, 'seo', []);
 
-        $this->record->seo->fill($seo)->save();
+        $this->record->seo?->fill($seo)->save();
 
         return $data;
     }
