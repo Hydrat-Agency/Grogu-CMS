@@ -32,13 +32,13 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
     protected $fillable = [
         'user_id',
         'parent_id',
+        'thumbnail_id',
         'title',
         'status',
         'slug',
         'template',
-        'thumbnail_id',
-        'excerpt',
         'content',
+        'excerpt',
         'blocks',
     ];
 

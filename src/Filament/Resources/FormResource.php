@@ -17,6 +17,8 @@ class FormResource extends Resource
 
     protected static ?string $recordTitleAttribute = 'name';
 
+    protected static ?int $navigationSort = 120;
+
     public static function getModel(): string
     {
         return config('grogu-cms.models.form') ?? \Hydrat\GroguCMS\Models\Form::class;

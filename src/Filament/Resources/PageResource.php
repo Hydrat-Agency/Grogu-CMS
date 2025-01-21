@@ -14,6 +14,8 @@ class PageResource extends CmsResource
 {
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?int $navigationSort = 100;
+
     public static function getModel(): string
     {
         return config('grogu-cms.models.page') ?? \Hydrat\GroguCMS\Models\Page::class;

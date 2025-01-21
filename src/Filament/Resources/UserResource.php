@@ -19,6 +19,8 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
+    protected static ?int $navigationSort = 510;
+
     public static function getModel(): string
     {
         return config('grogu-cms.models.user') ?? 'App\Models\User';

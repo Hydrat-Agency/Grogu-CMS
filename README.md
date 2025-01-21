@@ -93,6 +93,12 @@ You can publish the assets with:
 php artisan vendor:publish --tag="grogu-cms-assets"
 ```
 
+You can publish the language files with:
+
+```bash
+php artisan vendor:publish --tag="grogu-cms-translations"
+```
+
 Optionally, you can publish the views using
 
 ```bash

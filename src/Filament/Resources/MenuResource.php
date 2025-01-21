@@ -19,6 +19,8 @@ class MenuResource extends Resource
 
     protected static bool $isDiscovered = false;
 
+    protected static ?int $navigationSort = 500;
+
     public static function getNavigationGroup(): ?string
     {
         return __('Configuration');

@@ -20,6 +20,8 @@ class SectionResource extends Resource implements HasBlueprint
 
     protected static ?string $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
 
+    protected static ?int $navigationSort = 110;
+
     public static function getModel(): string
     {
         return config('grogu-cms.models.section') ?? \Hydrat\GroguCMS\Models\Section::class;
