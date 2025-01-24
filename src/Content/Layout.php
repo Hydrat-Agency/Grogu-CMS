@@ -23,7 +23,7 @@ abstract class Layout extends Block
     {
         return Str::of(static::class)
             ->afterLast('\\')
-            ->snake()
+            ->kebab()
             ->toString();
     }
 
