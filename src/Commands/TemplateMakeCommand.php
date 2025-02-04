@@ -119,7 +119,7 @@ class TemplateMakeCommand extends GeneratorCommand
         return [
             ['force', 'f', InputOption::VALUE_NONE, 'Create the class even if the model already exists'],
             ['model', 'm', InputOption::VALUE_OPTIONAL, 'The model class creating a Blueprint for'],
-            ['templateName', 'm', InputOption::VALUE_OPTIONAL, 'The template technical name'],
+            ['templateName', 't', InputOption::VALUE_OPTIONAL, 'The template technical name'],
         ];
     }
 }
