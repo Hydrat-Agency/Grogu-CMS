@@ -17,7 +17,7 @@ trait InteractsWithSeo
         return $this->blueprint()->frontUrl();
     }
 
-    public function toSitemapTag(): Url|string|array
+    public function toSitemapTag(): Url|string|array|null
     {
         return $this->blueprint()->sitemapEntry();
     }
