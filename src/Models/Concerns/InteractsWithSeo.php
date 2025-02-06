@@ -17,9 +17,9 @@ trait InteractsWithSeo
         return $this->blueprint()->frontUrl();
     }
 
-    public function toSitemapTag(): Url|string|array|null
+    public function toSitemapTag(): Url | string | array
     {
-        return $this->blueprint()->sitemapEntry();
+        return $this->blueprint()->sitemapEntry() ?: '';
     }
 
     public function getDynamicSEOData(): SEOData

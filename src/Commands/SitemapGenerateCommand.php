@@ -43,7 +43,7 @@ class SitemapGenerateCommand extends Command
             $sitemap = Sitemap::create();
 
             foreach ($models as $model) {
-                $model::chunk(150, function ($records) use ($sitemap) {
+                $model::published()->chunk(150, function ($records) use ($sitemap) {
                     $sitemap->add($records);
                 });
             }
