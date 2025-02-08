@@ -50,7 +50,8 @@
         "spatie/laravel-sitemap": "^7.3",
         "spatie/laravel-welcome-notification": "^2.4",
         "tgeorgel/filament-tree": "^2.1",
-        "vormkracht10/laravel-seo-scanner": "^3.10"
+        "vormkracht10/laravel-seo-scanner": "^3.10",
+        "wp-grogu/laravel-fluent-plus": "^2.0"
     },
     "require-dev": {
         "nunomaduro/collision": "^7.9",

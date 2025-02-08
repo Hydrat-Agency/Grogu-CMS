@@ -2,9 +2,10 @@
 
 namespace Hydrat\GroguCMS\Datas;
 
-use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Support\Fluent;
 use JsonSerializable;
+use Illuminate\Support\Fluent;
+use Grogu\FluentPlus\FluentPlus;
+use Illuminate\Contracts\Support\Jsonable;
 
 class Block implements Jsonable, JsonSerializable
 {
@@ -27,7 +28,7 @@ class Block implements Jsonable, JsonSerializable
     {
         return new self(
             $data['type'],
-            new Fluent($data['data']),
+            new FluentPlus($data['data']),
         );
     }
 
@@ -43,7 +44,7 @@ class Block implements Jsonable, JsonSerializable
 
     public function with(array $data = []): self
     {
-        $this->data = new Fluent(array_merge($this->data->toArray(), $data));
+        $this->data = new FluentPlus(array_merge($this->data->toArray(), $data));
 
         return $this;
     }
