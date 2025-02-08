@@ -2,10 +2,10 @@
 
 namespace Hydrat\GroguCMS\Datas;
 
-use JsonSerializable;
-use Illuminate\Support\Fluent;
 use Grogu\FluentPlus\FluentPlus;
 use Illuminate\Contracts\Support\Jsonable;
+use Illuminate\Support\Fluent;
+use JsonSerializable;
 
 class Block implements Jsonable, JsonSerializable
 {
