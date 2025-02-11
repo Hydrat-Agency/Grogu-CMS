@@ -17,13 +17,16 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_id')->index()->nullable();
             $table->string('path')->nullable()->index();
             $table->string('title');
-            $table->morphs('linkeable');
+            $table->string('linkeable_type')->nullable();
+            $table->unsignedBigInteger('linkeable_id')->nullable();
             $table->string('url')->nullable();
             $table->string('anchor')->nullable();
             $table->boolean('external')->default(false);
             $table->boolean('new_tab')->default(false);
             $table->integer('order')->default(0);
             $table->timestamps();
+
+            $table->index(['linkeable_type', 'linkeable_id']);
         });
     }
 

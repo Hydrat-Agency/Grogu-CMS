@@ -135,13 +135,15 @@ class ItemsRelationManager extends RelationManager
                     ->getStateUsing(fn (Model $record): string => $record->linkeable_type ?: 'url')
                     ->formatStateUsing(fn (string $state): string => $blueprintsTypes->get($state, strtoupper($state)))
                     ->sortable()
-                    ->toggleable(),
+                    ->toggleable(isToggledHiddenByDefault: true),
 
                 Tables\Columns\TextColumn::make('destination')
                     ->getStateUsing(fn (Model $record): ?string => match (filled($record->linkeable)) {
-                        true => $record->linkeable->title,
-                        default => $record->url,
+                        true => sprintf('%s: %s', $blueprintsTypes->get($record->linkeable_type), $record->linkeable->title),
+                        default => sprintf('%s: %s', 'URL', str_replace(['http://', 'https://'], '', $record->url)),
                     })
+                    ->badge()
+                    ->color(fn (Model $record): string => filled($record->linkeable) ? 'success' : 'warning')
                     ->toggleable(),
             ])
             ->filters([
