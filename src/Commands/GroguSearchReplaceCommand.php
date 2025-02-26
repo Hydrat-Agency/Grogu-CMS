@@ -3,6 +3,7 @@
 namespace Hydrat\GroguCMS\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\Console\Attribute\AsCommand;
 
 #[AsCommand(name: 'grogu:search-replace')]
@@ -29,8 +30,8 @@ class GroguSearchReplaceCommand extends Command
      */
     public function handle()
     {
-        $search = $this->option('search') ?? $this->ask('What token would you like to search for?');
-        $replace = $this->option('replace') ?? $this->ask('What token would you like to replace it with?');
+        $search = $this->argument('search') ?? $this->ask('What token would you like to search for?');
+        $replace = $this->argument('replace') ?? $this->ask('What token would you like to replace it with?');
 
         $replacements = 0;
 

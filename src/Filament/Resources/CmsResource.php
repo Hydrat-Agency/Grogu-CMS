@@ -154,6 +154,47 @@ abstract class CmsResource extends Resource implements HasBlueprint
                     ->url(fn (Model $record) => optional($record->blueprint())->frontUrl())
                     ->openUrlInNewTab(),
 
+                Tables\Actions\ReplicateAction::make()
+                    ->form(function (Form $form) {
+                        $blueprint = static::getBlueprint($form);
+
+                        return [
+                            Forms\Components\TextInput::make('title')
+                                ->required()
+                                ->maxLength(255)
+                                ->live(onBlur: true)
+                                ->columnSpanFull()
+                                ->afterStateUpdated(function (Set $set, $state) use ($blueprint) {
+                                    $slug = GenerateUniqueSlug::run(
+                                        title: $state,
+                                        class: $blueprint->model(),
+                                    );
+
+                                    $set('slug', $slug);
+                                }),
+
+                            Forms\Components\TextInput::make('slug')
+                                ->required()
+                                ->maxLength(255)
+                                ->prefix(
+                                    fn () => Str::finish($blueprint->frontUrl(includeSelf: false), '/'),
+                                )
+                                ->columnSpanFull()
+                                ->unique($form->getModel(), 'slug', ignoreRecord: true),
+
+                            Forms\Components\Placeholder::make(__('Warning'))
+                                ->content(__('Duplicated content can have a negative impact on your website\'s SEO score.')),
+                        ];
+                    })
+                    ->mutateRecordDataUsing(function (array $data): array {
+                        $data['title'] = $data['title'].' (Copy)';
+                        $data['slug'] = Str::slug($data['title']);
+
+                        return $data;
+                    })
+                    ->successRedirectUrl(fn (Model $replica): string => static::getUrl('edit', ['record' => $replica]))
+                    ->iconSoftButton('heroicon-o-square-2-stack'),
+
                 Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
                 Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ]);
