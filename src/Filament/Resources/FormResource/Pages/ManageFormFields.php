@@ -147,7 +147,7 @@ class ManageFormFields extends ManageRelatedRecords
 
                         Forms\Components\Toggle::make('hidden_label')
                             ->columnSpanFull()
-                            ->lebal('Hide field label')
+                            ->label('Hide field label')
                             ->inline(true)
                             ->visible(
                                 fn (Get $get) => FormFieldType::tryFrom($get('type'))?->canHideLabel()
