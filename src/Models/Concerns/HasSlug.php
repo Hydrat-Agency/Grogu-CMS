@@ -2,16 +2,22 @@
 
 namespace Hydrat\GroguCMS\Models\Concerns;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 trait HasSlug
 {
-    public static function findBySlug(string $slug)
+    public static function scopeWhereSlug(Builder $query, string $slug)
     {
         $parts = str($slug)->trim('/')->explode('/');
         $slug = $parts->last();
 
-        return static::where('slug', $slug)->first();
+        $query->where('slug', $slug);
+    }
+
+    public static function findBySlug(string $slug)
+    {
+        return static::whereSlug($slug)->first();
     }
 
     /**

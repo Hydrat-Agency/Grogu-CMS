@@ -70,7 +70,12 @@ class SectionResource extends Resource implements HasBlueprint
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('location')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
                 //

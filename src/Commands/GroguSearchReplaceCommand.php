@@ -10,18 +10,18 @@ use Symfony\Component\Console\Attribute\AsCommand;
 class GroguSearchReplaceCommand extends Command
 {
     /**
-     * The console command name.
+     * The name and signature of the console command.
      *
      * @var string
      */
-    protected $name = 'grogu:search-replace';
+    protected $signature = 'search-replace {search?} {replace?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Search and replace a token in the database. Looks for CMS models only.';
+    protected $description = 'Search and replace a token in the database. Looks for defined CMS models only.';
 
     /**
      * Execute the console command.

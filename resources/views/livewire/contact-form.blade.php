@@ -8,6 +8,18 @@
       @foreach ($form->fields as $field)
         <div class="col-span-{{ $field->column_span ?: 'full' }}">
           @switch ($field->type)
+            @case (FormFieldType::Title)
+              <x-grogu-cms::forms.title
+                name="data.{{ $field->key }}"
+                :content="$field->content"
+              />
+              @break
+            @case (FormFieldType::Placeholder)
+              <x-grogu-cms::forms.placeholder
+                name="data.{{ $field->key }}"
+                :content="$field->content"
+              />
+              @break
             @case (FormFieldType::Text)
               <x-grogu-cms::forms.input
                 type="text"

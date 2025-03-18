@@ -21,6 +21,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
     case Image = 'image';
     case Attachment = 'attachment';
     case Signature = 'signature';
+    case Title = 'title';
     case Placeholder = 'placeholder';
     case Confirm = 'confirm';
 
@@ -40,6 +41,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Image => 'success',
             self::Attachment => 'success',
             self::Signature => 'success',
+            self::Title => 'gray',
             self::Placeholder => 'gray',
             self::Confirm => 'danger',
         };
@@ -61,6 +63,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Image => __('Image'),
             self::Attachment => __('Attachment'),
             self::Signature => __('Signature'),
+            self::Title => __('Title'),
             self::Placeholder => __('Placeholder'),
             self::Confirm => __('Confirm'),
         };
@@ -82,14 +85,33 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Image => 'radix-image',
             self::Attachment => 'radix-file',
             self::Signature => 'phosphor-signature-light',
+            self::Title => 'phosphor-chat-centered-text-light',
             self::Placeholder => 'phosphor-chat-centered-text-light',
             self::Confirm => 'radix-check',
+        };
+    }
+
+    public function canHideLabel(): bool
+    {
+        return match ($this) {
+            default => true,
         };
     }
 
     public function hasHelperText(): bool
     {
         return match ($this) {
+            self::Title => false,
+            self::Placeholder => false,
+            default => true,
+        };
+    }
+
+    public function canBeRequired(): bool
+    {
+        return match ($this) {
+            self::Title => false,
+            self::Placeholder => false,
             default => true,
         };
     }
@@ -100,6 +122,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
             self::Text => true,
             self::Textarea => true,
             self::Email => true,
+            self::Telephone => true,
             self::Number => true,
             self::Date => true,
             self::DateTime => true,
@@ -140,6 +163,7 @@ enum FormFieldType: string implements HasColor, HasIcon, HasLabel
     public function hasContent(): bool
     {
         return match ($this) {
+            self::Title => true,
             self::Placeholder => true,
             self::Confirm => true,
             default => false,

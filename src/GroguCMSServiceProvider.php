@@ -152,6 +152,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
             Commands\CmsModelMakeCommand::class,
             Commands\BlueprintMakeCommand::class,
             // Commands\TemplateMakeCommand::class,
+            Commands\GroguSearchReplaceCommand::class,
             Commands\SitemapGenerateCommand::class,
             Commands\UpdatePermissionsCommand::class,
         ];
@@ -195,6 +196,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
             'create_form_entries_table',
             'create_pages_table',
             'create_sections_table',
+            'add_hidden_label_to_form_fields_table',
         ];
     }
 }

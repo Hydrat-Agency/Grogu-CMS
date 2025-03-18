@@ -387,6 +387,15 @@ To get started, create a new form from Filament panel. You can then create your 
 @livewire('grogu-cms::contact-form', ['form' => $form])
 ```
 
+Make sure to include our source files in your tailwind config for styling :
+
+```js
+// tailwind.config.js
+content: [
+    './site/vendor/hydrat/grogu-cms/resources/**/*.blade.php',
+],
+```
+
 You can override models and resources by changing your configuration file :
 
 ```php

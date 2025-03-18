@@ -36,6 +36,7 @@ class FormField extends Model implements Sortable
         'max',
         'min_date',
         'max_date',
+        'hidden_label',
     ];
 
     /**

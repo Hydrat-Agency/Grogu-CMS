@@ -140,7 +140,18 @@ class ManageFormFields extends ManageRelatedRecords
 
                         Forms\Components\Toggle::make('required')
                             ->columnSpanFull()
-                            ->inline(true),
+                            ->inline(true)
+                            ->visible(
+                                fn (Get $get) => FormFieldType::tryFrom($get('type'))?->canBeRequired()
+                            ),
+
+                        Forms\Components\Toggle::make('hidden_label')
+                            ->columnSpanFull()
+                            ->lebal('Hide field label')
+                            ->inline(true)
+                            ->visible(
+                                fn (Get $get) => FormFieldType::tryFrom($get('type'))?->canHideLabel()
+                            ),
 
                         Forms\Components\Toggle::make('multiple')
                             ->inline(true)
@@ -222,6 +233,7 @@ class ManageFormFields extends ManageRelatedRecords
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
+                Tables\Actions\ReplicateAction::make()->iconSoftButton('heroicon-o-square-2-stack'),
                 Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
                 Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
