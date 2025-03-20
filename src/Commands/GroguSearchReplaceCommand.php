@@ -48,8 +48,6 @@ class GroguSearchReplaceCommand extends Command
 
     /**
      * Get the CMS tables to search and replace in.
-     *
-     * @return array
      */
     public function getCmsTables(): array
     {
