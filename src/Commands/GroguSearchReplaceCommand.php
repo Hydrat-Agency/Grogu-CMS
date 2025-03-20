@@ -14,7 +14,7 @@ class GroguSearchReplaceCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'search-replace {search?} {replace?}';
+    protected $signature = 'grogu:search-replace {search?} {replace?}';
 
     /**
      * The console command description.
@@ -35,7 +35,7 @@ class GroguSearchReplaceCommand extends Command
 
         $replacements = 0;
 
-        $tables = ['pages'];
+        $tables = $this->getCmsTables();
 
         foreach ($tables as $table) {
             $replacements += DB::update("update $table set blocks = replace(blocks, ?, ?)", [$search, $replace]);
@@ -44,6 +44,18 @@ class GroguSearchReplaceCommand extends Command
         $this->info("Replaced $replacements tokens.");
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * Get the CMS tables to search and replace in.
+     *
+     * @return array
+     */
+    public function getCmsTables(): array
+    {
+        return [
+            'pages',
+        ];
     }
 
     /**
