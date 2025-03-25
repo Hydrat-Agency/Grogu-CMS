@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Actions\Form;
 
+use Illuminate\Support\Facades\Mail;
 use Hydrat\GroguCMS\Models\FormEntry;
 use Lorisleiva\Actions\Concerns\AsAction;
 
@@ -12,7 +13,7 @@ class SendNewEntryNotification
     public function handle(
         FormEntry $entry,
         string $notification = '\Hydrat\GroguCMS\Mail\NewFormEntry',
-    ): FormEntry {
+    ): void {
         $entry->loadMissing('form');
 
         $form = $entry->form;
