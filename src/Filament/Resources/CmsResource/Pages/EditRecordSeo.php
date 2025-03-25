@@ -4,10 +4,11 @@ namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
 use Filament\Forms;
 use Filament\Forms\Form;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
-use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
+use Illuminate\Contracts\Support\Htmlable;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
+use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
+use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
 
 abstract class EditRecordSeo extends EditRecord
 {
@@ -43,9 +44,12 @@ abstract class EditRecordSeo extends EditRecord
                             ->helperText(__('A short description used on social previews and Google vignette.'))
                             ->columnSpanFull(),
 
-                        Forms\Components\FileUpload::make('seo.image')
-                            ->image()
-                            ->columnSpanFull(),
+                        // Forms\Components\FileUpload::make('seo.image')
+                        //     ->image()
+                        //     ->columnSpanFull(),
+
+                        MediaPicker::make('seo.image')
+                            ->acceptedFileTypes(['image/*']),
 
                         Forms\Components\Select::make('seo.robots')
                             ->native(true)
