@@ -2,13 +2,13 @@
 
 namespace Hydrat\GroguCMS\Livewire;
 
-use Throwable;
 use Exception;
 use GrantHolle\Altcha\Rules\ValidAltcha;
 use Hydrat\GroguCMS\Actions\Form as Actions;
 use Hydrat\GroguCMS\Models\Form;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
+use Throwable;
 
 class ContactForm extends Component
 {
@@ -20,6 +20,7 @@ class ContactForm extends Component
     public string $altcha;
 
     public string $onSuccessMessage = '';
+
     public string $onErrorMessage = '';
 
     protected function rules()
@@ -54,6 +55,7 @@ class ContactForm extends Component
             report($e);
             $this->onErrorMessage = __('An error occurred while submitting the form. Please try again later.');
             $this->dispatch('form-submission-failed', $this->form, $this->data, $e);
+
             return;
         }
 
