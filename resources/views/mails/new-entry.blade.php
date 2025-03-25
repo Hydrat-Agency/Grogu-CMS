@@ -11,9 +11,11 @@
 
   <ul>
     @foreach ($entry->values as $field)
-      <li>
-        <strong>{{ $field->label }} :</strong> {{ $field->displayValue() }}
-      </li>
+      @if ($field->hasValueToDisplay())
+        <li>
+          <strong>{{ $field->label }} :</strong> {{ $field->displayValue() }}
+        </li>
+      @endif
     @endforeach
   </ul>
 

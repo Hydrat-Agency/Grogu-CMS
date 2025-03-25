@@ -13,7 +13,8 @@ class FormEntryValue extends Data
         public string $label,
         public mixed $value = null,
         public bool $required = false,
-    ) {}
+    ) {
+    }
 
     public function displayValue(): string
     {
@@ -21,6 +22,16 @@ class FormEntryValue extends Data
             is_array($this->value) => implode(', ', $this->value),
             $this->type === FormFieldType::Confirm => $this->value ? __('Yes') : __('No'),
             default => (string) $this->value,
+        };
+    }
+
+    public function hasValueToDisplay(): bool
+    {
+        return match ($this->type) {
+            FormFieldType::Title => false,
+            FormFieldType::Placeholder => false,
+            FormFieldType::Confirm => false,
+            default => true,
         };
     }
 }
