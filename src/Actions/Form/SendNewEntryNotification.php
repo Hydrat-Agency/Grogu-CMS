@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS\Actions\Form;
 
-use Illuminate\Support\Facades\Mail;
 use Hydrat\GroguCMS\Models\FormEntry;
+use Illuminate\Support\Facades\Mail;
 use Lorisleiva\Actions\Concerns\AsAction;
 
 class SendNewEntryNotification
