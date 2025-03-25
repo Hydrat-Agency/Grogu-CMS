@@ -122,6 +122,7 @@
     "Setup your :appName account": "Configurez votre compte :appName",
     "You are receiving this email because an account was created for you.": "Vous recevez cet email car un compte a été créé pour vous.",
     "Set initial password": "Définir un mot de passe",
+    "An error occurred while submitting the form. Please try again later.": "Une erreur s'est produite lors de la soumission du formulaire. Veuillez réessayer plus tard.",
     "Warning": "Attention",
     "This welcome link will expire in :count hours.": "Ce lien de bienvenue expirera dans :count heures.",
     "Duplicated content can have a negative impact on your website's SEO score.": "Le contenu dupliqué peut avoir un impact négatif sur le score SEO de votre site web.",

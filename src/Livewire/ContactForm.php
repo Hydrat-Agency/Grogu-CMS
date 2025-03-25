@@ -2,6 +2,8 @@
 
 namespace Hydrat\GroguCMS\Livewire;
 
+use Throwable;
+use Exception;
 use GrantHolle\Altcha\Rules\ValidAltcha;
 use Hydrat\GroguCMS\Actions\Form as Actions;
 use Hydrat\GroguCMS\Models\Form;
@@ -18,24 +20,42 @@ class ContactForm extends Component
     public string $altcha;
 
     public string $onSuccessMessage = '';
+    public string $onErrorMessage = '';
+
+    protected function rules()
+    {
+        return [
+            ...Actions\GetFormValidationRules::run($this->form, prefixKey: 'data.'),
+            'altcha' => ['required', new ValidAltcha],
+        ];
+    }
+
+    protected function validationAttributes()
+    {
+        return Actions\GetFormValidationAttributes::run($this->form, prefixKey: 'data.');
+    }
 
     public function submit()
     {
-        $validationRules = Actions\GetFormValidationRules::run($this->form, prefixKey: 'data.');
-        $validationAttributes = Actions\GetFormValidationAttributes::run($this->form, prefixKey: 'data.');
+        $this->onSuccessMessage = '';
+        $this->onErrorMessage = '';
 
-        $validationRules['altcha'] = ['required', new ValidAltcha];
-
-        if (filled($validationRules)) {
-            $this->validate(
-                rules: $validationRules,
-                attributes: $validationAttributes,
-            );
+        if (filled($this->rules())) {
+            $this->validate();
         }
 
         $this->dispatch('form-validated', $this->form, $this->data);
 
         $formEntry = Actions\SubmitFormEntry::run($this->form, $this->data);
+
+        try {
+            $formEntry = Actions\SubmitFormEntry::run($this->form, $this->data);
+        } catch (Throwable|Exception $e) {
+            report($e);
+            $this->onErrorMessage = __('An error occurred while submitting the form. Please try again later.');
+            $this->dispatch('form-submission-failed', $this->form, $this->data, $e);
+            return;
+        }
 
         $this->data = [];
         $this->onSuccessMessage = $this->form->submit_success_message;

@@ -113,7 +113,11 @@
       {{ $form->submit_button_label ?: __('Submit') }}
     </button>
 
-    @if ($onSuccessMessage)
+    @if ($onErrorMessage)
+      <div class="mt-4">
+        <div class="text-red-600">{{ $onErrorMessage }}</div>
+      </div>
+    @elseif ($onSuccessMessage)
       <div class="mt-4">
         <div class="text-green-600">{{ $onSuccessMessage }}</div>
       </div>
