@@ -2,13 +2,12 @@
 
 namespace Hydrat\GroguCMS\Mail;
 
+use Hydrat\GroguCMS\Models\FormEntry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Hydrat\GroguCMS\Models\FormEntry;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Envelope;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Queue\SerializesModels;
 
 class NewFormEntry extends Mailable
 {
@@ -29,7 +28,7 @@ class NewFormEntry extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: __('New form entry') . ' - ' . $this->entry->form->name . ' ' . config('app.name'),
+            subject: __('New form entry').' - '.$this->entry->form->name.' '.config('app.name'),
         );
     }
 
