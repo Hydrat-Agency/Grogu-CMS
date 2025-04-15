@@ -33,12 +33,16 @@ class GroguSearchReplaceCommand extends Command
         $search = $this->argument('search') ?? $this->ask('What token would you like to search for?');
         $replace = $this->argument('replace') ?? $this->ask('What token would you like to replace it with?');
 
+        $jsonSearch = trim(json_encode($search, JSON_UNESCAPED_UNICODE), '"');
+        $jsonReplace = trim(json_encode($replace, JSON_UNESCAPED_UNICODE), '"');
+
         $replacements = 0;
 
         $tables = $this->getCmsTables();
 
         foreach ($tables as $table) {
             $replacements += DB::update("update $table set blocks = replace(blocks, ?, ?)", [$search, $replace]);
+            $replacements += DB::update("update $table set blocks = replace(blocks, ?, ?)", [$jsonSearch, $jsonReplace]);
         }
 
         $this->info("Replaced $replacements tokens.");

@@ -65,6 +65,15 @@ class ContactForm extends Component
         $this->dispatch('form-submitted', $formEntry);
     }
 
+    public function reset()
+    {
+        $this->onSuccessMessage = '';
+        $this->onErrorMessage = '';
+        $this->data = [];
+
+        $this->dispatch('form-reseted');
+    }
+
     public function render()
     {
         return view('grogu-cms::livewire.contact-form');
