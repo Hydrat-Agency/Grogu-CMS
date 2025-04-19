@@ -65,7 +65,7 @@ class ContactForm extends Component
         $this->dispatch('form-submitted', $formEntry);
     }
 
-    public function reset()
+    public function resetForm()
     {
         $this->onSuccessMessage = '';
         $this->onErrorMessage = '';
