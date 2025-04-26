@@ -2,7 +2,6 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
-use Throwable;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -13,8 +12,9 @@ use Illuminate\Support\HtmlString;
 use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
-use Schmeits\FilamentCharacterCounter\Forms\Components\TextInput;
 use Schmeits\FilamentCharacterCounter\Forms\Components\Textarea;
+use Schmeits\FilamentCharacterCounter\Forms\Components\TextInput;
+use Throwable;
 
 abstract class EditRecordSeo extends EditRecord
 {
