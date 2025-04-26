@@ -2,17 +2,17 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
-use Throwable;
 use Filament\Forms;
-use Filament\Forms\Get;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Contracts\Support\Htmlable;
-use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
+use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
+use Throwable;
 
 abstract class EditRecordSeo extends EditRecord
 {
@@ -78,26 +78,26 @@ abstract class EditRecordSeo extends EditRecord
                             ->columnSpanFull(),
                     ]),
 
-                    Forms\Components\Placeholder::make('preview')
-                        ->label(__('Preview'))
-                        ->content(function (Model $record, Get $get) {
-                            if (method_exists($record, 'getDynamicSEOData')) {
-                                $seo = $record->getDynamicSEOData();
-                            } else {
-                                $seo = $record->seo;
-                            }
+                Forms\Components\Placeholder::make('preview')
+                    ->label(__('Preview'))
+                    ->content(function (Model $record, Get $get) {
+                        if (method_exists($record, 'getDynamicSEOData')) {
+                            $seo = $record->getDynamicSEOData();
+                        } else {
+                            $seo = $record->seo;
+                        }
 
-                            $title = $get('seo.title') ?: $seo->title;
-                            $description = $get('seo.description') ?: $seo->description;
-                            $suffix = config('seo.title.suffix');
+                        $title = $get('seo.title') ?: $seo->title;
+                        $description = $get('seo.description') ?: $seo->description;
+                        $suffix = config('seo.title.suffix');
 
-                            return new HtmlString(<<<HTML
+                        return new HtmlString(<<<HTML
                                 <div class="grogu-google-preview">
                                     <div class="grogu-google-preview-title">$title$suffix</div>
                                     <div class="grogu-google-preview-description">$description</div>
                                 </div>
                             HTML);
-                        }),
+                    }),
             ]);
     }
 
