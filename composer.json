@@ -41,6 +41,7 @@
         "pboivin/filament-peek": "^2.2",
         "ralphjsmit/laravel-filament-media-library": "^3.8",
         "ralphjsmit/laravel-seo": "^1.6",
+        "schmeits/filament-character-counter": "^1.3",
         "spatie/crawler": "^8.4",
         "spatie/eloquent-sortable": "^4.2",
         "spatie/laravel-data": "^4.10",

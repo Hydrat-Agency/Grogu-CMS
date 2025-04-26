@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
+use Throwable;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
@@ -12,7 +13,8 @@ use Illuminate\Support\HtmlString;
 use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
-use Throwable;
+use Schmeits\FilamentCharacterCounter\Forms\Components\TextInput;
+use Schmeits\FilamentCharacterCounter\Forms\Components\Textarea;
 
 abstract class EditRecordSeo extends EditRecord
 {
@@ -45,19 +47,21 @@ abstract class EditRecordSeo extends EditRecord
                 Forms\Components\Section::make(__('SEO Details'))
                     ->columns(2)
                     ->schema([
-                        Forms\Components\TextInput::make('seo.title')
+                        TextInput::make('seo.title')
                             ->placeholder(fn () => $seoDefault?->title)
                             ->suffix(config('seo.title.suffix'))
                             ->columnSpanFull()
-                            ->live(),
+                            ->live(debounce: 250)
+                            ->characterLimit(60),
 
-                        Forms\Components\Textarea::make('seo.description')
+                        Textarea::make('seo.description')
                             ->maxLength(65535)
                             ->rows(5)
                             ->helperText(__('A short description used on social previews and Google vignette.'))
                             ->placeholder(fn () => $seoDefault?->description)
                             ->columnSpanFull()
-                            ->live(),
+                            ->live(debounce: 250)
+                            ->characterLimit(160),
 
                         // Forms\Components\FileUpload::make('seo.image')
                         //     ->image()
