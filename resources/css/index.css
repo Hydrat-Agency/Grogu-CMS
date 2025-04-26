@@ -50,3 +50,20 @@
 .fi-ta-actions {
   @apply gap-2;
 }
+
+.grogu-google-preview {
+  @apply flex flex-col gap-2 p-4 bg-white border border-gray-200 rounded-lg;
+
+  font-family: Arial,sans-serif;
+  font-weight: 400;
+}
+
+.grogu-google-preview-title {
+  color: #1a0dab;
+  font-size: 20px;
+}
+
+.grogu-google-preview-description {
+  color: #474747;
+  font-size: 14px;
+}

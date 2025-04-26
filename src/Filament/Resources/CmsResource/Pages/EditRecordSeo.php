@@ -2,12 +2,16 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
+use Throwable;
 use Filament\Forms;
+use Filament\Forms\Get;
 use Filament\Forms\Form;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Arr;
-use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
+use Illuminate\Support\HtmlString;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Support\Htmlable;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
+use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
 use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
 
 abstract class EditRecordSeo extends EditRecord
@@ -29,6 +33,12 @@ abstract class EditRecordSeo extends EditRecord
 
     public function form(Form $form): Form
     {
+        try {
+            $seoDefault = $this->getRecord()?->getDynamicSEOData();
+        } catch (Throwable $e) {
+            $seoDefault = null;
+        }
+
         return $form
             ->columns(1)
             ->schema([
@@ -36,13 +46,18 @@ abstract class EditRecordSeo extends EditRecord
                     ->columns(2)
                     ->schema([
                         Forms\Components\TextInput::make('seo.title')
-                            ->columnSpanFull(),
+                            ->placeholder(fn () => $seoDefault?->title)
+                            ->suffix(config('seo.title.suffix'))
+                            ->columnSpanFull()
+                            ->live(),
 
                         Forms\Components\Textarea::make('seo.description')
                             ->maxLength(65535)
                             ->rows(5)
                             ->helperText(__('A short description used on social previews and Google vignette.'))
-                            ->columnSpanFull(),
+                            ->placeholder(fn () => $seoDefault?->description)
+                            ->columnSpanFull()
+                            ->live(),
 
                         // Forms\Components\FileUpload::make('seo.image')
                         //     ->image()
@@ -62,6 +77,27 @@ abstract class EditRecordSeo extends EditRecord
                             ->default('index, follow')
                             ->columnSpanFull(),
                     ]),
+
+                    Forms\Components\Placeholder::make('preview')
+                        ->label(__('Preview'))
+                        ->content(function (Model $record, Get $get) {
+                            if (method_exists($record, 'getDynamicSEOData')) {
+                                $seo = $record->getDynamicSEOData();
+                            } else {
+                                $seo = $record->seo;
+                            }
+
+                            $title = $get('seo.title') ?: $seo->title;
+                            $description = $get('seo.description') ?: $seo->description;
+                            $suffix = config('seo.title.suffix');
+
+                            return new HtmlString(<<<HTML
+                                <div class="grogu-google-preview">
+                                    <div class="grogu-google-preview-title">$title$suffix</div>
+                                    <div class="grogu-google-preview-description">$description</div>
+                                </div>
+                            HTML);
+                        }),
             ]);
     }
 
