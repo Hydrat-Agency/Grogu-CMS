@@ -47,8 +47,6 @@ class ContactForm extends Component
 
         $this->dispatch('form-validated', $this->form, $this->data);
 
-        $formEntry = Actions\SubmitFormEntry::run($this->form, $this->data);
-
         try {
             $formEntry = Actions\SubmitFormEntry::run($this->form, $this->data);
         } catch (Throwable|Exception $e) {
