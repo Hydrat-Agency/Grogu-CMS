@@ -215,6 +215,11 @@ abstract class CmsResource extends Resource implements HasBlueprint
                 ->searchable()
                 ->description(fn (Model $record) => optional($record->blueprint())->frontUri()),
 
+            Tables\Columns\TextColumn::make('slug')
+                ->sortable()
+                ->searchable()
+                ->toggleable(isToggledHiddenByDefault: true),
+
             Tables\Columns\TextColumn::make('status')
                 ->sortable()
                 ->badge()
