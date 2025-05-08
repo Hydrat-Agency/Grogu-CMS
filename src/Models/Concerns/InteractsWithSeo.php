@@ -2,11 +2,13 @@
 
 namespace Hydrat\GroguCMS\Models\Concerns;
 
-use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
+use Spatie\Sitemap\Tags\Url;
+use Illuminate\Support\Collection;
+use Vormkracht10\Seo\Traits\HasSeoScore;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
-use Spatie\Sitemap\Tags\Url;
-use Vormkracht10\Seo\Traits\HasSeoScore;
+use RalphJSmit\Laravel\SEO\Support\AlternateTag;
+use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 
 trait InteractsWithSeo
 {
@@ -23,6 +25,11 @@ trait InteractsWithSeo
         return $this->blueprint()->sitemapEntry() ?: '';
     }
 
+    public function getAlternates(): Collection
+    {
+        return $this->blueprint()->alternates(includeCurrentLocale: true);
+    }
+
     public function getDynamicSEOData(): SEOData
     {
         $this->loadMissing('seo', 'user');
@@ -34,21 +41,14 @@ trait InteractsWithSeo
         }
 
         return new SEOData(
-            title: $this->seo?->title ?: $this->title,
-            description: $this->seo?->description ?: $this->excerpt,
+            title: $this->seo?->title ?: grogu_translate($this, 'title'),
+            description: $this->seo?->description ?: grogu_translate($this, 'excerpt'),
             author: $this->user?->name,
             robots: $this->seo?->robots,
             image: $imageUrl ?: $this->thumbnail?->getItem()?->getUrl(),
-            // alternates: [
-            //     new AlternateTag(
-            //         hreflang: 'en',
-            //         href: "https://example.com/en",
-            //     ),
-            //     new AlternateTag(
-            //         hreflang: 'fr',
-            //         href: "https://example.com/fr",
-            //     ),
-            // ],
+            alternates: $this->getAlternates()
+                ->map(fn ($alternate) => new AlternateTag($alternate->locale, $alternate->url))
+                ->toArray(),
         );
     }
 }

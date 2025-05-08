@@ -15,17 +15,21 @@ trait InteractsWithBlocks
             return $this->blockCollection;
         }
 
-        if (blank($this->blocks)) {
+        $blocks = method_exists($this, 'translate') && $this->isTranslatableAttribute('blocks')
+            ? $this->translate('blocks', useFallbackLocale: true)
+            : $this->blocks;
+
+        if (blank($blocks)) {
             return null;
         }
 
-        if (is_a($this->blocks, Collection::class)) {
-            return tap(BlockCollection::fromArray($this->blocks->toArray()),
+        if (is_a($blocks, Collection::class)) {
+            return tap(BlockCollection::fromArray($blocks->toArray()),
                 fn ($blocks) => $this->setBlocks($blocks)
             );
         }
 
-        return tap(BlockCollection::fromArray($this->blocks),
+        return tap(BlockCollection::fromArray($blocks),
             fn ($blocks) => $this->setBlocks($blocks)
         );
     }

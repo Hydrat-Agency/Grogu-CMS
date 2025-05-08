@@ -2,15 +2,16 @@
 
 namespace Hydrat\GroguCMS\Content;
 
-use Hydrat\GroguCMS\Contracts\BlueprintContract;
-use Hydrat\GroguCMS\Enums\PostStatus;
-use Hydrat\GroguCMS\Settings\GeneralSettings;
-use Hydrat\GroguCMS\UrlManager;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Route;
 use Spatie\Sitemap\Tags\Url;
+use Illuminate\Support\Fluent;
+use Hydrat\GroguCMS\UrlManager;
+use Illuminate\Support\Collection;
+use Hydrat\GroguCMS\Enums\PostStatus;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Database\Eloquent\Model;
+use Hydrat\GroguCMS\Settings\GeneralSettings;
+use Hydrat\GroguCMS\Contracts\BlueprintContract;
 
 abstract class Blueprint implements BlueprintContract
 {
@@ -21,6 +22,8 @@ abstract class Blueprint implements BlueprintContract
     protected ?string $view = null;
 
     protected ?string $routeName = null;
+
+    protected bool $translatable = false;
 
     protected bool $hierarchical = false;
 
@@ -59,6 +62,11 @@ abstract class Blueprint implements BlueprintContract
         return $this->templates;
     }
 
+    public function translatable(): bool
+    {
+        return $this->translatable;
+    }
+
     public function hierarchical(): bool
     {
         return $this->hierarchical;
@@ -67,6 +75,11 @@ abstract class Blueprint implements BlueprintContract
     public function routeName(): ?string
     {
         return $this->routeName;
+    }
+
+    public function translatedRouteName(string $locale): ?string
+    {
+        return Arr::join([$locale, $this->routeName()], '.');
     }
 
     public function showInMenus(): bool
@@ -147,40 +160,35 @@ abstract class Blueprint implements BlueprintContract
             ->toString();
     }
 
-    public function computeHierarchicalPath(?Model $record = null): ?string
+    public function computeHierarchicalPath(?Model $record = null, ?string $locale = null): ?string
     {
         $record = $record ?? $this->record();
+        $locale = $locale ?? app()->getLocale();
 
         if (! $this->hierarchical()) {
-            return $record->slug;
+            return grogu_translate($record, 'slug', $locale);
         }
 
         $extends = [];
         $parent = $record;
 
         while ($parent) {
-            $extends[] = $parent->slug;
+            $extends[] = grogu_translate($record, 'slug', $locale);
             $parent = $parent->parent()->select('id', 'parent_id', 'slug')->first();
         }
 
         return Arr::join(array_reverse($extends), '/');
     }
 
-    // public function frontUrl(?Model $record = null): string
-    // {
-    //     $record = $record ?? $this->record();
-
-    //     $route = $this->routeName();
-    //     $slug = $this->computeHierarchicalPath($record);
-
-    //     return $route
-    //         ? route($route, $slug)
-    //         : url($slug);
-    // }
-
-    public function frontUri(bool $includeSelf = true): ?string
+    public function frontUri(bool $includeSelf = true, ?string $locale = null): ?string
     {
-        if (! $this->routeName() || ! ($record = $this->record())) {
+        $locale = $locale ?? app()->getLocale();
+
+        $routeName = $this->translatable()
+            ? $this->translatedRouteName($locale)
+            : $this->routeName();
+
+        if (blank($routeName) || blank($record = $this->record())) {
             return null;
         }
 
@@ -188,20 +196,22 @@ abstract class Blueprint implements BlueprintContract
             $settings = app(GeneralSettings::class);
 
             if ($settings->front_page === $record->id) {
-                return '/';
+                return $this->translatable()
+                    ? route($locale . '.front-page.show')
+                    : route('front-page.show');
             }
         }
 
         /** @var \Illuminate\Routing\Route */
-        $route = Route::getRoutes()->getByName($this->routeName());
-        $binds = $this->bindRouteParameters();
+        $route = Route::getRoutes()->getByName($routeName);
+        $binds = $this->bindRouteParameters($locale);
 
         if (! $includeSelf) {
             $parent = $this->hierarchical() ? $record->parent : null;
 
             $binds = [
                 ...$binds,
-                'slug' => $parent ? $this->computeHierarchicalPath($parent) : '',
+                'slug' => $parent ? $this->computeHierarchicalPath($parent, $locale) : '',
                 $this->modelSingularName() => null,
             ];
         }
@@ -209,11 +219,40 @@ abstract class Blueprint implements BlueprintContract
         return UrlManager::make()->getBindedUri($route, $binds);
     }
 
-    public function frontUrl(bool $includeSelf = true): ?string
+    public function frontUrl(bool $includeSelf = true, ?string $locale = null): ?string
     {
-        $uri = $this->frontUri($includeSelf);
+        $uri = $this->frontUri($includeSelf, $locale);
 
         return app('url')->to($uri);
+    }
+
+    public function alternates(bool $includeCurrentLocale = true): Collection
+    {
+        $alternates = new Collection();
+
+        if ($this->translatable() && $this->record() && method_exists($this->record(), 'getSupportedLocales')) {
+            foreach ($this->record()->getSupportedLocales() as $locale) {
+                if (!$includeCurrentLocale && $locale === app()->getLocale()) {
+                    continue;
+                }
+
+                $alternates->push(
+                    new Fluent([
+                        'locale' => $locale,
+                        'url' => $this->frontUrl(includeSelf: true, locale: $locale),
+                    ])
+                );
+            }
+        } elseif ($includeCurrentLocale) {
+            $alternates->push(
+                new Fluent([
+                    'locale' => app()->getLocale(),
+                    'url' => $this->frontUrl(includeSelf: true, locale: app()->getLocale()),
+                ])
+            );
+        }
+
+        return $alternates;
     }
 
     public function sitemapEntry(): Url|string|array|null
@@ -226,17 +265,23 @@ abstract class Blueprint implements BlueprintContract
             return null;
         }
 
-        return Url::create($this->frontUrl())
+        $url = Url::create($this->frontUrl())
             ->setLastModificationDate($record->updated_at)
             ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
             ->setPriority(0.5);
+
+        foreach ($this->alternates() as $alternate) {
+            $url->addAlternate($alternate->url, $alternate->locale);
+        }
+
+        return $url;
     }
 
-    public function bindRouteParameters(): array
+    public function bindRouteParameters(?string $locale = null): array
     {
         return [
             $this->modelSingularName() => $this->record(),
-            'slug' => $this->computeHierarchicalPath(),
+            'slug' => $this->computeHierarchicalPath(locale: $locale),
         ];
     }
 
