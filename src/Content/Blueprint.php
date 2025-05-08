@@ -2,16 +2,16 @@
 
 namespace Hydrat\GroguCMS\Content;
 
-use Illuminate\Support\Arr;
-use Spatie\Sitemap\Tags\Url;
-use Illuminate\Support\Fluent;
-use Hydrat\GroguCMS\UrlManager;
-use Illuminate\Support\Collection;
-use Hydrat\GroguCMS\Enums\PostStatus;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Database\Eloquent\Model;
-use Hydrat\GroguCMS\Settings\GeneralSettings;
 use Hydrat\GroguCMS\Contracts\BlueprintContract;
+use Hydrat\GroguCMS\Enums\PostStatus;
+use Hydrat\GroguCMS\Settings\GeneralSettings;
+use Hydrat\GroguCMS\UrlManager;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Fluent;
+use Spatie\Sitemap\Tags\Url;
 
 abstract class Blueprint implements BlueprintContract
 {
@@ -197,7 +197,7 @@ abstract class Blueprint implements BlueprintContract
 
             if ($settings->front_page === $record->id) {
                 return $this->translatable()
-                    ? route($locale . '.front-page.show')
+                    ? route($locale.'.front-page.show')
                     : route('front-page.show');
             }
         }
@@ -228,11 +228,11 @@ abstract class Blueprint implements BlueprintContract
 
     public function alternates(bool $includeCurrentLocale = true): Collection
     {
-        $alternates = new Collection();
+        $alternates = new Collection;
 
         if ($this->translatable() && $this->record() && method_exists($this->record(), 'getSupportedLocales')) {
             foreach ($this->record()->getSupportedLocales() as $locale) {
-                if (!$includeCurrentLocale && $locale === app()->getLocale()) {
+                if (! $includeCurrentLocale && $locale === app()->getLocale()) {
                     continue;
                 }
 

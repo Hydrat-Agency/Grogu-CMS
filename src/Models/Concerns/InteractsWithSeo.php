@@ -2,13 +2,13 @@
 
 namespace Hydrat\GroguCMS\Models\Concerns;
 
-use Spatie\Sitemap\Tags\Url;
 use Illuminate\Support\Collection;
-use Vormkracht10\Seo\Traits\HasSeoScore;
+use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
+use RalphJSmit\Laravel\SEO\Support\AlternateTag;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
-use RalphJSmit\Laravel\SEO\Support\AlternateTag;
-use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
+use Spatie\Sitemap\Tags\Url;
+use Vormkracht10\Seo\Traits\HasSeoScore;
 
 trait InteractsWithSeo
 {
