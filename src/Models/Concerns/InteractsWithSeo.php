@@ -17,7 +17,7 @@ trait InteractsWithSeo
 
     public function getUrlAttribute(): string
     {
-        return $this->blueprint()->frontUrl();
+        return $this->blueprint()->frontUrl(locale: app()->getLocale());
     }
 
     public function toSitemapTag(): Url|string|array

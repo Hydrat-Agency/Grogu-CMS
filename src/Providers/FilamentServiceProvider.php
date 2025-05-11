@@ -29,6 +29,20 @@ class FilamentServiceProvider extends ServiceProvider
                 ]);
         });
 
+        Column::macro('translatable', function (): Column {
+            /** @var Column $this */
+            $name = $this->getName();
+
+            return $this->formatStateUsing(function ($record, $livewire) use ($name) {
+                $blueprint = $record->blueprint();
+                $locale = $blueprint && $blueprint->translatable() && method_exists($livewire, 'getActiveActionsLocale')
+                    ? $livewire->getActiveActionsLocale()
+                    : null;
+
+                return $record->translate($name, $locale);
+            });
+        });
+
         $this->autoTranslateLabels([
             BaseFilter::class,
             Placeholder::class,

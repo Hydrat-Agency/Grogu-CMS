@@ -19,7 +19,13 @@ abstract class EditRecord extends BaseEditRecord
     public function getSubheading(): string|Htmlable|null
     {
         $blueprint = $this->getResource()::getBlueprint($this);
-        $url = $blueprint->frontUrl();
+        $locale = null;
+
+        if (method_exists($this, 'getActiveActionsLocale')) {
+            $locale = $this->getActiveActionsLocale();
+        }
+
+        $url = $blueprint->frontUrl(locale: $locale);
 
         $label = $this->record->status->getLabel();
         $color = $this->record->status->getColor();

@@ -20,21 +20,33 @@ interface BlueprintContract
 
     public function modelPluralName(): string;
 
+    public function modelSingularLabel(): string;
+
+    public function modelPluralLabel(): string;
+
     public function templates(): array;
 
     public function hierarchical(): bool;
 
-    public function computeHierarchicalPath(?Model $record = null): ?string;
+    public function translatable(): bool;
+
+    public function computeHierarchicalPath(?Model $record = null, ?string $locale = null): ?string;
 
     public function routeName(): ?string;
 
-    public function frontUri(bool $includeSelf = true): ?string;
+    public function translatedRouteName(string $locale): ?string;
 
-    public function frontUrl(bool $includeSelf = true): ?string;
+    public function showInMenus(): bool;
+
+    public function frontUri(bool $includeSelf = true, ?string $locale = null): ?string;
+
+    public function frontUrl(bool $includeSelf = true, ?string $locale = null): ?string;
+
+    public function alternates(bool $includeCurrentLocale = true): Collection;
 
     public function sitemapEntry(): Url|string|array|null;
 
-    public function bindRouteParameters(): array;
+    public function bindRouteParameters(?string $locale = null): array;
 
     public function hasTemplates(): bool;
 

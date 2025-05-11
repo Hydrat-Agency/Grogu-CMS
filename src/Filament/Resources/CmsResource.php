@@ -64,9 +64,13 @@ abstract class CmsResource extends Resource implements HasBlueprint
                         Forms\Components\TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
-                            ->prefix(
-                                fn () => Str::finish($blueprint->frontUrl(includeSelf: false), '/'),
-                            )
+                            ->prefix(function ($livewire) use ($blueprint) {
+                                $locale = $blueprint->translatable() && method_exists($livewire, 'getActiveActionsLocale')
+                                    ? $livewire->getActiveActionsLocale()
+                                    : null;
+
+                                return Str::finish($blueprint->frontUrl(includeSelf: false, locale: $locale), '/');
+                            })
                             ->columnSpanFull()
                             ->unique($form->getModel(), 'slug', ignoreRecord: true),
                         // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
@@ -213,11 +217,20 @@ abstract class CmsResource extends Resource implements HasBlueprint
             Tables\Columns\TextColumn::make('title')
                 ->sortable()
                 ->searchable()
-                ->description(fn (Model $record) => optional($record->blueprint())->frontUri()),
+                ->translatable()
+                ->description(function (Model $record, $livewire) {
+                    $blueprint = $record->blueprint();
+                    $locale = $blueprint && $blueprint->translatable() && method_exists($livewire, 'getActiveActionsLocale')
+                        ? $livewire->getActiveActionsLocale()
+                        : null;
+
+                    return optional($blueprint)->frontUri(locale: $locale);
+                }),
 
             Tables\Columns\TextColumn::make('slug')
                 ->sortable()
                 ->searchable()
+                ->translatable()
                 ->toggleable(isToggledHiddenByDefault: true),
 
             Tables\Columns\TextColumn::make('status')
