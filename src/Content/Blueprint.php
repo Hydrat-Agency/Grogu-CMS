@@ -2,17 +2,17 @@
 
 namespace Hydrat\GroguCMS\Content;
 
+use Hydrat\GroguCMS\Contracts\BlueprintContract;
+use Hydrat\GroguCMS\Enums\PostStatus;
+use Hydrat\GroguCMS\Settings\GeneralSettings;
+use Hydrat\GroguCMS\UrlManager;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 use Spatie\Sitemap\Tags\Url;
-use Illuminate\Support\Fluent;
-use Hydrat\GroguCMS\UrlManager;
-use Illuminate\Support\Collection;
-use Hydrat\GroguCMS\Enums\PostStatus;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Database\Eloquent\Model;
-use Hydrat\GroguCMS\Settings\GeneralSettings;
-use Hydrat\GroguCMS\Contracts\BlueprintContract;
 
 abstract class Blueprint implements BlueprintContract
 {
@@ -36,8 +36,7 @@ abstract class Blueprint implements BlueprintContract
 
     public function __construct(
         protected ?Model $record = null,
-    ) {
-    }
+    ) {}
 
     public function hasRecord(): bool
     {
