@@ -7,11 +7,11 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
 use Hydrat\GroguCMS\Filament\Concerns\InteractsWithBlueprint;
 use Hydrat\GroguCMS\Filament\Contracts\HasBlueprint;
 use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages;
 use Hydrat\GroguCMS\Models\Section;
-use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
 
 class SectionResource extends Resource implements HasBlueprint
 {

@@ -8,9 +8,9 @@ use Filament\Resources\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
-use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
 
 class FormResource extends Resource
 {

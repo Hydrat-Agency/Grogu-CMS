@@ -2,11 +2,11 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
-use Hydrat\GroguCMS\Facades\GroguCMS;
 use Filament\Resources\Pages\CreateRecord;
-use Hydrat\GroguCMS\Filament\Resources\FormResource;
 use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
 use Hydrat\FilamentLexiTranslate\Resources\Pages\CreateRecord\Concerns\Translatable;
+use Hydrat\GroguCMS\Facades\GroguCMS;
+use Hydrat\GroguCMS\Filament\Resources\FormResource;
 
 class CreateForm extends CreateRecord
 {

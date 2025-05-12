@@ -7,8 +7,8 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Hydrat\FilamentLexiTranslate\Tables\Actions\LocaleSwitcher;
 use Hydrat\FilamentLexiTranslate\Resources\RelationManagers\Concerns\Translatable;
+use Hydrat\FilamentLexiTranslate\Tables\Actions\LocaleSwitcher;
 
 class FieldsRelationManager extends RelationManager
 {

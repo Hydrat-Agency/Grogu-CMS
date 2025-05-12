@@ -11,9 +11,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 use Nevadskiy\Tree\AsTree;
 use Nevadskiy\Tree\Collections\NodeCollection;
+use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
-use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
 
 class MenuItem extends Model implements Resourceable, Sortable
 {
@@ -22,8 +22,8 @@ class MenuItem extends Model implements Resourceable, Sortable
         joinAncestors as joinAncestorsTrait;
     }
     use HasFactory;
-    use SortableTrait;
     use LexiTranslatable;
+    use SortableTrait;
 
     /**
      * The attributes that are mass assignable.

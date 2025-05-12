@@ -3,21 +3,21 @@
 namespace Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
 
 use Filament\Actions;
+use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
+use Hydrat\FilamentLexiTranslate\Resources\Pages\EditRecord\Concerns\Translatable;
 use Hydrat\GroguCMS\Collections\BlockCollection;
+use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditRecord;
 use Hydrat\GroguCMS\Filament\Resources\PageResource;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;
 use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
-use Hydrat\GroguCMS\Facades\GroguCMS;
-use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
-use Hydrat\FilamentLexiTranslate\Resources\Pages\EditRecord\Concerns\Translatable;
 
 class EditPage extends EditRecord
 {
-    use Translatable;
     use HasPreviewModal;
+    use Translatable;
 
     protected static ?string $navigationIcon = 'phosphor-pencil';
 
