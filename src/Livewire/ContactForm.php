@@ -58,7 +58,7 @@ class ContactForm extends Component
         }
 
         $this->data = [];
-        $this->onSuccessMessage = $this->form->submit_success_message;
+        $this->onSuccessMessage = $this->form->translate('submit_success_message');
 
         $this->dispatch('form-submitted', $formEntry);
     }

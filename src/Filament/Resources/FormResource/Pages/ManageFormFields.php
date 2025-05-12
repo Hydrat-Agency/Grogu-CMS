@@ -3,19 +3,24 @@
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Tables;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
-use Filament\Resources\Pages\ManageRelatedRecords;
-use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Hydrat\GroguCMS\Enums\FormFieldType;
-use Hydrat\GroguCMS\Filament\Resources\FormResource;
-use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Str;
+use Hydrat\GroguCMS\Facades\GroguCMS;
+use Hydrat\GroguCMS\Enums\FormFieldType;
+use Illuminate\Contracts\Support\Htmlable;
+use Filament\Resources\Pages\ManageRelatedRecords;
+use Hydrat\GroguCMS\Filament\Resources\FormResource;
+use Hydrat\FilamentLexiTranslate\Tables\Actions\LocaleSwitcher;
+use Hydrat\FilamentLexiTranslate\Resources\RelationManagers\Concerns\Translatable;
 
 class ManageFormFields extends ManageRelatedRecords
 {
+    use Translatable;
+
     protected static string $relationship = 'fields';
 
     protected static ?string $navigationIcon = 'radix-section'; // heroicon-o-queue-list
@@ -197,7 +202,8 @@ class ManageFormFields extends ManageRelatedRecords
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->translatable(),
 
                 Tables\Columns\TextColumn::make('type')
                     ->badge()
@@ -230,6 +236,8 @@ class ManageFormFields extends ManageRelatedRecords
                 //
             ])
             ->headerActions([
+                ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
+
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([

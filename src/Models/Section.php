@@ -25,4 +25,13 @@ class Section extends CmsModel
         'location',
         'blocks',
     ];
+
+    /**
+     * The list of translatable fields for the model.
+     *
+     * @var array
+     */
+    protected $translatableFields = [
+        'blocks',
+    ];
 }

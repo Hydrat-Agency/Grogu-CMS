@@ -10,9 +10,13 @@ use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Facades\Auth;
 use Pboivin\FilamentPeek\Pages\Actions\PreviewAction;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
+use Hydrat\GroguCMS\Facades\GroguCMS;
+use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
+use Hydrat\FilamentLexiTranslate\Resources\Pages\EditRecord\Concerns\Translatable;
 
 class EditPage extends EditRecord
 {
+    use Translatable;
     use HasPreviewModal;
 
     protected static ?string $navigationIcon = 'phosphor-pencil';
@@ -69,6 +73,7 @@ class EditPage extends EditRecord
     {
         return [
             PreviewAction::make(),
+            ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
             Actions\DeleteAction::make(),
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),

@@ -2,17 +2,19 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Hydrat\GroguCMS\Enums\FormFieldType;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations;
 use Spatie\EloquentSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
+use Hydrat\GroguCMS\Enums\FormFieldType;
 use Spatie\EloquentSortable\SortableTrait;
+use Illuminate\Database\Eloquent\Relations;
+use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class FormField extends Model implements Sortable
 {
     use HasFactory;
     use SortableTrait;
+    use LexiTranslatable;
 
     /**
      * The attributes that are mass assignable.
@@ -37,6 +39,18 @@ class FormField extends Model implements Sortable
         'min_date',
         'max_date',
         'hidden_label',
+    ];
+
+    /**
+     * The list of translatable fields for the model.
+     *
+     * @var array
+     */
+    protected $translatableFields = [
+        'name',
+        'content',
+        'placeholder',
+        'helper_text',
     ];
 
     /**

@@ -2,19 +2,20 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Hydrat\GroguCMS\Enums\PostStatus;
 use Hydrat\GroguCMS\Events;
+use Illuminate\Support\Fluent;
+use Spatie\MediaLibrary\HasMedia;
+use Hydrat\GroguCMS\Enums\PostStatus;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Spatie\Sitemap\Contracts\Sitemapable;
+use Illuminate\Database\Eloquent\Relations;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
 use Hydrat\GroguCMS\Models\Contracts as CmsContracts;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations;
-use Illuminate\Support\Fluent;
+use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
 use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
-use Spatie\MediaLibrary\HasMedia;
-use Spatie\MediaLibrary\InteractsWithMedia;
-use Spatie\Sitemap\Contracts\Sitemapable;
 
 abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsContracts\HasBlueprint, CmsContracts\HasSeo, HasMedia, Sitemapable
 {
@@ -23,6 +24,7 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
     use CmsConcerns\InteractsWithBlueprint;
     use CmsConcerns\InteractsWithSeo;
     use InteractsWithMedia;
+    use LexiTranslatable;
 
     /**
      * The attributes that are mass assignable.
@@ -37,6 +39,19 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
         'status',
         'slug',
         'template',
+        'content',
+        'excerpt',
+        'blocks',
+    ];
+
+    /**
+     * The list of translatable fields for the model.
+     *
+     * @var array
+     */
+    protected $translatableFields = [
+        'title',
+        'slug',
         'content',
         'excerpt',
         'blocks',

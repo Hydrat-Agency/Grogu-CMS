@@ -10,9 +10,12 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
+use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
 
 class FormResource extends Resource
 {
+    use Translatable;
+
     protected static ?string $navigationIcon = 'heroicon-o-inbox-arrow-down';
 
     protected static ?string $recordTitleAttribute = 'name';

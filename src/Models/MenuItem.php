@@ -13,6 +13,7 @@ use Nevadskiy\Tree\AsTree;
 use Nevadskiy\Tree\Collections\NodeCollection;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
+use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
 
 class MenuItem extends Model implements Resourceable, Sortable
 {
@@ -22,6 +23,7 @@ class MenuItem extends Model implements Resourceable, Sortable
     }
     use HasFactory;
     use SortableTrait;
+    use LexiTranslatable;
 
     /**
      * The attributes that are mass assignable.
@@ -39,6 +41,15 @@ class MenuItem extends Model implements Resourceable, Sortable
         'anchor',
         'external',
         'new_tab',
+    ];
+
+    /**
+     * The list of translatable fields for the model.
+     *
+     * @var array
+     */
+    protected $translatableFields = [
+        'title',
     ];
 
     /**

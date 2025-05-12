@@ -153,6 +153,11 @@ class GroguCMS
         return $this;
     }
 
+    public function isTranslatableEnabled(): bool
+    {
+        return config('grogu-cms.translatable', false);
+    }
+
     public function menuLocations(): Collection
     {
         $shouldTranslate = config('grogu-cms.menus.translate_labels');

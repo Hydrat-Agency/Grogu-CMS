@@ -4,20 +4,24 @@ namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
 use Closure;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
-use Filament\Tables\Grouping\Group;
+use Filament\Forms\Get;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Hydrat\GroguCMS\Facades\GroguCMS;
-use Hydrat\GroguCMS\Models\MenuItem;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Filament\Tables\Grouping\Group;
+use Hydrat\GroguCMS\Models\MenuItem;
+use Hydrat\GroguCMS\Facades\GroguCMS;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Filament\Resources\RelationManagers\RelationManager;
+use Hydrat\FilamentLexiTranslate\Tables\Actions\LocaleSwitcher;
+use Hydrat\FilamentLexiTranslate\Resources\RelationManagers\Concerns\Translatable;
 
 class ItemsRelationManager extends RelationManager
 {
+    use Translatable;
+
     protected static string $relationship = 'items';
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
@@ -117,7 +121,8 @@ class ItemsRelationManager extends RelationManager
             ->columns([
                 Tables\Columns\TextColumn::make('title')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->translatable(),
 
                 Tables\Columns\TextColumn::make('parent.title')
                     ->sortable()
@@ -150,6 +155,8 @@ class ItemsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
+                ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
+
                 Tables\Actions\CreateAction::make()
                     ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
                     ->after(fn () => $this->dispatch('refreshTree')),

@@ -15,6 +15,10 @@
         {
             "type": "composer",
             "url": "https://satis.ralphjsmit.com"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/tgeorgel/lexi-translate.git"
         }
     ],
     "license": "MIT",
@@ -38,6 +42,7 @@
         "jeffgreco13/filament-breezy": "^2.2",
         "lorisleiva/laravel-actions": "^2.7",
         "nevadskiy/laravel-tree": "^0.5.0",
+        "omaralalwi/lexi-translate": "dev-master",
         "pboivin/filament-peek": "^2.2",
         "ralphjsmit/laravel-filament-media-library": "^3.8",
         "ralphjsmit/laravel-seo": "^1.6",

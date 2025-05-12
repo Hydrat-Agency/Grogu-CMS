@@ -7,9 +7,13 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Hydrat\FilamentLexiTranslate\Tables\Actions\LocaleSwitcher;
+use Hydrat\FilamentLexiTranslate\Resources\RelationManagers\Concerns\Translatable;
 
 class FieldsRelationManager extends RelationManager
 {
+    use Translatable;
+
     protected static string $relationship = 'fields';
 
     public function form(Form $form): Form
@@ -18,7 +22,8 @@ class FieldsRelationManager extends RelationManager
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->translatable(),
             ]);
     }
 
@@ -33,6 +38,8 @@ class FieldsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
+                ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
+
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([

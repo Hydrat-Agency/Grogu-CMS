@@ -9,9 +9,11 @@ use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
 
 class PageResource extends CmsResource
 {
+    use Translatable;
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?int $navigationSort = 100;

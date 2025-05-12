@@ -3,11 +3,15 @@
 namespace Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages;
 
 use Filament\Actions;
+use Hydrat\GroguCMS\Facades\GroguCMS;
 use Filament\Resources\Pages\ListRecords;
 use Hydrat\GroguCMS\Filament\Resources\SectionResource;
+use Hydrat\FilamentLexiTranslate\Resources\Pages\ListRecords\Concerns\Translatable;
 
 class ListSections extends ListRecords
 {
+    use Translatable;
+
     /**
      * @return class-string
      */
@@ -19,6 +23,7 @@ class ListSections extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
             Actions\CreateAction::make(),
         ];
     }

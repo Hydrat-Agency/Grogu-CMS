@@ -3,11 +3,16 @@
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
 use Filament\Actions;
+use Hydrat\GroguCMS\Facades\GroguCMS;
 use Filament\Resources\Pages\EditRecord;
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
+use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
+use Hydrat\FilamentLexiTranslate\Resources\Pages\EditRecord\Concerns\Translatable;
 
 class EditForm extends EditRecord
 {
+    use Translatable;
+
     /**
      * @return class-string
      */
@@ -24,6 +29,7 @@ class EditForm extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
+            ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
             Actions\DeleteAction::make(),
         ];
     }
