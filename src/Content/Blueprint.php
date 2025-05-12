@@ -36,8 +36,7 @@ abstract class Blueprint implements BlueprintContract
 
     public function __construct(
         protected ?Model $record = null,
-    ) {
-    }
+    ) {}
 
     public function hasRecord(): bool
     {
