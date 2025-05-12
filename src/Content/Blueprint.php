@@ -36,7 +36,8 @@ abstract class Blueprint implements BlueprintContract
 
     public function __construct(
         protected ?Model $record = null,
-    ) {}
+    ) {
+    }
 
     public function hasRecord(): bool
     {
@@ -174,7 +175,7 @@ abstract class Blueprint implements BlueprintContract
         $parent = $record;
 
         while ($parent) {
-            $extends[] = grogu_translate($record, 'slug', $locale);
+            $extends[] = grogu_translate($parent, 'slug', $locale);
             $parent = $parent->parent()->select('id', 'parent_id', 'slug')->first();
         }
 

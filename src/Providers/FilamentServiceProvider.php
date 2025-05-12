@@ -33,13 +33,20 @@ class FilamentServiceProvider extends ServiceProvider
             /** @var Column $this */
             $name = $this->getName();
 
-            return $this->formatStateUsing(function ($record, $livewire) use ($name) {
-                $blueprint = $record->blueprint();
-                $locale = $blueprint && $blueprint->translatable() && method_exists($livewire, 'getActiveActionsLocale')
-                    ? $livewire->getActiveActionsLocale()
-                    : null;
+            return $this->formatStateUsing(function ($state, $record, $livewire) use ($name) {
+                if (method_exists($record, 'blueprint')) {
+                    $blueprint = $record->blueprint();
 
-                return $record->translate($name, $locale);
+                    $translatable = $blueprint && $blueprint->translatable() && method_exists($livewire, 'getActiveActionsLocale');
+                } else {
+                    $translatable = method_exists($livewire, 'getActiveActionsLocale');
+                }
+
+                if ($translatable) {
+                    return $record->translate($name, $livewire->getActiveActionsLocale());
+                }
+
+                return $state;
             });
         });
 

@@ -155,7 +155,14 @@ abstract class CmsResource extends Resource implements HasBlueprint
             ->actions([
                 Tables\Actions\Action::make('visit')
                     ->iconSoftButton('heroicon-o-arrow-up-right')
-                    ->url(fn (Model $record) => optional($record->blueprint())->frontUrl())
+                    ->url(function (Model $record, $livewire) {
+                        $blueprint = $record->blueprint();
+                        $locale = $blueprint && $blueprint->translatable() && method_exists($livewire, 'getActiveActionsLocale')
+                            ? $livewire->getActiveActionsLocale()
+                            : null;
+
+                        return optional($blueprint)->frontUrl(locale: $locale);
+                    })
                     ->openUrlInNewTab(),
 
                 Tables\Actions\ReplicateAction::make()
