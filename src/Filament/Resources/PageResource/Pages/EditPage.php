@@ -72,8 +72,8 @@ class EditPage extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            PreviewAction::make(),
             ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
+            PreviewAction::make(),
             Actions\DeleteAction::make(),
             Actions\ForceDeleteAction::make(),
             Actions\RestoreAction::make(),

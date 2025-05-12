@@ -7,6 +7,7 @@ use Filament\Resources\Pages\ListRecords;
 use Hydrat\FilamentLexiTranslate\Resources\Pages\ListRecords\Concerns\Translatable;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Filament\Resources\SectionResource;
+use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
 
 class ListSections extends ListRecords
 {
