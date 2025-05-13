@@ -2,19 +2,19 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
+use Throwable;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Forms\Get;
-use Illuminate\Contracts\Support\Htmlable;
-use Illuminate\Database\Eloquent\Model;
+use Filament\Forms\Form;
 use Illuminate\Support\Arr;
 use Illuminate\Support\HtmlString;
-use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Support\Htmlable;
 use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
-use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
+use Pboivin\FilamentPeek\Pages\Concerns\HasBuilderPreview;
 use Schmeits\FilamentCharacterCounter\Forms\Components\Textarea;
 use Schmeits\FilamentCharacterCounter\Forms\Components\TextInput;
-use Throwable;
+use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
 
 abstract class EditRecordSeo extends EditRecord
 {
@@ -41,20 +41,27 @@ abstract class EditRecordSeo extends EditRecord
             $seoDefault = null;
         }
 
+        $titleSuffixEnabled = match (true) {
+            $this->getRecord() && method_exists($this->getRecord(), 'enableTitleSuffix') => $this->getRecord()->enableTitleSuffix(),
+            $this->getRecord() && property_exists($this->getRecord(), 'enableTitleSuffix') => $this->getRecord()->enableTitleSuffix,
+            default => true,
+        };
+
         return $form
             ->columns(1)
             ->schema([
                 Forms\Components\Section::make(__('SEO Details'))
                     ->columns(2)
+                    ->relationship('seo')
                     ->schema([
-                        TextInput::make('seo.title')
+                        TextInput::make('title')
                             ->placeholder(fn () => $seoDefault?->title)
-                            ->suffix(config('seo.title.suffix'))
+                            ->suffix($titleSuffixEnabled ? config('seo.title.suffix') : '')
                             ->columnSpanFull()
                             ->live(debounce: 250)
                             ->characterLimit(60),
 
-                        Textarea::make('seo.description')
+                        Textarea::make('description')
                             ->maxLength(65535)
                             ->rows(5)
                             ->helperText(__('A short description used on social previews and Google vignette.'))
@@ -67,10 +74,10 @@ abstract class EditRecordSeo extends EditRecord
                         //     ->image()
                         //     ->columnSpanFull(),
 
-                        MediaPicker::make('seo.image')
+                        MediaPicker::make('image')
                             ->acceptedFileTypes(['image/*']),
 
-                        Forms\Components\Select::make('seo.robots')
+                        Forms\Components\Select::make('robots')
                             ->native(true)
                             ->options([
                                 'index, follow' => __('Index, Follow'),
@@ -84,7 +91,7 @@ abstract class EditRecordSeo extends EditRecord
 
                 Forms\Components\Placeholder::make('preview')
                     ->label(__('Preview'))
-                    ->content(function (Model $record, Get $get) {
+                    ->content(function (Model $record, Get $get) use ($titleSuffixEnabled) {
                         if (method_exists($record, 'getDynamicSEOData')) {
                             $seo = $record->getDynamicSEOData();
                         } else {
@@ -93,14 +100,14 @@ abstract class EditRecordSeo extends EditRecord
 
                         $title = $get('seo.title') ?: $seo->title;
                         $description = $get('seo.description') ?: $seo->description;
-                        $suffix = config('seo.title.suffix');
+                        $suffix = $titleSuffixEnabled ? config('seo.title.suffix') : '';
 
                         return new HtmlString(<<<HTML
-                                <div class="grogu-google-preview">
-                                    <div class="grogu-google-preview-title">$title$suffix</div>
-                                    <div class="grogu-google-preview-description">$description</div>
-                                </div>
-                            HTML);
+                            <div class="grogu-google-preview">
+                                <div class="grogu-google-preview-title">{$title}{$suffix}</div>
+                                <div class="grogu-google-preview-description">{$description}</div>
+                            </div>
+                        HTML);
                     }),
             ]);
     }
@@ -112,27 +119,46 @@ abstract class EditRecordSeo extends EditRecord
         ];
     }
 
-    /**
-     * @param  array<string, mixed>  $data
-     * @return array<string, mixed>
-     */
-    protected function mutateFormDataBeforeFill(array $data): array
+    protected function mutateLocaleDataBeforeFill(array $data, string $locale): array
     {
-        data_set($data, 'seo', $this->record->seo?->toArray() ?: []);
+        $record = $this->getRecord();
 
-        return $data;
+        $seoData = Arr::get($data, 'seo', []);
+        $translatableAttributes = $record->seo->getTranslatableFields();
+        $translatedData = [...$seoData];
+        // $translatedData = [...$seoData, ...Arr::except($record->seo->toArray(), $translatableAttributes)];
+
+        foreach ($translatableAttributes as $attribute) {
+            $translatedData[$attribute] = $record->seo->transAttr($attribute, $locale);
+        }
+
+        return [...$data, 'seo' => $translatedData];
     }
 
-    /**
-     * @param  array<string, mixed>  $data
-     * @return array<string, mixed>
-     */
-    protected function mutateFormDataBeforeSave(array $data): array
+    protected function preserveLocaleDataKeys(array $keys): array
     {
-        $seo = Arr::pull($data, 'seo', []);
+        return [...$keys, 'seo'];
+    }
 
-        $this->record->seo?->fill($seo)->save();
+    protected function handleRecordLocaleUpdate(Model $record, array $data, string $locale, bool $isDefaultLocale): void
+    {
+        $seoData = Arr::get($data, 'seo', []);
+        $seoRecord = $record->seo ?? $record->seo()->make();
 
-        return $data;
+        $translatableAttributes = $seoRecord->getTranslatableFields();
+
+        if ($isDefaultLocale) {
+            $seoRecord->fill($seoData);
+        } else {
+            $seoRecord->fill(Arr::except($seoData, $translatableAttributes));
+        }
+
+        foreach (Arr::only($seoData, $translatableAttributes) as $key => $value) {
+            if (filled($value)) {
+                $seoRecord->setTranslation($key, $locale, $value);
+            }
+        }
+
+        $seoRecord->save();
     }
 }
