@@ -3,10 +3,10 @@
 namespace Hydrat\GroguCMS\Http\Middleware;
 
 use Closure;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Omaralalwi\LexiTranslate\Traits\HasLocale;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -28,7 +28,7 @@ class SetLocale
         return $next($request);
     }
 
-    protected function setupLocaleForRequest(Request $request): string | RedirectResponse
+    protected function setupLocaleForRequest(Request $request): string|RedirectResponse
     {
         $savedLocale = session('locale') ?: cookie('locale');
         $locale = $this->getValidatedLocale($locale) ?: app()->getLocale();
@@ -49,7 +49,7 @@ class SetLocale
         return $locale;
     }
 
-    protected function detectBrowserLocale(Request $request): string | RedirectResponse
+    protected function detectBrowserLocale(Request $request): string|RedirectResponse
     {
         $browserLocale = $this->getValidatedLocale(substr($request->server('HTTP_ACCEPT_LANGUAGE'), 0, 2));
 

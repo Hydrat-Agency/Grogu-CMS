@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use RalphJSmit\Laravel\SEO\Models\SEO as SEOModel;
 use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
+use RalphJSmit\Laravel\SEO\Models\SEO as SEOModel;
 use RalphJSmit\Laravel\SEO\Support\SEOData;
 
 class SEO extends SEOModel
