@@ -37,7 +37,7 @@
         "filament/filament": "^3.0",
         "filament/spatie-laravel-settings-plugin": "^3.1",
         "grantholle/laravel-altcha": "^1.1",
-        "hydrat/filament-lexi-translatable": "dev-main",
+        "hydrat/filament-lexi-translatable": "^v0.1.0",
         "hydrat/filament-table-layout-toggle": ">=1.1",
         "illuminate/contracts": ">=10.0",
         "jeffgreco13/filament-breezy": "^2.2",
