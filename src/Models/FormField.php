@@ -2,13 +2,14 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Hydrat\GroguCMS\Enums\FormFieldType;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations;
-use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
 use Spatie\EloquentSortable\Sortable;
+use Illuminate\Database\Eloquent\Model;
+use Hydrat\GroguCMS\Enums\FormFieldType;
 use Spatie\EloquentSortable\SortableTrait;
+use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class FormField extends Model implements Sortable
 {
@@ -24,6 +25,7 @@ class FormField extends Model implements Sortable
     protected $fillable = [
         'form_id',
         'name',
+        'label',
         'content',
         'type',
         'options',
@@ -48,6 +50,7 @@ class FormField extends Model implements Sortable
      */
     protected $translatableFields = [
         'name',
+        'label',
         'content',
         'placeholder',
         'helper_text',
@@ -81,8 +84,13 @@ class FormField extends Model implements Sortable
         return static::query()->where('form_id', $this->form_id);
     }
 
-    public function getKeyAttribute()
+    protected function key(): Attribute
     {
-        return "q{$this->id}";
+        return Attribute::get(fn () => "q{$this->id}");
+    }
+
+    protected function displayLabel(): Attribute
+    {
+        return Attribute::get(fn () => $this->translate('label') ?: $this->translate('name'));
     }
 }

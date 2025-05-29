@@ -23,7 +23,7 @@
             @case (FormFieldType::Text)
               <x-grogu-cms::forms.input
                 type="text"
-                :label="$field->name"
+                :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
                 :helperText="$field->translate('helper_text')"
@@ -34,7 +34,7 @@
             @case (FormFieldType::Email)
               <x-grogu-cms::forms.input
                 type="email"
-                :label="$field->name"
+                :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
                 :helperText="$field->translate('helper_text')"
@@ -45,7 +45,7 @@
             @case (FormFieldType::Telephone)
               <x-grogu-cms::forms.input
                 type="tel"
-                :label="$field->name"
+                :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
                 :helperText="$field->translate('helper_text')"
@@ -56,7 +56,7 @@
             @case (FormFieldType::Textarea)
               <x-grogu-cms::forms.textarea
                 type="email"
-                :label="$field->name"
+                :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
                 :helperText="$field->translate('helper_text')"
@@ -67,7 +67,7 @@
               @break
             @case (FormFieldType::Select)
               <x-grogu-cms::forms.select
-                :label="$field->name"
+                :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
                 :helperText="$field->translate('helper_text')"

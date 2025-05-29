@@ -56,7 +56,11 @@ class ManageFormFields extends ManageRelatedRecords
                     ->schema([
                         Forms\Components\TextInput::make('name')
                             ->required()
-                            ->columnSpan('full'),
+                            ->live(debounce: 300),
+
+                        Forms\Components\TextInput::make('label')
+                            ->translateLabel(false)
+                            ->placeholder(fn (Get $get) => $get('name')),
 
                         Forms\Components\Select::make('type')
                             ->required()

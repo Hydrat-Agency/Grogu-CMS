@@ -197,6 +197,7 @@ class GroguCMSServiceProvider extends PackageServiceProvider
             'create_pages_table',
             'create_sections_table',
             'add_hidden_label_to_form_fields_table',
+            'add_label_field_to_form_fields_table',
         ];
     }
 }
