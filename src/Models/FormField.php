@@ -2,14 +2,14 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Spatie\EloquentSortable\Sortable;
-use Illuminate\Database\Eloquent\Model;
 use Hydrat\GroguCMS\Enums\FormFieldType;
-use Spatie\EloquentSortable\SortableTrait;
-use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations;
+use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
 class FormField extends Model implements Sortable
 {
