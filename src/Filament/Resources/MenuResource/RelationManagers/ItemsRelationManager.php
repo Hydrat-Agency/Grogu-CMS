@@ -204,6 +204,8 @@ class ItemsRelationManager extends RelationManager
 
     protected function mutateDataBeforeSaving(array $data): array
     {
+        $data['menu_id'] = $this->getOwnerRecord()?->id;
+
         if (isset($data['path'])) {
             unset($data['path']);
         }
