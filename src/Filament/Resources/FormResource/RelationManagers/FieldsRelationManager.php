@@ -40,7 +40,8 @@ class FieldsRelationManager extends RelationManager
             ->headerActions([
                 ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
 
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->mutateFormDataUsing(fn (array $data): array => $this->mutateDataBeforeSaving($data)),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

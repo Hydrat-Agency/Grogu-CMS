@@ -242,8 +242,9 @@ class ManageFormFields extends ManageRelatedRecords
             ->headerActions([
                 ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
 
-                Tables\Actions\CreateAction::make(),
-            ])
+                Tables\Actions\CreateAction::make()
+                    ->mutateFormDataUsing(fn (array $data): array => $this->mutateDataBeforeSaving($data)),
+                ])
             ->actions([
                 Tables\Actions\ReplicateAction::make()->iconSoftButton('heroicon-o-square-2-stack'),
                 Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
@@ -255,5 +256,12 @@ class ManageFormFields extends ManageRelatedRecords
                 ]),
             ])
             ->emptyStateDescription(__('Create a new field to get started.'));
+    }
+
+    protected function mutateDataBeforeSaving(array $data): array
+    {
+        $data['form_id'] = $this->getRecord()?->id;
+
+        return $data;
     }
 }
