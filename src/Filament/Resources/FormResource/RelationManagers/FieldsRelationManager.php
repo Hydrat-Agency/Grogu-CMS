@@ -52,4 +52,11 @@ class FieldsRelationManager extends RelationManager
                 ]),
             ]);
     }
+
+    protected function mutateDataBeforeSaving(array $data): array
+    {
+        $data['form_id'] = $this->getOwnerRecord()?->id;
+
+        return $data;
+    }
 }
