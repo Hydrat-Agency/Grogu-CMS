@@ -244,7 +244,7 @@ class ManageFormFields extends ManageRelatedRecords
 
                 Tables\Actions\CreateAction::make()
                     ->mutateFormDataUsing(fn (array $data): array => $this->mutateDataBeforeSaving($data)),
-                ])
+            ])
             ->actions([
                 Tables\Actions\ReplicateAction::make()->iconSoftButton('heroicon-o-square-2-stack'),
                 Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
