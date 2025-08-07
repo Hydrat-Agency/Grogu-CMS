@@ -7,6 +7,7 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Fluent;
 use JsonSerializable;
+use Hydrat\GroguCMS\Facades\GroguCMS;
 
 class Block implements Jsonable, JsonSerializable
 {
@@ -52,6 +53,15 @@ class Block implements Jsonable, JsonSerializable
     public function with(array $data = []): self
     {
         $this->data = new FluentPlus(array_merge($this->data->toArray(), $data));
+
+        return $this;
+    }
+
+    public function compose(): self
+    {
+        foreach (GroguCMS::getBlockComposers($this->type) as $composer) {
+            with(new $composer)->compose($this);
+        }
 
         return $this;
     }
