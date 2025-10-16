@@ -3,15 +3,15 @@
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
 use Filament\Forms;
-use Filament\Tables;
 use Filament\Forms\Form;
-use Filament\Tables\Table;
-use Illuminate\Support\Arr;
-use Hydrat\GroguCMS\Models\FormField;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Contracts\Support\Htmlable;
 use Filament\Resources\Pages\ManageRelatedRecords;
+use Filament\Tables;
+use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
+use Hydrat\GroguCMS\Models\FormField;
+use Illuminate\Contracts\Support\Htmlable;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Arr;
 
 class ManageFormEntries extends ManageRelatedRecords
 {
@@ -64,7 +64,7 @@ class ManageFormEntries extends ManageRelatedRecords
         $userDefinedColumns = $this->getOwnerRecord()
             ->fields()
             ->whereIn('id', $userDefinedColumns)
-            ->orderByRaw('FIELD(id, ' . implode(',', $userDefinedColumns) . ')')
+            ->orderByRaw('FIELD(id, '.implode(',', $userDefinedColumns).')')
             ->get()
             ->map(
                 fn (FormField $field) => Tables\Columns\TextColumn::make($field->key)
