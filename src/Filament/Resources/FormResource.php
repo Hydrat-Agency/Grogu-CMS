@@ -66,6 +66,17 @@ class FormResource extends Resource
 
                 Forms\Components\TextInput::make('notify_emails')
                     ->maxLength(255),
+
+                Forms\Components\Repeater::make('entry_columns')
+                    ->helperText(__('Define the columns displayed in the entries list. You need to define fields first in the "Fields" section.'))
+                    ->columnSpanFull()
+                    ->grid(3)
+                    ->columns(1)
+                    ->schema([
+                        Forms\Components\Select::make('column')
+                            ->options(fn ($record) => $record->fields()->pluck('name', 'id'))
+                            ->required(),
+                    ]),
             ]);
     }
 

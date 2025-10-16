@@ -23,6 +23,7 @@ class Form extends Model
         'submit_success_message',
         'notify_subject',
         'notify_emails',
+        'entry_columns',
     ];
 
     /**
@@ -34,6 +35,15 @@ class Form extends Model
         'name',
         'submit_button_label',
         'submit_success_message',
+    ];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'entry_columns' => 'array',
     ];
 
     public function fields(): Relations\HasMany

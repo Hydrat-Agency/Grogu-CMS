@@ -126,6 +126,8 @@
     "Warning": "Attention",
     "This welcome link will expire in :count hours.": "Ce lien de bienvenue expirera dans :count heures.",
     "Duplicated content can have a negative impact on your website's SEO score.": "Le contenu dupliqué peut avoir un impact négatif sur le score SEO de votre site web.",
+    "Entry columns": "Colonnes des entrées",
+    "Define the columns displayed in the entries list. You need to define fields first in the \"Fields\" section.": "Définissez les colonnes affichées dans la liste des entrées. Vous devez définir les champs d'abord dans la section \"Champs\".",
     "Manage form entries": "Gérer les entrées de formulaire",
     "Submit button label": "Intitulé bouton de soumission",
     "New form submission": "Nouvelle entrée de formulaire",
