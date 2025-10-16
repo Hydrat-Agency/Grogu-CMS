@@ -72,8 +72,9 @@ class FormResource extends Resource
                     ->columnSpanFull()
                     ->grid(3)
                     ->columns(1)
+                    ->addActionLabel(__('Add field'))
                     ->schema([
-                        Forms\Components\Select::make('column')
+                        Forms\Components\Select::make('field')
                             ->options(fn ($record) => $record->fields()->pluck('name', 'id'))
                             ->required(),
                     ]),

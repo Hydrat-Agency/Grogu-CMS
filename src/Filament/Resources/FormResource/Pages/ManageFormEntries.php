@@ -3,12 +3,15 @@
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Hydrat\GroguCMS\Filament\Resources\FormResource;
+use Illuminate\Support\Arr;
+use Hydrat\GroguCMS\Models\FormField;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Support\Htmlable;
+use Filament\Resources\Pages\ManageRelatedRecords;
+use Hydrat\GroguCMS\Filament\Resources\FormResource;
 
 class ManageFormEntries extends ManageRelatedRecords
 {
@@ -56,17 +59,69 @@ class ManageFormEntries extends ManageRelatedRecords
 
     public function table(Table $table): Table
     {
+        $userDefinedColumns = Arr::pluck($this->getOwnerRecord()->entry_columns ?? [], 'field');
+
+        $userDefinedColumns = $this->getOwnerRecord()
+            ->fields()
+            ->whereIn('id', $userDefinedColumns)
+            ->orderByRaw('FIELD(id, ' . implode(',', $userDefinedColumns) . ')')
+            ->get()
+            ->map(
+                fn (FormField $field) => Tables\Columns\TextColumn::make($field->key)
+                    ->label(filled($field->label) ? $field->label : $field->name)
+                    ->getStateUsing(fn ($record) => $record->values->where('key', $field->key)->first()?->value)
+                    ->toggleable(isToggledHiddenByDefault: false)
+                    ->sortable(query: function (Builder $query, string $direction) use ($field) {
+                        $query->orderByRaw(
+                            "(
+                                SELECT JSON_UNQUOTE(JSON_EXTRACT(je.value, '$.value'))
+                                FROM JSON_TABLE(
+                                    form_entries.values,
+                                    '$[*]' COLUMNS(
+                                        `key` VARCHAR(255) PATH '$.key',
+                                        value JSON PATH '$'
+                                    )
+                                ) AS je
+                                WHERE je.key = ?
+                                LIMIT 1
+                            ) {$direction}",
+                            [$field->key]
+                        );
+                    })
+                    ->searchable(query: function (Builder $query, string $search) use ($field) {
+                        $query->whereRaw(
+                            "EXISTS (
+                                SELECT 1
+                                FROM JSON_TABLE(
+                                    form_entries.values,
+                                    '$[*]' COLUMNS(
+                                        `key` VARCHAR(255) PATH '$.key',
+                                        value VARCHAR(500) PATH '$.value'
+                                    )
+                                ) AS je
+                                WHERE je.key = ? AND je.value LIKE ?
+                            )",
+                            [$field->key, "%{$search}%"]
+                        );
+                    })
+            );
+
         return $table
             ->recordTitleAttribute('submitted_at')
             ->defaultSort('submitted_at', 'desc')
             ->columns([
+                ...$userDefinedColumns,
+
                 Tables\Columns\TextColumn::make('submitted_at')
                     ->sortable()
                     ->searchable()
-                    ->dateTime('d/m/Y H:i:s'),
+                    ->dateTime('d/m/Y H:i:s')
+                    ->toggleable(isToggledHiddenByDefault: false),
+
                 Tables\Columns\TextColumn::make('user.name')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: false),
             ])
             ->filters([
                 //
