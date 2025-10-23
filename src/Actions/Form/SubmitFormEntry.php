@@ -2,12 +2,13 @@
 
 namespace Hydrat\GroguCMS\Actions\Form;
 
-use Hydrat\GroguCMS\Datas\FormEntryValue;
-use Hydrat\GroguCMS\Events\FormEntryCreated;
+use Illuminate\Support\Str;
 use Hydrat\GroguCMS\Models\Form;
 use Hydrat\GroguCMS\Models\FormEntry;
 use Hydrat\GroguCMS\Models\FormField;
+use Hydrat\GroguCMS\Datas\FormEntryValue;
 use Lorisleiva\Actions\Concerns\AsAction;
+use Hydrat\GroguCMS\Events\FormEntryCreated;
 
 class SubmitFormEntry
 {
@@ -46,7 +47,8 @@ class SubmitFormEntry
     {
         foreach ($validated as $key => $value) {
             if ($value instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile) {
-                $validated[$key] = $value->store('attachments');
+                $fileName = Str::random(6).'_'.Str::kebab($value->getClientOriginalName());
+                $validated[$key] = $value->storeAs('attachments', $fileName);
             }
         }
 
