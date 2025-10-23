@@ -50,7 +50,7 @@ class SubmitFormEntry
                 $fileName = pathinfo($value->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION);
 
-                $fileName = Str::slug(Str::lower($fileName)) .'_'. now()->format('YmdHis') .'.'. $extension;
+                $fileName = Str::slug(Str::lower($fileName)).'_'.now()->format('YmdHis').'.'.$extension;
 
                 $validated[$key] = $value->storeAs('attachments', $fileName);
             }
