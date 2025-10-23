@@ -2,9 +2,9 @@
 
 namespace Hydrat\GroguCMS\Datas;
 
-use Spatie\LaravelData\Data;
-use Illuminate\Support\Facades\Storage;
 use Hydrat\GroguCMS\Enums\FormFieldType;
+use Illuminate\Support\Facades\Storage;
+use Spatie\LaravelData\Data;
 
 class FormEntryValue extends Data
 {

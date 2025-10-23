@@ -2,14 +2,14 @@
 
 namespace Hydrat\GroguCMS\Mail;
 
+use Hydrat\GroguCMS\Enums\FormFieldType;
+use Hydrat\GroguCMS\Models\FormEntry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Hydrat\GroguCMS\Models\FormEntry;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Mail\Mailables\Envelope;
-use Hydrat\GroguCMS\Enums\FormFieldType;
 use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
 
 class NewFormEntry extends Mailable
 {
