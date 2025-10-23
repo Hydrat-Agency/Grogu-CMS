@@ -47,7 +47,11 @@ class SubmitFormEntry
     {
         foreach ($validated as $key => $value) {
             if ($value instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile) {
-                $fileName = Str::lower(Str::random(6)).'_'.Str::slug(Str::lower($value->getClientOriginalName()));
+                $fileName = pathinfo($value->getClientOriginalName(), PATHINFO_FILENAME);
+                $extension = pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION);
+
+                $fileName = Str::slug(Str::lower($fileName)) .'_'. now()->format('YmdHis') .'.'. $extension;
+
                 $validated[$key] = $value->storeAs('attachments', $fileName);
             }
         }
