@@ -61,50 +61,54 @@ class ManageFormEntries extends ManageRelatedRecords
     {
         $userDefinedColumns = Arr::pluck($this->getOwnerRecord()->entry_columns ?? [], 'field');
 
-        $userDefinedColumns = $this->getOwnerRecord()
-            ->fields()
-            ->whereIn('id', $userDefinedColumns)
-            ->orderByRaw('FIELD(id, '.implode(',', $userDefinedColumns).')')
-            ->get()
-            ->map(
-                fn (FormField $field) => Tables\Columns\TextColumn::make($field->key)
-                    ->label(filled($field->label) ? $field->label : $field->name)
-                    ->getStateUsing(fn ($record) => $record->values->where('key', $field->key)->first()?->value)
-                    ->toggleable(isToggledHiddenByDefault: false)
-                    ->sortable(query: function (Builder $query, string $direction) use ($field) {
-                        $query->orderByRaw(
-                            "(
-                                SELECT JSON_UNQUOTE(JSON_EXTRACT(je.value, '$.value'))
-                                FROM JSON_TABLE(
-                                    form_entries.values,
-                                    '$[*]' COLUMNS(
-                                        `key` VARCHAR(255) PATH '$.key',
-                                        value JSON PATH '$'
-                                    )
-                                ) AS je
-                                WHERE je.key = ?
-                                LIMIT 1
-                            ) {$direction}",
-                            [$field->key]
-                        );
-                    })
-                    ->searchable(query: function (Builder $query, string $search) use ($field) {
-                        $query->whereRaw(
-                            "EXISTS (
-                                SELECT 1
-                                FROM JSON_TABLE(
-                                    form_entries.values,
-                                    '$[*]' COLUMNS(
-                                        `key` VARCHAR(255) PATH '$.key',
-                                        value VARCHAR(500) PATH '$.value'
-                                    )
-                                ) AS je
-                                WHERE je.key = ? AND je.value LIKE ?
-                            )",
-                            [$field->key, "%{$search}%"]
-                        );
-                    })
-            );
+        if (filled($userDefinedColumns)) {
+            $userDefinedColumns = $this->getOwnerRecord()
+                ->fields()
+                ->whereIn('id', $userDefinedColumns)
+                ->orderByRaw('FIELD(id, ' . implode(',', $userDefinedColumns) . ')')
+                ->get()
+                ->map(
+                    fn (FormField $field) => Tables\Columns\TextColumn::make($field->key)
+                        ->label(filled($field->label) ? $field->label : $field->name)
+                        ->getStateUsing(fn ($record) => $record->values->where('key', $field->key)->first()?->value)
+                        ->toggleable(isToggledHiddenByDefault: false)
+                        ->sortable(query: function (Builder $query, string $direction) use ($field) {
+                            $query->orderByRaw(
+                                "(
+                                    SELECT JSON_UNQUOTE(JSON_EXTRACT(je.value, '$.value'))
+                                    FROM JSON_TABLE(
+                                        form_entries.values,
+                                        '$[*]' COLUMNS(
+                                            `key` VARCHAR(255) PATH '$.key',
+                                            value JSON PATH '$'
+                                        )
+                                    ) AS je
+                                    WHERE je.key = ?
+                                    LIMIT 1
+                                ) {$direction}",
+                                [$field->key]
+                            );
+                        })
+                        ->searchable(query: function (Builder $query, string $search) use ($field) {
+                            $query->whereRaw(
+                                "EXISTS (
+                                    SELECT 1
+                                    FROM JSON_TABLE(
+                                        form_entries.values,
+                                        '$[*]' COLUMNS(
+                                            `key` VARCHAR(255) PATH '$.key',
+                                            value VARCHAR(500) PATH '$.value'
+                                        )
+                                    ) AS je
+                                    WHERE je.key = ? AND je.value LIKE ?
+                                )",
+                                [$field->key, "%{$search}%"]
+                            );
+                        })
+                );
+        } else {
+            $userDefinedColumns = [];
+        }
 
         return $table
             ->recordTitleAttribute('submitted_at')
