@@ -65,7 +65,7 @@ class ManageFormEntries extends ManageRelatedRecords
             $userDefinedColumns = $this->getOwnerRecord()
                 ->fields()
                 ->whereIn('id', $userDefinedColumns)
-                ->orderByRaw('FIELD(id, ' . implode(',', $userDefinedColumns) . ')')
+                ->orderByRaw('FIELD(id, '.implode(',', $userDefinedColumns).')')
                 ->get()
                 ->map(
                     fn (FormField $field) => Tables\Columns\TextColumn::make($field->key)
