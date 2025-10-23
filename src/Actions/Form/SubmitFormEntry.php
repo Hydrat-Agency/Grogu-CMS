@@ -17,6 +17,8 @@ class SubmitFormEntry
     {
         $form->loadMissing('fields');
 
+        $validated = $this->manageAttachments($validated);
+
         $fields = $form->fields->sortBy('order')->map(
             fn (FormField $field) => [
                 'key' => $field->key,
@@ -38,5 +40,16 @@ class SubmitFormEntry
         event(new FormEntryCreated($entry));
 
         return $entry;
+    }
+
+    protected function manageAttachments(array $validated): array
+    {
+        foreach ($validated as $key => $value) {
+            if ($value instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile) {
+                $validated[$key] = $value->store('attachments');
+            }
+        }
+
+        return $validated;
     }
 }

@@ -2,12 +2,14 @@
 
 namespace Hydrat\GroguCMS\Mail;
 
-use Hydrat\GroguCMS\Models\FormEntry;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Hydrat\GroguCMS\Models\FormEntry;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Hydrat\GroguCMS\Enums\FormFieldType;
+use Illuminate\Mail\Mailables\Attachment;
 
 class NewFormEntry extends Mailable
 {
@@ -49,6 +51,16 @@ class NewFormEntry extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        /** @var \Spatie\LaravelData\DataCollection $this->entry->values */
+        $attachments = $this->entry->values
+            ->toCollection()
+            ->where('type', FormFieldType::Attachment)
+            ->whereNotNull('value')
+            ->pluck('value');
+
+        return $attachments
+            ->map(fn ($fileName) => Attachment::fromStorageDisk('local', $fileName))
+            ->values()
+            ->all();
     }
 }

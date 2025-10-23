@@ -2,8 +2,9 @@
 
 namespace Hydrat\GroguCMS\Datas;
 
-use Hydrat\GroguCMS\Enums\FormFieldType;
 use Spatie\LaravelData\Data;
+use Illuminate\Support\Facades\Storage;
+use Hydrat\GroguCMS\Enums\FormFieldType;
 
 class FormEntryValue extends Data
 {
@@ -31,6 +32,18 @@ class FormEntryValue extends Data
             FormFieldType::Placeholder => false,
             FormFieldType::Confirm => false,
             default => true,
+        };
+    }
+
+    public function getRelatedUrl(): ?string
+    {
+        if (blank($this->value)) {
+            return null;
+        }
+
+        return match ($this->type) {
+            FormFieldType::Attachment => Storage::disk('public')->url($this->value),
+            default => null,
         };
     }
 }

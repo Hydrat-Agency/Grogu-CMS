@@ -13,7 +13,12 @@
     @foreach ($entry->values as $field)
       @if ($field->hasValueToDisplay())
         <li>
-          <strong>{{ $field->label }} :</strong> {{ $field->displayValue() }}
+          <strong>{{ $field->label }} :</strong>
+          @if ($url = $field->getRelatedUrl())
+            <a href="{{ $url }}" target="_blank">{{ $field->displayValue() }}</a>
+          @else
+            {{ $field->displayValue() }}
+          @endif
         </li>
       @endif
     @endforeach

@@ -8,10 +8,13 @@ use Hydrat\GroguCMS\Actions\Form as Actions;
 use Hydrat\GroguCMS\Models\Form;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Throwable;
 
 class ContactForm extends Component
 {
+    use WithFileUploads;
+
     #[Locked]
     public Form $form;
 
