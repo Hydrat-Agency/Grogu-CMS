@@ -3,10 +3,7 @@
 namespace Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
 
 use Filament\Actions;
-use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
-use Hydrat\FilamentLexiTranslate\Resources\Pages\EditRecord\Concerns\Translatable;
 use Hydrat\GroguCMS\Collections\BlockCollection;
-use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditRecord;
 use Hydrat\GroguCMS\Filament\Resources\PageResource;
 use Illuminate\Contracts\Support\Htmlable;
@@ -17,7 +14,6 @@ use Pboivin\FilamentPeek\Pages\Concerns\HasPreviewModal;
 class EditPage extends EditRecord
 {
     use HasPreviewModal;
-    use Translatable;
 
     protected static ?string $navigationIcon = 'phosphor-pencil';
 
@@ -72,7 +68,6 @@ class EditPage extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
             PreviewAction::make(),
             Actions\DeleteAction::make(),
             Actions\ForceDeleteAction::make(),

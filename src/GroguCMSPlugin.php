@@ -25,7 +25,6 @@ class GroguCMSPlugin implements Plugin
             ->resources(config('grogu-cms.resources') ?: [])
             ->pages(config('grogu-cms.pages') ?: [])
             ->widgets(config('grogu-cms.widgets') ?: [])
-            // ->discoverResources(in: __DIR__.'/Filament/Resources', for: 'Hydrat\\GroguCMS\\Filament\\Resources')
             ->discoverWidgets(in: __DIR__.'/Filament/Widgets', for: 'Hydrat\\GroguCMS\\Filament\\Widgets');
     }
 

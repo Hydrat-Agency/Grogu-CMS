@@ -441,6 +441,31 @@ class MyContactForm extends \Hydrat\GroguCMS\Livewire\ContactForm
 // @livewire('my-contact-form', ['form' => $form])
 ```
 
+## Translatable resources
+
+By default, all resources (Pages, Sections, Forms) are **not translatable**. The package ships with dedicated `Translatable*` variants of each resource that enable the locale switcher and the translation behaviour powered by [hydrat/filament-lexi-translate](https://github.com/hydrat-agency/filament-lexi-translate).
+
+To enable translatable resources, swap the defaults in your published config (`config/grogu-cms.php`):
+
+```php
+'resources' => [
+    'page_resource' => Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource::class,
+    'section_resource' => Hydrat\GroguCMS\Filament\Resources\TranslatableSectionResource::class,
+    'form_resource' => Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource::class,
+],
+```
+
+You can enable translation on a per-resource basis — for example, keep `PageResource` (non-translatable) while switching only `SectionResource` to its translatable counterpart.
+
+Make sure the `translatable` flag is also set to `true` in the config:
+
+```php
+'translatable' => true,
+```
+
+> **Note:** The `Translatable*` resource classes simply extend their base counterparts and mix in the `Translatable` concern from `filament-lexi-translate`. If you need to further customise a resource, extend the appropriate base class (`PageResource`, `SectionResource`, `FormResource`) or the translatable variant and point the config key to your own class.
+
+
 ## Deploy to production
 
 ### Icons

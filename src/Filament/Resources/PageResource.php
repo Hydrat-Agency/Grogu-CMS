@@ -13,8 +13,6 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PageResource extends CmsResource
 {
-    use Translatable;
-
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?int $navigationSort = 100;

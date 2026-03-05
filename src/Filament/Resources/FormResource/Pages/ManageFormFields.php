@@ -9,18 +9,13 @@ use Filament\Forms\Set;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Hydrat\FilamentLexiTranslate\Resources\RelationManagers\Concerns\Translatable;
-use Hydrat\FilamentLexiTranslate\Tables\Actions\LocaleSwitcher;
 use Hydrat\GroguCMS\Enums\FormFieldType;
-use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Support\Str;
 
 class ManageFormFields extends ManageRelatedRecords
 {
-    use Translatable;
-
     protected static string $relationship = 'fields';
 
     protected static ?string $navigationIcon = 'radix-section'; // heroicon-o-queue-list
@@ -240,7 +235,7 @@ class ManageFormFields extends ManageRelatedRecords
                 //
             ])
             ->headerActions([
-                ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
+                ...$this->beforeTableHeaderActions(),
 
                 Tables\Actions\CreateAction::make()
                     ->mutateFormDataUsing(fn (array $data): array => $this->mutateDataBeforeSaving($data)),
@@ -263,5 +258,10 @@ class ManageFormFields extends ManageRelatedRecords
         $data['form_id'] = $this->getRecord()?->id;
 
         return $data;
+    }
+
+    protected function beforeTableHeaderActions(): array
+    {
+        return [];
     }
 }
