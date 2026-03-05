@@ -95,13 +95,13 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
         return $this->belongsTo(MediaLibraryItem::class, 'thumbnail_id');
     }
 
-    public function blocks(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) => collect(json_decode($value, true) ?: [])->map(fn ($block) => new Fluent($block)),
-            set: fn ($value) => json_encode($value),
-        );
-    }
+    // public function blocks(): Attribute
+    // {
+    //     return new Attribute(
+    //         get: fn ($value) => collect(json_decode($value, true) ?: [])->map(fn ($block) => new Fluent($block)),
+    //         set: fn ($value) => json_encode($value),
+    //     );
+    // }
 
     public function scopeStatus(Builder $query, PostStatus $status)
     {

@@ -3,17 +3,9 @@
 namespace {{ namespace }};
 
 use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
-use {{ extends }};
+use {{ extends }} as Grogu{{ baseClass }};
 
-class {{ class }} extends {{ baseClass }}
+class {{ class }} extends Grogu{{ baseClass }}
 {
     use LexiTranslatable;
-
-    /**
-     * The list of translatable fields for the model.
-     * Override this to customise which fields are translated.
-     *
-     * @var array<string>
-     */
-    // protected $translatableFields = [...];
 }

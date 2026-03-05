@@ -481,14 +481,15 @@ php artisan grogu:make-translatable-model Form
 php artisan grogu:make-translatable-model Page --extends="Hydrat\GroguCMS\Models\Page"
 ```
 
-This generates `App\Models\Page` (or whatever name you provide) extending the corresponding package model, with `use LexiTranslatable` already applied. The command also prints a reminder to update your config:
+This generates `App\Models\Page` (or whatever name you provide) extending the corresponding package model, with `use LexiTranslatable` already applied. You still need to subscribe your model in the package configuration:
 
 ```php
 // config/grogu-cms.php
 'models' => [
-    'page'    => App\Models\Page::class,
+    'page' => App\Models\Page::class,
     'section' => App\Models\Section::class,
-    'form'    => App\Models\Form::class,
+    'form' => App\Models\Form::class,
+    ...
 ],
 ```
 
