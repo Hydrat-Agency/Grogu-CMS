@@ -5,8 +5,8 @@ namespace Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource\Pages;
 use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
 use Hydrat\FilamentLexiTranslate\Resources\Pages\CreateRecord\Concerns\Translatable;
 use Hydrat\GroguCMS\Facades\GroguCMS;
-use Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource;
 use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\CreatePage;
+use Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource;
 
 class CreateTranslatablePage extends CreatePage
 {

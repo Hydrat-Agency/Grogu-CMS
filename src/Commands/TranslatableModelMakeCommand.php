@@ -30,10 +30,10 @@ class TranslatableModelMakeCommand extends GeneratorCommand
      * @var array<string, string>
      */
     protected array $knownModels = [
-        'page'       => \Hydrat\GroguCMS\Models\Page::class,
-        'section'    => \Hydrat\GroguCMS\Models\Section::class,
-        'form'       => \Hydrat\GroguCMS\Models\Form::class,
-        'formfield'  => \Hydrat\GroguCMS\Models\FormField::class,
+        'page' => \Hydrat\GroguCMS\Models\Page::class,
+        'section' => \Hydrat\GroguCMS\Models\Section::class,
+        'form' => \Hydrat\GroguCMS\Models\Form::class,
+        'formfield' => \Hydrat\GroguCMS\Models\FormField::class,
     ];
 
     /**
@@ -42,9 +42,9 @@ class TranslatableModelMakeCommand extends GeneratorCommand
      * @var array<string, string>
      */
     protected array $configKeys = [
-        \Hydrat\GroguCMS\Models\Page::class      => 'page',
-        \Hydrat\GroguCMS\Models\Section::class   => 'section',
-        \Hydrat\GroguCMS\Models\Form::class      => 'form',
+        \Hydrat\GroguCMS\Models\Page::class => 'page',
+        \Hydrat\GroguCMS\Models\Section::class => 'section',
+        \Hydrat\GroguCMS\Models\Form::class => 'form',
         \Hydrat\GroguCMS\Models\FormField::class => 'form_field',
     ];
 
@@ -58,8 +58,8 @@ class TranslatableModelMakeCommand extends GeneratorCommand
         }
 
         $qualifiedClass = $this->qualifyClass($this->getNameInput());
-        $extendsClass   = $this->resolveExtendsClass();
-        $configKey      = $this->configKeys[$extendsClass] ?? null;
+        $extendsClass = $this->resolveExtendsClass();
+        $configKey = $this->configKeys[$extendsClass] ?? null;
 
         $this->newLine();
 
@@ -87,7 +87,7 @@ class TranslatableModelMakeCommand extends GeneratorCommand
     protected function buildClass($name): string
     {
         $extendsClass = $this->resolveExtendsClass();
-        $baseClass    = class_basename($extendsClass);
+        $baseClass = class_basename($extendsClass);
 
         $stub = parent::buildClass($name);
         $stub = str_replace('{{ extends }}', $extendsClass, $stub);
