@@ -465,6 +465,50 @@ Make sure the `translatable` flag is also set to `true` in the config:
 
 > **Note:** The `Translatable*` resource classes simply extend their base counterparts and mix in the `Translatable` concern from `filament-lexi-translate`. If you need to further customise a resource, extend the appropriate base class (`PageResource`, `SectionResource`, `FormResource`) or the translatable variant and point the config key to your own class.
 
+### Translatable models
+
+Enabling a translatable resource also requires the underlying **Eloquent model** to use the `LexiTranslatable` trait from [omaralalwi/lexi-translate](https://github.com/omaralalwi/lexi-translate). The base Grogu CMS models (`Page`, `Section`, `Form`, `FormField`) do **not** include this trait by default, keeping them lightweight for non-translatable setups.
+
+To make a model translatable, create your own model that extends the Grogu CMS base and adds the trait. The quickest way is the provided generator command:
+
+```bash
+# Extend a known Grogu CMS model by short name (Page, Section, Form, FormField)
+php artisan grogu:make-translatable-model Page
+php artisan grogu:make-translatable-model Section
+php artisan grogu:make-translatable-model Form
+
+# Or specify any base class explicitly
+php artisan grogu:make-translatable-model Page --extends="Hydrat\GroguCMS\Models\Page"
+```
+
+This generates `App\Models\Page` (or whatever name you provide) extending the corresponding package model, with `use LexiTranslatable` already applied. The command also prints a reminder to update your config:
+
+```php
+// config/grogu-cms.php
+'models' => [
+    'page'    => App\Models\Page::class,
+    'section' => App\Models\Section::class,
+    'form'    => App\Models\Form::class,
+],
+```
+
+The base models declare a `$translatableFields` property listing which fields are translatable. Your extended model inherits it automatically; override the property if you need a different set of fields:
+
+```php
+class Page extends \Hydrat\GroguCMS\Models\Page
+{
+    use \Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
+
+    protected $translatableFields = ['title', 'slug', 'content']; // customised subset
+}
+```
+
+> **Full translatable setup checklist:**
+> 1. Run `grogu:make-translatable-model` for each model you want to translate.
+> 2. Update `config/grogu-cms.php` `models` keys to point to your new classes.
+> 3. Update `config/grogu-cms.php` `resources` keys to the `Translatable*` resource variants.
+> 4. Set `'translatable' => true` in the config.
+
 
 ## Deploy to production
 

@@ -1,0 +1,19 @@
+<?php
+
+namespace {{ namespace }};
+
+use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
+use {{ extends }};
+
+class {{ class }} extends {{ baseClass }}
+{
+    use LexiTranslatable;
+
+    /**
+     * The list of translatable fields for the model.
+     * Override this to customise which fields are translated.
+     *
+     * @var array<string>
+     */
+    // protected $translatableFields = [...];
+}

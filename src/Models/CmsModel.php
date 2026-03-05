@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
 use Illuminate\Support\Fluent;
-use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
 use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
@@ -24,7 +23,6 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
     use CmsConcerns\InteractsWithBlueprint;
     use CmsConcerns\InteractsWithSeo;
     use InteractsWithMedia;
-    use LexiTranslatable;
 
     /**
      * The attributes that are mass assignable.

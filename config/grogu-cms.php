@@ -102,6 +102,6 @@ return [
     /**
      * Configure if Grogu CMS should handle translatable resources (displays the language switcher).
      */
-    'translatable' => true,
+    'translatable' => false,
 
 ];

@@ -5,12 +5,10 @@ namespace Hydrat\GroguCMS\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
-use Omaralalwi\LexiTranslate\Traits\LexiTranslatable;
 
 class Form extends Model
 {
     use HasFactory;
-    use LexiTranslatable;
 
     /**
      * The attributes that are mass assignable.
