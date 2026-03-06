@@ -21,8 +21,8 @@ use Orchestra\Testbench\TestCase as Orchestra;
 use RalphJSmit\Filament\MediaLibrary\FilamentMediaLibraryServiceProvider;
 use RalphJSmit\Laravel\SEO\LaravelSEOServiceProvider;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
-use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use Spatie\LaravelData\LaravelDataServiceProvider;
+use Spatie\MediaLibrary\MediaLibraryServiceProvider;
 use Spatie\Permission\PermissionServiceProvider;
 
 class TestCase extends Orchestra

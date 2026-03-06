@@ -8,7 +8,6 @@ use Filament\Tables\Columns\Column;
  * are present and callable. They act as a safety net when upgrading Filament,
  * since v4 may change the macro API or the underlying action/column methods.
  */
-
 describe('iconSoftButton macro', function () {
     it('is registered on TableAction', function () {
         expect(TableAction::hasMacro('iconSoftButton'))->toBeTrue();

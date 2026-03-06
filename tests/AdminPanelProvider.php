@@ -8,7 +8,6 @@ use Filament\Http\Middleware\DispatchServingFilamentEvent;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
-use RalphJSmit\Filament\MediaLibrary\FilamentMediaLibrary;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 use Hydrat\GroguCMS\Filament\Resources\PageResource;
 use Hydrat\GroguCMS\Filament\Resources\SectionResource;
@@ -20,6 +19,7 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use RalphJSmit\Filament\MediaLibrary\FilamentMediaLibrary;
 
 class AdminPanelProvider extends PanelProvider
 {

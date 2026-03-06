@@ -1,7 +1,6 @@
 <?php
 
 use Hydrat\GroguCMS\Models\Menu;
-use Hydrat\GroguCMS\Models\MenuItem;
 
 describe('Menu model', function () {
     it('can be created with title and location', function () {
