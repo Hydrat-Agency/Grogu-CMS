@@ -72,7 +72,7 @@ class FormResource extends Resource
                     ->addActionLabel(__('Add field'))
                     ->schema([
                         Forms\Components\Select::make('field')
-                            ->options(fn ($record) => $record->fields()->pluck('name', 'id'))
+                            ->options(fn ($record) => $record?->fields()->pluck('name', 'id') ?? [])
                             ->required(),
                     ]),
             ]);

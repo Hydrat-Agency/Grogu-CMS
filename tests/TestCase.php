@@ -14,10 +14,16 @@ use Filament\Support\SupportServiceProvider;
 use Filament\Tables\TablesServiceProvider;
 use Filament\Widgets\WidgetsServiceProvider;
 use Hydrat\GroguCMS\GroguCMSServiceProvider;
+use Hydrat\GroguCMS\Tests\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use RalphJSmit\Filament\MediaLibrary\FilamentMediaLibraryServiceProvider;
+use RalphJSmit\Laravel\SEO\LaravelSEOServiceProvider;
 use RyanChandler\BladeCaptureDirective\BladeCaptureDirectiveServiceProvider;
+use Spatie\MediaLibrary\MediaLibraryServiceProvider;
+use Spatie\LaravelData\LaravelDataServiceProvider;
+use Spatie\Permission\PermissionServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -46,17 +52,26 @@ class TestCase extends Orchestra
             SupportServiceProvider::class,
             TablesServiceProvider::class,
             WidgetsServiceProvider::class,
+            LaravelDataServiceProvider::class,
+            LaravelSEOServiceProvider::class,
+            MediaLibraryServiceProvider::class,
+            FilamentMediaLibraryServiceProvider::class,
+            PermissionServiceProvider::class,
             GroguCMSServiceProvider::class,
+            AdminPanelProvider::class,
         ];
     }
 
     public function getEnvironmentSetUp($app)
     {
+        config()->set('app.key', 'base64:'.base64_encode(random_bytes(32)));
         config()->set('database.default', 'testing');
+        config()->set('auth.providers.users.model', User::class);
+        config()->set('grogu-cms.models.user', User::class);
 
-        /*
-        $migration = include __DIR__.'/../database/migrations/create_grogu-cms_table.php.stub';
-        $migration->up();
-        */
+        // Create a class alias so CmsModel::user() (hardcoded to App\Models\User) resolves in tests.
+        if (! class_exists(\App\Models\User::class)) {
+            class_alias(User::class, 'App\Models\User');
+        }
     }
 }
