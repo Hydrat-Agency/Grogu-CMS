@@ -11,13 +11,13 @@
             @case (FormFieldType::Title)
               <x-grogu-cms::forms.title
                 name="data.{{ $field->key }}"
-                :content="$field->translate('content')"
+                :content="grogu_translate($field, 'content')"
               />
               @break
             @case (FormFieldType::Placeholder)
               <x-grogu-cms::forms.placeholder
                 name="data.{{ $field->key }}"
-                :content="$field->translate('content')"
+                :content="grogu_translate($field, 'content')"
               />
               @break
             @case (FormFieldType::Text)
@@ -26,8 +26,8 @@
                 :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
-                :helperText="$field->translate('helper_text')"
-                :placeholder="$field->translate('placeholder')"
+                :helperText="grogu_translate($field, 'helper_text')"
+                :placeholder="grogu_translate($field, 'placeholder')"
                 :required="$field->required"
               />
               @break
@@ -37,8 +37,8 @@
                 :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
-                :helperText="$field->translate('helper_text')"
-                :placeholder="$field->translate('placeholder')"
+                :helperText="grogu_translate($field, 'helper_text')"
+                :placeholder="grogu_translate($field, 'placeholder')"
                 :required="$field->required"
               />
               @break
@@ -48,8 +48,8 @@
                 :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
-                :helperText="$field->translate('helper_text')"
-                :placeholder="$field->translate('placeholder')"
+                :helperText="grogu_translate($field, 'helper_text')"
+                :placeholder="grogu_translate($field, 'placeholder')"
                 :required="$field->required"
               />
               @break
@@ -59,8 +59,8 @@
                 :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
-                :helperText="$field->translate('helper_text')"
-                :placeholder="$field->translate('placeholder')"
+                :helperText="grogu_translate($field, 'helper_text')"
+                :placeholder="grogu_translate($field, 'placeholder')"
                 :required="$field->required"
                 rows="{{ $field->rows ?: 3 }}"
               />
@@ -70,8 +70,8 @@
                 :label="$field->display_label"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
-                :helperText="$field->translate('helper_text')"
-                :placeholder="$field->translate('placeholder')"
+                :helperText="grogu_translate($field, 'helper_text')"
+                :placeholder="grogu_translate($field, 'placeholder')"
                 :required="$field->required"
                 :multiple="$field->multiple"
               >
@@ -82,10 +82,10 @@
               @break
             @case (FormFieldType::Confirm)
               <x-grogu-cms::forms.checkbox-confirm
-                :label="$field->translate('content')"
+                :label="grogu_translate($field, 'content')"
                 name="data.{{ $field->key }}"
                 wire:model="data.{{ $field->key }}"
-                :helperText="$field->translate('helper_text')"
+                :helperText="grogu_translate($field, 'helper_text')"
                 :required="$field->required"
               />
               @break
@@ -110,7 +110,7 @@
       type="submit"
       class="inline-flex items-center px-4 py-3 text-sm font-medium text-gray-800 bg-white border border-gray-200 rounded-lg shadow-sm gap-x-2 hover:bg-gray-50 focus:outline-none focus:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 dark:text-white dark:hover:bg-neutral-700 dark:focus:bg-neutral-700"
     >
-      {{ $form->translate('submit_button_label') ?: __('Submit') }}
+      {{ grogu_translate($form, 'submit_button_label') ?: __('Submit') }}
     </button>
 
     @if ($onErrorMessage)

@@ -23,9 +23,9 @@ if (! function_exists('grogu_translate')) {
      */
     function grogu_translate(Model $model, string $attribute, ?string $locale = null, bool $useFallbackLocale = true): mixed
     {
-        return method_exists($model, 'translate') && $model->isTranslatableAttribute($attribute)
+        return method_exists($model, 'translate') && method_exists($model, 'isTranslatableAttribute') && $model->isTranslatableAttribute($attribute)
             ? $model->translate($attribute, locale: $locale, useFallbackLocale: $useFallbackLocale)
-            : $model->{$attribute};
+            : $model->getAttribute($attribute);
     }
 
 }
