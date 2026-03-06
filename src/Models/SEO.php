@@ -34,8 +34,8 @@ class SEO extends SEOModel
         }
 
         return new SEOData(
-            title: $overrides->title ?? $this->translate('title'),
-            description: $overrides->description ?? $this->translate('description'),
+            title: $overrides->title ?? grogu_translate($this, 'title'),
+            description: $overrides->description ?? grogu_translate($this, 'description'),
             author: $overrides->author ?? $this->author,
             image: $overrides->image ?? $this->image,
             url: $overrides->url ?? null,

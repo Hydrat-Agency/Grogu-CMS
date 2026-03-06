@@ -15,11 +15,7 @@ trait InteractsWithBlocks
             return $this->blockCollection;
         }
 
-        $blocks = method_exists($this, 'translate') && $this->isTranslatableAttribute('blocks')
-            ? $this->translate('blocks', useFallbackLocale: true)
-            : $this->blocks;
-
-        if (blank($blocks)) {
+        if (blank($blocks = grogu_translate($this, 'blocks'))) {
             return null;
         }
 

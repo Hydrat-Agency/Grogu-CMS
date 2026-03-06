@@ -43,7 +43,7 @@ class FilamentServiceProvider extends ServiceProvider
                 }
 
                 if ($translatable) {
-                    return $record->translate($name, $livewire->getActiveActionsLocale());
+                    return grogu_translate($record, $name, $livewire->getActiveActionsLocale());
                 }
 
                 return $state;

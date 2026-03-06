@@ -41,8 +41,8 @@ trait InteractsWithSeo
         }
 
         return new SEOData(
-            title: $this->seo?->translate('title') ?: grogu_translate($this, 'title'),
-            description: $this->seo?->translate('description') ?: grogu_translate($this, 'excerpt'),
+            title: ($this->seo ? grogu_translate($this->seo, 'title') : null) ?: grogu_translate($this, 'title'),
+            description: ($this->seo ? grogu_translate($this->seo, 'description') : null) ?: grogu_translate($this, 'excerpt'),
             author: $this->user?->name,
             robots: $this->seo?->robots,
             image: $imageUrl ?: $this->thumbnail?->getItem()?->getUrl(),

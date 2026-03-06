@@ -89,6 +89,6 @@ class FormField extends Model implements Sortable
 
     protected function displayLabel(): Attribute
     {
-        return Attribute::get(fn () => $this->translate('label') ?: $this->translate('name'));
+        return Attribute::get(fn () => grogu_translate($this, 'label') ?: grogu_translate($this, 'name'));
     }
 }
