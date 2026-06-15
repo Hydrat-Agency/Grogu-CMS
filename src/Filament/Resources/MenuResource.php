@@ -5,7 +5,6 @@ namespace Hydrat\GroguCMS\Filament\Resources;
 use Filament\Forms;
 use Filament\Infolists;
 use Filament\Schemas\Schema;
-use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Actions;
 use Filament\Tables;
@@ -47,10 +46,10 @@ class MenuResource extends Resource
             ]);
     }
 
-    public static function infolist(Infolist $infolist): Infolist
+    public static function infolist(Schema $schema): Schema
     {
-        return $infolist
-            ->schema([
+        return $schema
+            ->components([
                 Infolists\Components\TextEntry::make('title'),
                 Infolists\Components\TextEntry::make('location')
                     ->formatStateUsing(fn ($state) => GroguCMS::menuLocations()->get($state, $state)),
