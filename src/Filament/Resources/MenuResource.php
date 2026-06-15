@@ -2,6 +2,21 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
+use Hydrat\GroguCMS\Models\Menu;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\ViewAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers\ItemsRelationManager;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\ListMenus;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\CreateMenu;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\ViewMenu;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\EditMenu;
 use Filament\Forms;
 use Filament\Infolists;
 use Filament\Schemas\Schema;
@@ -15,7 +30,7 @@ use Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
 class MenuResource extends Resource
 {
-    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-bars-3';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-bars-3';
 
     protected static bool $isDiscovered = false;
 
@@ -28,17 +43,17 @@ class MenuResource extends Resource
 
     public static function getModel(): string
     {
-        return config('grogu-cms.models.menu') ?? \Hydrat\GroguCMS\Models\Menu::class;
+        return config('grogu-cms.models.menu') ?? Menu::class;
     }
 
     public static function form(Schema $schema): Schema
     {
         return $schema
             ->components([
-                Forms\Components\TextInput::make('title')
+                TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Select::make('location')
+                Select::make('location')
                     ->required()
                     ->options(
                         GroguCMS::menuLocations()->toArray()
@@ -50,8 +65,8 @@ class MenuResource extends Resource
     {
         return $schema
             ->components([
-                Infolists\Components\TextEntry::make('title'),
-                Infolists\Components\TextEntry::make('location')
+                TextEntry::make('title'),
+                TextEntry::make('location')
                     ->formatStateUsing(fn ($state) => GroguCMS::menuLocations()->get($state, $state)),
             ]);
     }
@@ -62,23 +77,23 @@ class MenuResource extends Resource
 
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('location')
+                TextColumn::make('location')
                     ->searchable()
                     ->formatStateUsing(fn (string $state): string => $locations->get($state, $state)),
 
-                Tables\Columns\TextColumn::make('items_count')
+                TextColumn::make('items_count')
                     ->counts('items')
                     ->toggleable(isToggledHiddenByDefault: false),
 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -86,14 +101,14 @@ class MenuResource extends Resource
             ->filters([
                 //
             ])
-            ->actions([
-                Actions\ViewAction::make()->iconSoftButton('heroicon-o-eye'),
-                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+            ->recordActions([
+                ViewAction::make()->iconSoftButton('heroicon-o-eye'),
+                EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
-            ->bulkActions([
-                Actions\BulkActionGroup::make([
-                    Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -101,17 +116,17 @@ class MenuResource extends Resource
     public static function getRelations(): array
     {
         return [
-            RelationManagers\ItemsRelationManager::class,
+            ItemsRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListMenus::route('/'),
-            'create' => Pages\CreateMenu::route('/create'),
-            'view' => Pages\ViewMenu::route('/{record}'),
-            'edit' => Pages\EditMenu::route('/{record}/edit'),
+            'index' => ListMenus::route('/'),
+            'create' => CreateMenu::route('/create'),
+            'view' => ViewMenu::route('/{record}'),
+            'edit' => EditMenu::route('/{record}/edit'),
         ];
     }
 }

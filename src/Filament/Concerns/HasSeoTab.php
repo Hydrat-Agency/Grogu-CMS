@@ -2,8 +2,16 @@
 
 namespace Hydrat\GroguCMS\Filament\Concerns;
 
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Grid;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms;
-use Filament\Forms\Form;
+use Filament\Schemas\Schema;
 use Hydrat\GroguCMS\Actions\Seo\GenerateSeoScore;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Cache;
@@ -17,70 +25,70 @@ trait HasSeoTab
         return true;
     }
 
-    protected static function getSeoTabSchema(Form $form): array
+    protected static function getSeoTabSchema(Schema $schema): array
     {
-        $blueprint = static::getBlueprint($form);
+        $blueprint = static::getBlueprint($schema);
 
         if (! $blueprint->hasSeo()) {
             return [];
         }
 
         $scheme = static::seoTabIsContained()
-            ? static::getSeoTabSchemaContentSectionSchema($form)
-            : static::getSeoTabInnerSchema($form);
+            ? static::getSeoTabSchemaContentSectionSchema($schema)
+            : static::getSeoTabInnerSchema($schema);
 
         return [
-            Forms\Components\Tabs\Tab::make('SEO')
+            Tab::make('SEO')
                 ->columns([
                     'md' => 1,
                 ])
                 ->schema([
                     ...$scheme,
-                    ...static::getSeoTabScoreSchema($form),
+                    ...static::getSeoTabScoreSchema($schema),
                 ]),
         ];
     }
 
-    protected static function getSeoTabSchemaContentSectionSchema(Form $form): array
+    protected static function getSeoTabSchemaContentSectionSchema(Schema $schema): array
     {
         return [
-            Forms\Components\Section::make('seo')
+            Section::make('seo')
                 ->label('SEO Configuration')
                 ->schema([
-                    ...static::getSeoTabInnerSchema($form),
+                    ...static::getSeoTabInnerSchema($schema),
                 ]),
         ];
     }
 
-    protected static function getSeoTabInnerSchema(Form $form): array
+    protected static function getSeoTabInnerSchema(Schema $schema): array
     {
         return [
-            Forms\Components\Grid::make(2)
+            Grid::make(2)
                 ->schema([
-                    Forms\Components\TextInput::make('seo.title')
+                    TextInput::make('seo.title')
                         ->columnSpanFull(),
 
-                    Forms\Components\FileUpload::make('seo.image')
+                    FileUpload::make('seo.image')
                         ->image()
                         ->columnSpanFull(),
 
-                    Forms\Components\Textarea::make('seo.description')
+                    Textarea::make('seo.description')
                         ->maxLength(65535)
                         ->rows(5)
                         ->helperText(__('A short description used on social previews and Google vignette.'))
                         ->columnSpanFull(),
 
-                    Forms\Components\DatePicker::make('seo.modified_time')
+                    DatePicker::make('seo.modified_time')
                         ->timezone('UTC'),
 
-                    Forms\Components\TextInput::make('seo.author'),
+                    TextInput::make('seo.author'),
                 ]),
         ];
     }
 
-    protected static function getSeoTabScoreSchema(Form $form): array
+    protected static function getSeoTabScoreSchema(Schema $schema): array
     {
-        if (! ($record = $form->getRecord())) {
+        if (! ($record = $schema->getRecord())) {
             return [];
         }
 
@@ -91,10 +99,10 @@ trait HasSeoTab
         }
 
         return [
-            Forms\Components\Section::make(__('SEO Analysis'))
+            Section::make(__('SEO Analysis'))
                 ->collapsible()
                 ->schema([
-                    Forms\Components\Placeholder::make('seo_score')
+                    Placeholder::make('seo_score')
                         ->content(function () use ($score) {
                             $score = $score->getScore();
                             $color = match (true) {
@@ -110,7 +118,7 @@ trait HasSeoTab
                             );
                         }),
 
-                    Forms\Components\Placeholder::make('failed')
+                    Placeholder::make('failed')
                         ->content(fn () => new HtmlString(
                             $score->getFailedChecks()->map(
                                 fn ($check) => <<<HTML
@@ -128,7 +136,7 @@ trait HasSeoTab
                                 ->join("\n")
                         )),
 
-                    Forms\Components\Placeholder::make('passes')
+                    Placeholder::make('passes')
                         ->content(fn () => new HtmlString(
                             $score->getSuccessfulChecks()->map(
                                 fn ($check) => <<<HTML

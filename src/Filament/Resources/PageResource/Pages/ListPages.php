@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
 
+use Filament\Actions\CreateAction;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 use Hydrat\GroguCMS\Filament\Resources\PageResource;
@@ -19,7 +20,7 @@ class ListPages extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

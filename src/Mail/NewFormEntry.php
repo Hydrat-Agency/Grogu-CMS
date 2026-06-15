@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Mail;
 
+use Spatie\LaravelData\DataCollection;
 use Hydrat\GroguCMS\Enums\FormFieldType;
 use Hydrat\GroguCMS\Models\FormEntry;
 use Illuminate\Bus\Queueable;
@@ -47,11 +48,11 @@ class NewFormEntry extends Mailable
     /**
      * Get the attachments for the message.
      *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     * @return array<int, Attachment>
      */
     public function attachments(): array
     {
-        /** @var \Spatie\LaravelData\DataCollection $this->entry->values */
+        /** @var DataCollection $this ->entry->values */
         $attachments = $this->entry->values
             ->toCollection()
             ->where('type', FormFieldType::Attachment)

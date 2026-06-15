@@ -2,6 +2,10 @@
 
 namespace Hydrat\GroguCMS\Commands;
 
+use Hydrat\GroguCMS\Models\Page;
+use Hydrat\GroguCMS\Models\Section;
+use Hydrat\GroguCMS\Models\Form;
+use Hydrat\GroguCMS\Models\FormField;
 use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -30,10 +34,10 @@ class TranslatableModelMakeCommand extends GeneratorCommand
      * @var array<string, string>
      */
     protected array $knownModels = [
-        'page' => \Hydrat\GroguCMS\Models\Page::class,
-        'section' => \Hydrat\GroguCMS\Models\Section::class,
-        'form' => \Hydrat\GroguCMS\Models\Form::class,
-        'formfield' => \Hydrat\GroguCMS\Models\FormField::class,
+        'page' => Page::class,
+        'section' => Section::class,
+        'form' => Form::class,
+        'formfield' => FormField::class,
     ];
 
     /**
@@ -42,10 +46,10 @@ class TranslatableModelMakeCommand extends GeneratorCommand
      * @var array<string, string>
      */
     protected array $configKeys = [
-        \Hydrat\GroguCMS\Models\Page::class => 'page',
-        \Hydrat\GroguCMS\Models\Section::class => 'section',
-        \Hydrat\GroguCMS\Models\Form::class => 'form',
-        \Hydrat\GroguCMS\Models\FormField::class => 'form_field',
+        Page::class => 'page',
+        Section::class => 'section',
+        Form::class => 'form',
+        FormField::class => 'form_field',
     ];
 
     /**

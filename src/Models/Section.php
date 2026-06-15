@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Models;
 
+use Hydrat\GroguCMS\Content\Blueprints\SectionBlueprint;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -13,7 +14,7 @@ class Section extends CmsModel
     /**
      * @var string<BlueprintContract>
      */
-    protected static string $blueprintSchema = \Hydrat\GroguCMS\Content\Blueprints\SectionBlueprint::class;
+    protected static string $blueprintSchema = SectionBlueprint::class;
 
     /**
      * The attributes that are mass assignable.

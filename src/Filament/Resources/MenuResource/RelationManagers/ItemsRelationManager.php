@@ -2,9 +2,20 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
+use Filament\Schemas\Components\Grid;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\CreateAction;
+use Filament\Actions\ReplicateAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Closure;
 use Filament\Forms;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Actions;
@@ -49,15 +60,15 @@ class ItemsRelationManager extends RelationManager
 
         return $schema
             ->components([
-                Forms\Components\Grid::make()
+                Grid::make()
                     ->columns(6)
                     ->schema([
-                        Forms\Components\TextInput::make('title')
+                        TextInput::make('title')
                             ->required()
                             ->maxLength(255)
                             ->columnSpan(3),
 
-                        Forms\Components\Select::make('parent_id')
+                        Select::make('parent_id')
                             ->label('Parent')
                             ->columnSpan(3)
                             ->relationship(
@@ -67,7 +78,7 @@ class ItemsRelationManager extends RelationManager
                                 ignoreRecord: true,
                             ),
 
-                        Forms\Components\Select::make('linkeable_type')
+                        Select::make('linkeable_type')
                             ->label('Link type')
                             ->required()
                             ->live()
@@ -78,12 +89,12 @@ class ItemsRelationManager extends RelationManager
                                 ...$blueprintsTypes,
                             ]),
 
-                        Forms\Components\TextInput::make('url')
+                        TextInput::make('url')
                             ->maxLength(255)
                             ->visible(fn (Get $get) => $get('linkeable_type') === 'url')
                             ->columnSpan(4),
 
-                        Forms\Components\Select::make('linkeable_id')
+                        Select::make('linkeable_id')
                             ->label('Item')
                             ->required()
                             ->searchable()
@@ -95,12 +106,12 @@ class ItemsRelationManager extends RelationManager
                                     : [],
                             ),
 
-                        Forms\Components\TextInput::make('anchor')
+                        TextInput::make('anchor')
                             ->maxLength(255)
                             ->columnSpan(2)
                             ->visible(fn (Get $get) => $get('linkeable_type') !== 'url'),
 
-                        Forms\Components\Toggle::make('new_tab')
+                        Toggle::make('new_tab')
                             ->label('Open in new tab')
                             ->columnSpanFull(),
                     ]),
@@ -120,30 +131,30 @@ class ItemsRelationManager extends RelationManager
             ->reorderable('order')
             ->defaultSort('order')
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->sortable()
                     ->searchable()
                     ->translatable(),
 
-                Tables\Columns\TextColumn::make('parent.title')
+                TextColumn::make('parent.title')
                     ->sortable()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                Tables\Columns\TextColumn::make('path')
+                TextColumn::make('path')
                     ->getStateUsing(fn (Model $record) => $record->joinAncestors()->reverse()->implode('title', ' > '))
                     ->sortable()
                     ->searchable()
                     ->toggleable(),
 
-                Tables\Columns\TextColumn::make('linkeable_type')
+                TextColumn::make('linkeable_type')
                     ->label('Link type')
                     ->getStateUsing(fn (Model $record): string => $record->linkeable_type ?: 'url')
                     ->formatStateUsing(fn (string $state): string => $blueprintsTypes->get($state, strtoupper($state)))
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                Tables\Columns\TextColumn::make('destination')
+                TextColumn::make('destination')
                     ->getStateUsing(fn (Model $record): ?string => match (filled($record->linkeable)) {
                         true => sprintf('%s: %s', $blueprintsTypes->get($record->linkeable_type), $record->linkeable->title),
                         default => sprintf('%s: %s', 'URL', str_replace(['http://', 'https://'], '', $record->url)),
@@ -158,26 +169,26 @@ class ItemsRelationManager extends RelationManager
             ->headerActions([
                 ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
 
-                Actions\CreateAction::make()
-                    ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
+                CreateAction::make()
+                    ->mutateDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
                     ->after(fn () => $this->dispatch('refreshTree')),
             ])
-            ->actions([
-                Actions\ReplicateAction::make()
+            ->recordActions([
+                ReplicateAction::make()
                     ->iconSoftButton('heroicon-o-square-2-stack'),
 
-                Actions\EditAction::make()
+                EditAction::make()
                     ->iconSoftButton('heroicon-o-pencil-square')
                     ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
                     ->mutateRecordDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeEditing']))
                     ->after(fn () => $this->dispatch('refreshTree')),
 
-                Actions\DeleteAction::make()
+                DeleteAction::make()
                     ->iconSoftButton('heroicon-o-trash'),
             ])
-            ->bulkActions([
-                Actions\BulkActionGroup::make([
-                    Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ])
             ->groups([

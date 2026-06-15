@@ -2,6 +2,15 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\KeyValue;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\ViewAction;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
 use Filament\Forms;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Schemas\Schema;
@@ -18,7 +27,7 @@ class ManageFormEntries extends ManageRelatedRecords
 {
     protected static string $relationship = 'entries';
 
-    protected static \BackedEnum|string|null $navigationIcon = 'radix-enter';
+    protected static string | \BackedEnum | null $navigationIcon = 'radix-enter';
 
     /**
      * @return class-string
@@ -42,14 +51,14 @@ class ManageFormEntries extends ManageRelatedRecords
     {
         return $schema
             ->components([
-                Forms\Components\DateTimePicker::make('submitted_at')
+                DateTimePicker::make('submitted_at')
                     ->required(),
 
-                Forms\Components\Select::make('user_id')
+                Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
 
-                Forms\Components\KeyValue::make('values')
+                KeyValue::make('values')
                     ->columnSpanFull()
                     ->keyLabel(fn () => __('Field'))
                     ->formatStateUsing(
@@ -69,7 +78,7 @@ class ManageFormEntries extends ManageRelatedRecords
                 ->orderByRaw('FIELD(id, '.implode(',', $userDefinedColumns).')')
                 ->get()
                 ->map(
-                    fn (FormField $field) => Tables\Columns\TextColumn::make($field->key)
+                    fn (FormField $field) => TextColumn::make($field->key)
                         ->label(filled($field->label) ? $field->label : $field->name)
                         ->getStateUsing(fn ($record) => $record->values->where('key', $field->key)->first()?->value)
                         ->toggleable(isToggledHiddenByDefault: false)
@@ -117,13 +126,13 @@ class ManageFormEntries extends ManageRelatedRecords
             ->columns([
                 ...$userDefinedColumns,
 
-                Tables\Columns\TextColumn::make('submitted_at')
+                TextColumn::make('submitted_at')
                     ->sortable()
                     ->searchable()
                     ->dateTime('d/m/Y H:i:s')
                     ->toggleable(isToggledHiddenByDefault: false),
 
-                Tables\Columns\TextColumn::make('user.name')
+                TextColumn::make('user.name')
                     ->sortable()
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: false),
@@ -134,14 +143,14 @@ class ManageFormEntries extends ManageRelatedRecords
             ->headerActions([
                 // Actions\CreateAction::make(),
             ])
-            ->actions([
-                Actions\ViewAction::make()->iconSoftButton('heroicon-o-eye'),
-                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+            ->recordActions([
+                ViewAction::make()->iconSoftButton('heroicon-o-eye'),
+                EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
-            ->bulkActions([
-                Actions\BulkActionGroup::make([
-                    Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

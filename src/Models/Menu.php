@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
@@ -20,13 +21,13 @@ class Menu extends Model
         'location',
     ];
 
-    public function items(): Relations\HasMany
+    public function items(): HasMany
     {
         return $this->hasMany(config('grogu-cms.models.menu_item') ?: MenuItem::class)
             ->orderBy('order');
     }
 
-    public function elements(): Relations\HasMany
+    public function elements(): HasMany
     {
         return $this->hasMany(config('grogu-cms.models.menu_item') ?: MenuItem::class)
             ->orderBy('order')

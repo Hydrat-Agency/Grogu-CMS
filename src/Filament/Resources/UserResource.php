@@ -2,6 +2,22 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Grid;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\CheckboxList;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\ListUsers;
+use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\CreateUser;
+use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\EditUser;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -18,7 +34,7 @@ class UserResource extends Resource
 {
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-user';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-user';
 
     protected static ?int $navigationSort = 510;
 
@@ -53,15 +69,15 @@ class UserResource extends Resource
 
         return $schema
             ->components([
-                Forms\Components\Section::make(__('Manage user'))
+                Section::make(__('Manage user'))
                     ->schema([
-                        Forms\Components\Grid::make(2)
+                        Grid::make(2)
                             ->schema([
-                                Forms\Components\TextInput::make('name')
+                                TextInput::make('name')
                                     ->required()
                                     ->maxLength(255),
 
-                                Forms\Components\TextInput::make('email')
+                                TextInput::make('email')
                                     ->disabled($schema->getOperation() === 'edit')
                                     ->unique(ignoreRecord: true)
                                     ->required()
@@ -69,14 +85,14 @@ class UserResource extends Resource
                                     ->maxLength(255),
                             ]),
 
-                        Forms\Components\Grid::make(2)
+                        Grid::make(2)
                             ->schema([
-                                Forms\Components\FileUpload::make('avatar_url')
+                                FileUpload::make('avatar_url')
                                     ->label('Avatar')
                                     ->previewable()
                                     ->avatar(),
 
-                                Forms\Components\CheckboxList::make('roles')
+                                CheckboxList::make('roles')
                                     ->relationship(
                                         name: 'roles',
                                         titleAttribute: 'name',
@@ -93,59 +109,59 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('avatar_url')
+                ImageColumn::make('avatar_url')
                     ->label('Avatar')
                     ->defaultImageUrl(fn (User $record) => $record->getDefaultAvatarUrl())
                     ->size(32)
                     ->circular(),
 
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('email')
+                TextColumn::make('email')
                     ->searchable(),
 
-                Tables\Columns\TextColumn::make('email_verified_at')
+                TextColumn::make('email_verified_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->date()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: false),
 
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('roles')
+                SelectFilter::make('roles')
                     ->relationship(name: 'roles', titleAttribute: 'name')
                     ->multiple()
                     ->preload(),
             ])
-            ->actions([
+            ->recordActions([
                 // Actions\Action::make('resetPassword')
                 //     ->iconSoftButton('heroicon-o-lock-closed')
                 //     ->visible(
                 //         fn (User $record) => auth()->user()->can('update', $record)
                 //     ),
 
-                Actions\Action::make('welcomeReset')
+                Action::make('welcomeReset')
                     ->iconSoftButton('heroicon-o-rocket-launch')
                     ->label(__('Resend welcome email'))
                     ->authorize(fn (User $record) => Gate::check('update', $record) && $record->welcome_valid_until !== null)
                     ->action(fn (User $record) => WelcomeUser::run($record))
                     ->requiresConfirmation(),
 
-                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+                EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
-            ->bulkActions([
-                Actions\BulkActionGroup::make([
-                    Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -160,9 +176,9 @@ class UserResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
+            'index' => ListUsers::route('/'),
+            'create' => CreateUser::route('/create'),
+            'edit' => EditUser::route('/{record}/edit'),
         ];
     }
 }

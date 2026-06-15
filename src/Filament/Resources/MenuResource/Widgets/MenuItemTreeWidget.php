@@ -2,6 +2,8 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets;
 
+use Hydrat\GroguCMS\Models\MenuItem;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -17,7 +19,7 @@ class MenuItemTreeWidget extends BaseWidget
 
     public function getModel(): string
     {
-        return config('grogu-cms.models.menu_item') ?? \Hydrat\GroguCMS\Models\MenuItem::class;
+        return config('grogu-cms.models.menu_item') ?? MenuItem::class;
     }
 
     public function getTreeTitle(): ?string
@@ -38,7 +40,7 @@ class MenuItemTreeWidget extends BaseWidget
     protected function getFormSchema(): array
     {
         return [
-            Forms\Components\TextInput::make('title')
+            TextInput::make('title')
                 ->required()
                 ->maxLength(255),
         ];
@@ -51,7 +53,7 @@ class MenuItemTreeWidget extends BaseWidget
         ];
     }
 
-    public function getTreeRecordIcon(?\Illuminate\Database\Eloquent\Model $record = null): ?string
+    public function getTreeRecordIcon(?Model $record = null): ?string
     {
         return null;
     }

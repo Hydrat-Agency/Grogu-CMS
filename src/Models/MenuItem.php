@@ -2,6 +2,9 @@
 
 namespace Hydrat\GroguCMS\Models;
 
+use Hydrat\GroguCMS\Http\Resources\MenuItemResource;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Hydrat\GroguCMS\Models\Contracts\Resourceable;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -83,7 +86,7 @@ class MenuItem extends Model implements Resourceable, Sortable
 
     public function toResource(): JsonResource
     {
-        return new \Hydrat\GroguCMS\Http\Resources\MenuItemResource($this);
+        return new MenuItemResource($this);
     }
 
     public function buildSortQuery()
@@ -107,12 +110,12 @@ class MenuItem extends Model implements Resourceable, Sortable
         return $this->joinAncestorsTrait();
     }
 
-    public function menu(): Relations\BelongsTo
+    public function menu(): BelongsTo
     {
         return $this->belongsTo(Menu::class);
     }
 
-    public function linkeable(): Relations\MorphTo
+    public function linkeable(): MorphTo
     {
         return $this->morphTo();
     }

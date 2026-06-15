@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Content\Blueprints;
 
+use Hydrat\GroguCMS\Models\Page;
 use Hydrat\GroguCMS\Content\Blueprint;
 
 class PageBlueprint extends Blueprint
@@ -18,6 +19,6 @@ class PageBlueprint extends Blueprint
 
     public function model(): string
     {
-        return config('grogu-cms.models.page') ?? \Hydrat\GroguCMS\Models\Page::class;
+        return config('grogu-cms.models.page') ?? Page::class;
     }
 }

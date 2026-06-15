@@ -2,11 +2,13 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Builder;
 use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Component;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Hydrat\GroguCMS\Collections\BlockCollection;
 use Hydrat\GroguCMS\Facades\GroguCMS;
@@ -23,7 +25,7 @@ abstract class EditRecordContent extends EditRecord
     use HasBuilderPreview;
     use HasPreviewModal;
 
-    protected static \BackedEnum|string|null $navigationIcon = 'phosphor-selection-all';
+    protected static string | \BackedEnum | null $navigationIcon = 'phosphor-selection-all';
 
     public static function getNavigationLabel(): string
     {
@@ -43,7 +45,7 @@ abstract class EditRecordContent extends EditRecord
         return $schema
             ->columns(1)
             ->components([
-                Forms\Components\RichEditor::make('content')
+                RichEditor::make('content')
                     ->required()
                     ->maxLength(65535)
                     ->columnSpanFull()
@@ -61,12 +63,12 @@ abstract class EditRecordContent extends EditRecord
             ]);
     }
 
-    public static function getBuilderField(): Forms\Components\Builder
+    public static function getBuilderField(): Builder
     {
         $avaibleTemplates = static::getResource()::getBlueprint()->templates();
         $selectedTemplate = fn (Get $get) => GroguCMS::getTemplate($get('template'));
 
-        return Forms\Components\Builder::make('blocks')
+        return Builder::make('blocks')
             ->addActionLabel(__('Add layout'))
             ->collapsible()
             ->persistCollapsed()
@@ -120,7 +122,7 @@ abstract class EditRecordContent extends EditRecord
 
     public static function getBuilderEditorSchema(string $builderName): Component|array
     {
-        return \Filament\Forms\Components\Builder::make('blocks')
+        return Builder::make('blocks')
             ->addActionLabel(__('Add layout'))
             ->collapsible()
             ->cloneable()

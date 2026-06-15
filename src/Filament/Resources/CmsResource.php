@@ -2,8 +2,18 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Actions\Action;
+use Filament\Actions\ReplicateAction;
+use Filament\Forms\Components\Placeholder;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms;
-use Filament\Forms\Set;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Actions;
@@ -38,13 +48,13 @@ abstract class CmsResource extends Resource implements HasBlueprint
             ->components([
                 ...static::startAttributesSection(),
 
-                Forms\Components\Section::make(__('Overview'))
+                Section::make(__('Overview'))
                     ->columns(2)
                     ->compact(false)
                     ->schema([
                         ...static::startAttributesOverviewSection(),
 
-                        Forms\Components\TextInput::make('title')
+                        TextInput::make('title')
                             ->required()
                             ->maxLength(255)
                             ->live(onBlur: true)
@@ -62,7 +72,7 @@ abstract class CmsResource extends Resource implements HasBlueprint
                                 $set('slug', $slug);
                             }),
 
-                        Forms\Components\TextInput::make('slug')
+                        TextInput::make('slug')
                             ->required()
                             ->maxLength(255)
                             ->prefix(function ($livewire) use ($blueprint) {
@@ -78,7 +88,7 @@ abstract class CmsResource extends Resource implements HasBlueprint
                         //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
                         // }),
 
-                        Forms\Components\Select::make('parent_id')
+                        Select::make('parent_id')
                             ->relationship(
                                 name: 'parent',
                                 titleAttribute: 'title',
@@ -91,7 +101,7 @@ abstract class CmsResource extends Resource implements HasBlueprint
                             ->nullable()
                             ->preload(),
 
-                        Forms\Components\Select::make('template')
+                        Select::make('template')
                             ->visible($blueprint->hasTemplates())
                             ->required($blueprint->hasMandatoryTemplate())
                             ->options(
@@ -103,7 +113,7 @@ abstract class CmsResource extends Resource implements HasBlueprint
                             ->searchable()
                             ->preload(),
 
-                        Forms\Components\Select::make('status')
+                        Select::make('status')
                             ->options(PostStatus::class)
                             ->default(PostStatus::default()->value)
                             ->columnSpanFull()
@@ -113,13 +123,13 @@ abstract class CmsResource extends Resource implements HasBlueprint
                         ...static::endAttributesOverviewSection(),
                     ]),
 
-                Forms\Components\Section::make(__('Metadata'))
+                Section::make(__('Metadata'))
                     ->columns(2)
                     ->compact(false)
                     ->schema([
                         ...static::startAttributesMetadataSection(),
 
-                        Forms\Components\Select::make('user_id')
+                        Select::make('user_id')
                             ->label('Author')
                             ->relationship('user', 'name')
                             ->required()
@@ -128,7 +138,7 @@ abstract class CmsResource extends Resource implements HasBlueprint
                             ->default(auth()->id())
                             ->columnSpanFull(),
 
-                        Forms\Components\MarkdownEditor::make('excerpt')
+                        MarkdownEditor::make('excerpt')
                             ->maxLength(65535)
                             ->columnSpanFull()
                             ->columnSpanFull()
@@ -153,8 +163,8 @@ abstract class CmsResource extends Resource implements HasBlueprint
                 ...static::getTableColumns(),
             ])
             ->recordUrl(fn (Model $record): string => static::getUrl('content', ['record' => $record]))
-            ->actions([
-                Actions\Action::make('visit')
+            ->recordActions([
+                Action::make('visit')
                     ->iconSoftButton('heroicon-o-arrow-up-right')
                     ->url(function (Model $record, $livewire) {
                         $blueprint = $record->blueprint();
@@ -166,12 +176,12 @@ abstract class CmsResource extends Resource implements HasBlueprint
                     })
                     ->openUrlInNewTab(),
 
-                Actions\ReplicateAction::make()
-                    ->form(function (Form $form) {
-                        $blueprint = static::getBlueprint($form);
+                ReplicateAction::make()
+                    ->schema(function (Schema $schema) {
+                        $blueprint = static::getBlueprint($schema);
 
                         return [
-                            Forms\Components\TextInput::make('title')
+                            TextInput::make('title')
                                 ->required()
                                 ->maxLength(255)
                                 ->live(onBlur: true)
@@ -185,16 +195,16 @@ abstract class CmsResource extends Resource implements HasBlueprint
                                     $set('slug', $slug);
                                 }),
 
-                            Forms\Components\TextInput::make('slug')
+                            TextInput::make('slug')
                                 ->required()
                                 ->maxLength(255)
                                 ->prefix(
                                     fn () => Str::finish($blueprint->frontUrl(includeSelf: false), '/'),
                                 )
                                 ->columnSpanFull()
-                                ->unique($form->getModel(), 'slug', ignoreRecord: true),
+                                ->unique($schema->getModel(), 'slug', ignoreRecord: true),
 
-                            Forms\Components\Placeholder::make(__('Warning'))
+                            Placeholder::make(__('Warning'))
                                 ->content(__('Duplicated content can have a negative impact on your website\'s SEO score.')),
                         ];
                     })
@@ -207,22 +217,22 @@ abstract class CmsResource extends Resource implements HasBlueprint
                     ->successRedirectUrl(fn (Model $replica): string => static::getUrl('edit', ['record' => $replica]))
                     ->iconSoftButton('heroicon-o-square-2-stack'),
 
-                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+                EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ]);
     }
 
     protected static function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('id')
+            TextColumn::make('id')
                 ->numeric()
                 ->label('ID')
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true)
                 ->weight('bold'),
 
-            Tables\Columns\TextColumn::make('title')
+            TextColumn::make('title')
                 ->sortable()
                 ->searchable()
                 ->translatable()
@@ -235,24 +245,24 @@ abstract class CmsResource extends Resource implements HasBlueprint
                     return optional($blueprint)->frontUri(locale: $locale);
                 }),
 
-            Tables\Columns\TextColumn::make('slug')
+            TextColumn::make('slug')
                 ->sortable()
                 ->searchable()
                 ->translatable()
                 ->toggleable(isToggledHiddenByDefault: true),
 
-            Tables\Columns\TextColumn::make('status')
+            TextColumn::make('status')
                 ->sortable()
                 ->badge()
                 ->toggleable(isToggledHiddenByDefault: false),
 
-            Tables\Columns\TextColumn::make('user.name')
+            TextColumn::make('user.name')
                 ->label('Author')
                 ->searchable()
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: false),
 
-            Tables\Columns\TextColumn::make('seo_score')
+            TextColumn::make('seo_score')
                 ->label('SEO')
                 ->badge()
                 ->getStateUsing(fn (Model $record) => Cache::get(GenerateSeoScore::getCacheKey($record))?->getScore())

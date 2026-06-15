@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Hydrat\GroguCMS\Enums\FormFieldType;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -72,7 +73,7 @@ class FormField extends Model implements Sortable
         'sort_when_creating' => true,
     ];
 
-    public function form(): Relations\BelongsTo
+    public function form(): BelongsTo
     {
         return $this->belongsTo(Form::class);
     }

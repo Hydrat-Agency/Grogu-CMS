@@ -2,6 +2,8 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages;
 
+use Filament\Actions\EditAction;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget;
 use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource;
@@ -19,14 +21,14 @@ class ViewMenu extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make('edit'),
+            EditAction::make('edit'),
         ];
     }
 
     protected function getFooterWidgets(): array
     {
         return [
-            MenuResource\Widgets\MenuItemTreeWidget::class,
+            MenuItemTreeWidget::class,
         ];
     }
 }

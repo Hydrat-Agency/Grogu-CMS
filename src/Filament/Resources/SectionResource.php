@@ -2,6 +2,16 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Builder;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages\ListSections;
+use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages\CreateSection;
+use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages\EditSection;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -19,13 +29,13 @@ class SectionResource extends Resource implements HasBlueprint
 
     protected static ?string $model = Section::class;
 
-    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
 
     protected static ?int $navigationSort = 110;
 
     public static function getModel(): string
     {
-        return config('grogu-cms.models.section') ?? \Hydrat\GroguCMS\Models\Section::class;
+        return config('grogu-cms.models.section') ?? Section::class;
     }
 
     public static function getLabel(): string
@@ -48,14 +58,14 @@ class SectionResource extends Resource implements HasBlueprint
         return $schema
             ->columns(1)
             ->components([
-                Forms\Components\Select::make('location')
+                Select::make('location')
                     ->options(config('grogu-cms.sections.locations'))
                     ->native(false)
                     ->searchable(),
 
-                Forms\Components\TextInput::make('title')->required(),
+                TextInput::make('title')->required(),
 
-                Forms\Components\Builder::make('blocks')
+                Builder::make('blocks')
                     ->addActionLabel(__('Add layout'))
                     ->collapsible()
                     ->persistCollapsed()
@@ -71,22 +81,22 @@ class SectionResource extends Resource implements HasBlueprint
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title')
+                TextColumn::make('title')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('location')
+                TextColumn::make('location')
                     ->searchable()
                     ->sortable(),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Actions\BulkActionGroup::make([
-                    Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -101,9 +111,9 @@ class SectionResource extends Resource implements HasBlueprint
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSections::route('/'),
-            'create' => Pages\CreateSection::route('/create'),
-            'edit' => Pages\EditSection::route('/{record}/edit'),
+            'index' => ListSections::route('/'),
+            'create' => CreateSection::route('/create'),
+            'edit' => EditSection::route('/{record}/edit'),
         ];
     }
 }

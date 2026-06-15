@@ -2,6 +2,10 @@
 
 namespace Hydrat\GroguCMS\Providers;
 
+use Hydrat\GroguCMS\Events\UserCreated;
+use Hydrat\GroguCMS\Actions\User\WelcomeUser;
+use Hydrat\GroguCMS\Events\CmsModelSaved;
+use Hydrat\GroguCMS\Events\CmsModelDeleted;
 use Hydrat\GroguCMS\Actions;
 use Hydrat\GroguCMS\Events;
 use Hydrat\GroguCMS\Observers\UserObserver;
@@ -16,13 +20,13 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Events\UserCreated::class => [
-            Actions\User\WelcomeUser::class,
+        UserCreated::class => [
+            WelcomeUser::class,
         ],
-        Events\CmsModelSaved::class => [
+        CmsModelSaved::class => [
             // Actions\Seo\GenerateSeoScore::class,
         ],
-        Events\CmsModelDeleted::class => [
+        CmsModelDeleted::class => [
             // Actions\Seo\DeleteSeoScore::class,
         ],
     ];

@@ -2,6 +2,16 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\ForceDeleteBulkAction;
+use Filament\Actions\RestoreBulkAction;
+use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\ListPages;
+use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\CreatePage;
+use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\EditPage;
+use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\EditPageContent;
+use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\EditPageSeo;
 use Filament\Resources\Pages\Page as FilamentPage;
 use Filament\Schemas\Schema;
 use Filament\Actions;
@@ -13,7 +23,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PageResource extends CmsResource
 {
-    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?int $navigationSort = 100;
 
@@ -46,13 +56,13 @@ class PageResource extends CmsResource
     {
         return parent::table($table)
             ->filters([
-                Tables\Filters\TrashedFilter::make(),
+                TrashedFilter::make(),
             ])
-            ->bulkActions([
-                Actions\BulkActionGroup::make([
-                    Actions\DeleteBulkAction::make(),
-                    Actions\ForceDeleteBulkAction::make(),
-                    Actions\RestoreBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
+                    ForceDeleteBulkAction::make(),
+                    RestoreBulkAction::make(),
                 ]),
             ]);
     }
@@ -65,20 +75,20 @@ class PageResource extends CmsResource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPages::route('/'),
-            'create' => Pages\CreatePage::route('/create'),
-            'edit' => Pages\EditPage::route('/{record}/edit'),
-            'content' => Pages\EditPageContent::route('/{record}/content'),
-            'seo' => Pages\EditPageSeo::route('/{record}/seo'),
+            'index' => ListPages::route('/'),
+            'create' => CreatePage::route('/create'),
+            'edit' => EditPage::route('/{record}/edit'),
+            'content' => EditPageContent::route('/{record}/content'),
+            'seo' => EditPageSeo::route('/{record}/seo'),
         ];
     }
 
     public static function getRecordSubNavigation(FilamentPage $page): array
     {
         return $page->generateNavigationItems([
-            Pages\EditPage::class,
-            Pages\EditPageContent::class,
-            Pages\EditPageSeo::class,
+            EditPage::class,
+            EditPageContent::class,
+            EditPageSeo::class,
         ]);
     }
 

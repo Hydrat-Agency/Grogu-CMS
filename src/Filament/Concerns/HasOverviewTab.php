@@ -2,10 +2,17 @@
 
 namespace Hydrat\GroguCMS\Filament\Concerns;
 
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\MarkdownEditor;
+use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Group;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
-use Filament\Forms\Form;
-use Filament\Forms\Set;
+use Filament\Schemas\Schema;
+use Filament\Schemas\Components\Utilities\Set;
 use Hydrat\GroguCMS\Actions\GenerateUniqueSlug;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
@@ -13,34 +20,34 @@ use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
 
 trait HasOverviewTab
 {
-    protected static function getOverviewTabSchema(Form $form): array
+    protected static function getOverviewTabSchema(Schema $schema): array
     {
         return [
-            Forms\Components\Tabs\Tab::make('Overview')
+            Tab::make('Overview')
                 ->columns([
                     'md' => 1,
                     'lg' => 3,
                 ])
                 ->schema([
-                    ...static::getOverviewTabOverviewSectionSchema($form),
-                    ...static::getOverviewTabMetadataSectionSchema($form),
+                    ...static::getOverviewTabOverviewSectionSchema($schema),
+                    ...static::getOverviewTabMetadataSectionSchema($schema),
                 ]),
         ];
     }
 
-    protected static function getOverviewTabOverviewSectionSchema(Form $form): array
+    protected static function getOverviewTabOverviewSectionSchema(Schema $schema): array
     {
-        $blueprint = static::getBlueprint($form);
+        $blueprint = static::getBlueprint($schema);
 
         return [
-            Forms\Components\Section::make(__('Overview'))
+            Section::make(__('Overview'))
                 ->collapsible()
                 ->columnSpan([
                     'md' => 1,
                     'lg' => 2,
                 ])
                 ->schema([
-                    Forms\Components\TextInput::make('title')
+                    TextInput::make('title')
                         ->required()
                         ->maxLength(255)
                         ->live(onBlur: true)
@@ -57,23 +64,23 @@ trait HasOverviewTab
                             $set('slug', $slug);
                         }),
 
-                    Forms\Components\TextInput::make('slug')
+                    TextInput::make('slug')
                         ->required()
                         ->maxLength(255)
                         ->prefix(
                             fn () => Str::finish($blueprint->frontUrl(includeSelf: false), '/'),
                         )
-                        ->unique($form->getModel(), 'slug', ignoreRecord: true),
-                    // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
+                        ->unique($schema->getModel(), 'slug', ignoreRecord: true),
+                    // ->unique($schema->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
                     //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
                     // }),
 
-                    Forms\Components\MarkdownEditor::make('excerpt')
+                    MarkdownEditor::make('excerpt')
                         ->maxLength(65535)
                         ->columnSpanFull()
                         ->helperText(__('An overview of the page, used in feeds with the intent to entice readers to click through.')),
 
-                    Forms\Components\Select::make('status')
+                    Select::make('status')
                         ->options(PostStatus::class)
                         ->default(PostStatus::default()->value)
                         ->columnSpanFull()
@@ -83,18 +90,18 @@ trait HasOverviewTab
         ];
     }
 
-    protected static function getOverviewTabMetadataSectionSchema(Form $form): array
+    protected static function getOverviewTabMetadataSectionSchema(Schema $schema): array
     {
-        $blueprint = static::getBlueprint($form);
+        $blueprint = static::getBlueprint($schema);
 
         return [
-            Forms\Components\Section::make(__('Metadata'))
+            Section::make(__('Metadata'))
                 ->collapsible()
                 ->columnSpan([
                     'lg' => 1,
                 ])
                 ->schema([
-                    Forms\Components\Select::make('user_id')
+                    Select::make('user_id')
                         ->label('Author')
                         ->relationship('user', 'name')
                         ->required()
@@ -102,7 +109,7 @@ trait HasOverviewTab
                         ->preload()
                         ->default(auth()->id()),
 
-                    Forms\Components\Select::make('parent_id')
+                    Select::make('parent_id')
                         ->relationship(
                             name: 'parent',
                             titleAttribute: 'title',
@@ -114,7 +121,7 @@ trait HasOverviewTab
                         ->nullable()
                         ->preload(),
 
-                    Forms\Components\Select::make('template')
+                    Select::make('template')
                         ->visible($blueprint->hasTemplates())
                         ->required($blueprint->hasMandatoryTemplate())
                         ->options(
@@ -142,13 +149,13 @@ trait HasOverviewTab
                         ->label(__('Thumbnail'))
                         ->acceptedFileTypes(['image/*']),
 
-                    Forms\Components\Group::make()
+                    Group::make()
                         ->schema([
-                            Forms\Components\Placeholder::make('created_at')
+                            Placeholder::make('created_at')
                                 ->label('Created at')
                                 ->content(fn (Model $record): ?string => $record->created_at?->isoFormat('LLL')),
 
-                            Forms\Components\Placeholder::make('updated_at')
+                            Placeholder::make('updated_at')
                                 ->label('Last modified at')
                                 ->content(fn (Model $record): ?string => $record->updated_at?->isoFormat('LLL')),
                         ])

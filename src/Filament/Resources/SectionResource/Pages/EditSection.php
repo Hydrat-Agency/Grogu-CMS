@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages;
 
+use Filament\Actions\DeleteAction;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Hydrat\GroguCMS\Filament\Resources\SectionResource;
@@ -19,7 +20,7 @@ class EditSection extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

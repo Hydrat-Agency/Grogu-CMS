@@ -1,5 +1,6 @@
 <?php
 
+use Hydrat\GroguCMS\PermissionRegistrar;
 use Illuminate\Database\Eloquent\Model;
 
 if (! function_exists('update_permissions')) {
@@ -9,7 +10,7 @@ if (! function_exists('update_permissions')) {
      */
     function update_permissions(): void
     {
-        $registrar = config('grogu-cms.users.permissions_registrar', \Hydrat\GroguCMS\PermissionRegistrar::class);
+        $registrar = config('grogu-cms.users.permissions_registrar', PermissionRegistrar::class);
 
         (new $registrar)->run();
     }

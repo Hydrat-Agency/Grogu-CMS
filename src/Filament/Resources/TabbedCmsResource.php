@@ -2,6 +2,11 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
+use Filament\Schemas\Components\Tabs;
+use Filament\Actions\Action;
+use Filament\Actions\EditAction;
+use Filament\Actions\DeleteAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -29,7 +34,7 @@ abstract class TabbedCmsResource extends Resource implements HasBlueprint
     {
         return $schema
             ->components([
-                Forms\Components\Tabs::make()
+                Tabs::make()
                     ->contained(false)
                     ->persistTab(true)
                     ->id(str(static::class)->afterLast('\\')->append('CmsTabs')->kebab())
@@ -48,33 +53,33 @@ abstract class TabbedCmsResource extends Resource implements HasBlueprint
             ->columns([
                 ...static::getTableColumns(),
             ])
-            ->actions([
-                Actions\Action::make('visit')
+            ->recordActions([
+                Action::make('visit')
                     ->iconSoftButton('heroicon-o-arrow-up-right')
                     ->url(fn (Model $record) => optional($record->blueprint())->frontUrl())
                     ->openUrlInNewTab(),
 
-                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+                EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ]);
     }
 
     protected static function getTableColumns(): array
     {
         return [
-            Tables\Columns\TextColumn::make('id')
+            TextColumn::make('id')
                 ->numeric()
                 ->label('ID')
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: true)
                 ->weight('bold'),
 
-            Tables\Columns\TextColumn::make('title')
+            TextColumn::make('title')
                 ->sortable()
                 ->searchable()
                 ->description(fn (Model $record) => optional($record->blueprint())->frontUri()),
 
-            Tables\Columns\TextColumn::make('published_at')
+            TextColumn::make('published_at')
                 ->label('Status')
                 ->sortable()
                 ->badge()
@@ -87,13 +92,13 @@ abstract class TabbedCmsResource extends Resource implements HasBlueprint
                 ->color(fn (Model $record) => $record->published_at ? 'success' : 'warning')
                 ->toggleable(isToggledHiddenByDefault: false),
 
-            Tables\Columns\TextColumn::make('user.name')
+            TextColumn::make('user.name')
                 ->label('Author')
                 ->searchable()
                 ->sortable()
                 ->toggleable(isToggledHiddenByDefault: false),
 
-            Tables\Columns\TextColumn::make('seo_score')
+            TextColumn::make('seo_score')
                 ->label('SEO')
                 ->badge()
                 ->getStateUsing(fn (Model $record) => Cache::get(GenerateSeoScore::getCacheKey($record))?->getScore())

@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Actions\Form;
 
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 use Hydrat\GroguCMS\Datas\FormEntryValue;
 use Hydrat\GroguCMS\Events\FormEntryCreated;
 use Hydrat\GroguCMS\Models\Form;
@@ -46,7 +47,7 @@ class SubmitFormEntry
     protected function manageAttachments(array $validated): array
     {
         foreach ($validated as $key => $value) {
-            if ($value instanceof \Livewire\Features\SupportFileUploads\TemporaryUploadedFile) {
+            if ($value instanceof TemporaryUploadedFile) {
                 $fileName = pathinfo($value->getClientOriginalName(), PATHINFO_FILENAME);
                 $extension = pathinfo($value->getClientOriginalName(), PATHINFO_EXTENSION);
 

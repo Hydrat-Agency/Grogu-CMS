@@ -2,8 +2,11 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Placeholder;
 use Filament\Forms;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +24,7 @@ abstract class EditRecordSeo extends EditRecord
     use HasBuilderPreview;
     use HasPreviewModal;
 
-    protected static \BackedEnum|string|null $navigationIcon = 'phosphor-robot';
+    protected static string | \BackedEnum | null $navigationIcon = 'phosphor-robot';
 
     public static function getNavigationLabel(): string
     {
@@ -50,7 +53,7 @@ abstract class EditRecordSeo extends EditRecord
         return $schema
             ->columns(1)
             ->components([
-                Forms\Components\Section::make(__('SEO Details'))
+                Section::make(__('SEO Details'))
                     ->columns(2)
                     ->relationship('seo')
                     ->schema([
@@ -77,7 +80,7 @@ abstract class EditRecordSeo extends EditRecord
                         MediaPicker::make('image')
                             ->acceptedFileTypes(['image/*']),
 
-                        Forms\Components\Select::make('robots')
+                        Select::make('robots')
                             ->native(true)
                             ->options([
                                 'index, follow' => __('Index, Follow'),
@@ -89,7 +92,7 @@ abstract class EditRecordSeo extends EditRecord
                             ->columnSpanFull(),
                     ]),
 
-                Forms\Components\Placeholder::make('preview')
+                Placeholder::make('preview')
                     ->label(__('Preview'))
                     ->content(function (Model $record, Get $get) use ($titleSuffixEnabled) {
                         if (method_exists($record, 'getDynamicSEOData')) {

@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Content\Blueprints;
 
+use Hydrat\GroguCMS\Models\Section;
 use Hydrat\GroguCMS\Content\Blueprint;
 
 class SectionBlueprint extends Blueprint
@@ -14,7 +15,7 @@ class SectionBlueprint extends Blueprint
 
     public function model(): string
     {
-        return config('grogu-cms.models.section') ?? \Hydrat\GroguCMS\Models\Section::class;
+        return config('grogu-cms.models.section') ?? Section::class;
     }
 
     public function blocks(): array

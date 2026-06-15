@@ -2,9 +2,13 @@
 
 namespace Hydrat\GroguCMS\Filament\Concerns;
 
+use Filament\Schemas\Components\Tabs\Tab;
+use Filament\Schemas\Components\Section;
+use Filament\Forms\Components\Builder;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Forms\Get;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Schema;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 
 trait HasContentTab
@@ -14,20 +18,20 @@ trait HasContentTab
         return false;
     }
 
-    protected static function getContentTabSchema(Form $form): array
+    protected static function getContentTabSchema(Schema $schema): array
     {
-        $blueprint = static::getBlueprint($form);
+        $blueprint = static::getBlueprint($schema);
 
         if (! $blueprint->hasContent() && ! $blueprint->hasBlocks()) {
             return [];
         }
 
         $scheme = static::contentTabIsContained()
-            ? static::getContentTabSchemaContentSectionSchema($form)
-            : static::getContentTabInnerSchema($form);
+            ? static::getContentTabSchemaContentSectionSchema($schema)
+            : static::getContentTabInnerSchema($schema);
 
         return [
-            Forms\Components\Tabs\Tab::make('Content')
+            Tab::make('Content')
                 ->columns([
                     'md' => 1,
                 ])
@@ -37,22 +41,22 @@ trait HasContentTab
         ];
     }
 
-    protected static function getContentTabSchemaContentSectionSchema(Form $form): array
+    protected static function getContentTabSchemaContentSectionSchema(Schema $schema): array
     {
         return [
-            Forms\Components\Section::make('content')
+            Section::make('content')
                 ->schema([
-                    ...static::getContentTabInnerSchema($form),
+                    ...static::getContentTabInnerSchema($schema),
                 ]),
         ];
     }
 
-    public static function getBuilderField(): Forms\Components\Builder
+    public static function getBuilderField(): Builder
     {
         $avaibleTemplates = static::getBlueprint()->templates();
         $selectedTemplate = fn (Get $get) => GroguCMS::getTemplate($get('template'));
 
-        return Forms\Components\Builder::make('blocks')
+        return Builder::make('blocks')
             ->addActionLabel(__('Add layout'))
             ->collapsible()
             ->persistCollapsed()
@@ -66,13 +70,13 @@ trait HasContentTab
             );
     }
 
-    protected static function getContentTabInnerSchema(Form $form): array
+    protected static function getContentTabInnerSchema(Schema $schema): array
     {
         $avaibleTemplates = static::getBlueprint()->templates();
         $selectedTemplate = fn (Get $get) => GroguCMS::getTemplate($get('template'));
 
         return [
-            Forms\Components\RichEditor::make('content')
+            RichEditor::make('content')
                 ->required()
                 ->maxLength(65535)
                 ->columnSpanFull()

@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\View\Composers;
 
+use Hydrat\GroguCMS\GroguCMS;
 use Illuminate\View\View;
 
 class MenuComposer
@@ -10,7 +11,7 @@ class MenuComposer
      * Create a new profile composer.
      */
     public function __construct(
-        protected \Hydrat\GroguCMS\GroguCMS $groguCMS,
+        protected GroguCMS $groguCMS,
     ) {}
 
     /**

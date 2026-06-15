@@ -21,7 +21,7 @@ trait HasSlug
     }
 
     /**
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     * @throws ModelNotFoundException
      */
     public static function findBySlugOrFail(string $slug): static
     {

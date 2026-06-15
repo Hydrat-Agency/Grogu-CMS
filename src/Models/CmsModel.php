@@ -2,6 +2,11 @@
 
 namespace Hydrat\GroguCMS\Models;
 
+use Hydrat\GroguCMS\Events\CmsModelSaved;
+use Hydrat\GroguCMS\Events\CmsModelDeleted;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Hydrat\GroguCMS\Enums\PostStatus;
 use Hydrat\GroguCMS\Events;
 use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
@@ -71,26 +76,26 @@ abstract class CmsModel extends Model implements CmsContracts\HasBlocks, CmsCont
      * @var array
      */
     protected $dispatchesEvents = [
-        'saved' => Events\CmsModelSaved::class,
-        'deleted' => Events\CmsModelDeleted::class,
+        'saved' => CmsModelSaved::class,
+        'deleted' => CmsModelDeleted::class,
     ];
 
-    public function user(): Relations\BelongsTo
+    public function user(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function parent(): Relations\BelongsTo
+    public function parent(): BelongsTo
     {
         return $this->belongsTo(static::class, 'parent_id');
     }
 
-    public function children(): Relations\HasMany
+    public function children(): HasMany
     {
         return $this->hasMany(static::class, 'parent_id');
     }
 
-    public function thumbnail(): Relations\BelongsTo
+    public function thumbnail(): BelongsTo
     {
         return $this->belongsTo(MediaLibraryItem::class, 'thumbnail_id');
     }

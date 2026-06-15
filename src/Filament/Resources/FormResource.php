@@ -2,6 +2,20 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
+use Hydrat\GroguCMS\Models\Form;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Actions\EditAction;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ListForms;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\CreateForm;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\EditForm;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ManageFormFields;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ManageFormEntries;
 use Filament\Forms;
 use Filament\Resources\Pages\Page;
 use Filament\Schemas\Schema;
@@ -14,7 +28,7 @@ use Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
 
 class FormResource extends Resource
 {
-    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-inbox-arrow-down';
+    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-inbox-arrow-down';
 
     protected static ?string $recordTitleAttribute = 'name';
 
@@ -22,7 +36,7 @@ class FormResource extends Resource
 
     public static function getModel(): string
     {
-        return config('grogu-cms.models.form') ?? \Hydrat\GroguCMS\Models\Form::class;
+        return config('grogu-cms.models.form') ?? Form::class;
     }
 
     public static function getLabel(): string
@@ -44,35 +58,35 @@ class FormResource extends Resource
     {
         return $schema
             ->components([
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
 
-                Forms\Components\TextInput::make('submit_button_label')
+                TextInput::make('submit_button_label')
                     ->required()
                     ->default(fn () => __('Submit'))
                     ->maxLength(255),
 
-                Forms\Components\Textarea::make('submit_success_message')
+                Textarea::make('submit_success_message')
                     ->rows(3)
                     ->columnSpanFull()
                     ->maxLength(5000),
 
-                Forms\Components\TextInput::make('notify_subject')
+                TextInput::make('notify_subject')
                     ->default(fn () => __('New form submission'))
                     ->maxLength(255),
 
-                Forms\Components\TextInput::make('notify_emails')
+                TextInput::make('notify_emails')
                     ->maxLength(255),
 
-                Forms\Components\Repeater::make('entry_columns')
+                Repeater::make('entry_columns')
                     ->helperText(__('Define the columns displayed in the entries list. You need to define fields first in the "Fields" section.'))
                     ->columnSpanFull()
                     ->grid(3)
                     ->columns(1)
                     ->addActionLabel(__('Add field'))
                     ->schema([
-                        Forms\Components\Select::make('field')
+                        Select::make('field')
                             ->options(fn ($record) => $record?->fields()->pluck('name', 'id') ?? [])
                             ->required(),
                     ]),
@@ -83,17 +97,17 @@ class FormResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                TextColumn::make('name'),
             ])
             ->filters([
                 //
             ])
-            ->actions([
-                Actions\EditAction::make(),
+            ->recordActions([
+                EditAction::make(),
             ])
-            ->bulkActions([
-                Actions\BulkActionGroup::make([
-                    Actions\DeleteBulkAction::make(),
+            ->toolbarActions([
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -108,20 +122,20 @@ class FormResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListForms::route('/'),
-            'create' => Pages\CreateForm::route('/create'),
-            'edit' => Pages\EditForm::route('/{record}/edit'),
-            'fields' => Pages\ManageFormFields::route('/{record}/fields'),
-            'entries' => Pages\ManageFormEntries::route('/{record}/entries'),
+            'index' => ListForms::route('/'),
+            'create' => CreateForm::route('/create'),
+            'edit' => EditForm::route('/{record}/edit'),
+            'fields' => ManageFormFields::route('/{record}/fields'),
+            'entries' => ManageFormEntries::route('/{record}/entries'),
         ];
     }
 
     public static function getRecordSubNavigation(Page $page): array
     {
         return $page->generateNavigationItems([
-            Pages\EditForm::class,
-            Pages\ManageFormFields::class,
-            Pages\ManageFormEntries::class,
+            EditForm::class,
+            ManageFormFields::class,
+            ManageFormEntries::class,
         ]);
     }
 }

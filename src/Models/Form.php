@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations;
@@ -44,12 +45,12 @@ class Form extends Model
         'entry_columns' => 'array',
     ];
 
-    public function fields(): Relations\HasMany
+    public function fields(): HasMany
     {
         return $this->hasMany(FormField::class)->orderBy('order');
     }
 
-    public function entries(): Relations\HasMany
+    public function entries(): HasMany
     {
         return $this->hasMany(FormEntry::class);
     }

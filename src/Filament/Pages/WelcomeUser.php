@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Filament\Pages;
 
+use Filament\Auth\Http\Responses\Contracts\PasswordResetResponse;
 use App\Models\User;
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
@@ -9,7 +10,6 @@ use Filament\Actions\Action;
 use Filament\Facades\Filament;
 use Filament\Schemas\Components\Component;
 use Filament\Forms\Components\TextInput;
-use Filament\Http\Responses\Auth\Contracts\PasswordResetResponse;
 use Filament\Schemas\Schema;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;

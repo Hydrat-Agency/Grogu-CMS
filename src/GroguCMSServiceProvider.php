@@ -2,6 +2,16 @@
 
 namespace Hydrat\GroguCMS;
 
+use Hydrat\GroguCMS\Providers\FilamentServiceProvider;
+use Hydrat\GroguCMS\Providers\EventServiceProvider;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget;
+use Hydrat\GroguCMS\Filament\Pages\WelcomeUser;
+use Hydrat\GroguCMS\Commands\CmsModelMakeCommand;
+use Hydrat\GroguCMS\Commands\BlueprintMakeCommand;
+use Hydrat\GroguCMS\Commands\TranslatableModelMakeCommand;
+use Hydrat\GroguCMS\Commands\GroguSearchReplaceCommand;
+use Hydrat\GroguCMS\Commands\SitemapGenerateCommand;
+use Hydrat\GroguCMS\Commands\UpdatePermissionsCommand;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
@@ -64,8 +74,8 @@ class GroguCMSServiceProvider extends PackageServiceProvider
 
     public function packageRegistered(): void
     {
-        $this->app->register(Providers\FilamentServiceProvider::class);
-        $this->app->register(Providers\EventServiceProvider::class);
+        $this->app->register(FilamentServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
     }
 
     public function boot()
@@ -118,8 +128,8 @@ class GroguCMSServiceProvider extends PackageServiceProvider
 
     protected function loadLivewireComponents(): void
     {
-        Livewire::component('grogu-cms::menu-item-tree-widget', \Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget::class);
-        Livewire::component('grogu-cms::welcome-user', \Hydrat\GroguCMS\Filament\Pages\WelcomeUser::class);
+        Livewire::component('grogu-cms::menu-item-tree-widget', MenuItemTreeWidget::class);
+        Livewire::component('grogu-cms::welcome-user', WelcomeUser::class);
         Livewire::component('grogu-cms::contact-form', LivewireComponents\ContactForm::class);
     }
 
@@ -149,13 +159,13 @@ class GroguCMSServiceProvider extends PackageServiceProvider
     protected function getCommands(): array
     {
         return [
-            Commands\CmsModelMakeCommand::class,
-            Commands\BlueprintMakeCommand::class,
-            Commands\TranslatableModelMakeCommand::class,
+            CmsModelMakeCommand::class,
+            BlueprintMakeCommand::class,
+            TranslatableModelMakeCommand::class,
             // Commands\TemplateMakeCommand::class,
-            Commands\GroguSearchReplaceCommand::class,
-            Commands\SitemapGenerateCommand::class,
-            Commands\UpdatePermissionsCommand::class,
+            GroguSearchReplaceCommand::class,
+            SitemapGenerateCommand::class,
+            UpdatePermissionsCommand::class,
         ];
     }
 

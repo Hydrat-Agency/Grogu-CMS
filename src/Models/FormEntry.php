@@ -2,6 +2,7 @@
 
 namespace Hydrat\GroguCMS\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Hydrat\GroguCMS\Datas\FormEntryValue;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -34,12 +35,12 @@ class FormEntry extends Model
         'values' => DataCollection::class.':'.FormEntryValue::class,
     ];
 
-    public function user(): Relations\BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(config('auth.providers.users.model', 'App\Models\User'));
     }
 
-    public function form(): Relations\BelongsTo
+    public function form(): BelongsTo
     {
         return $this->belongsTo(Form::class);
     }
