@@ -14,7 +14,7 @@ use Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
 
 class FormResource extends Resource
 {
-    protected static ?string $navigationIcon = 'heroicon-o-inbox-arrow-down';
+    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-inbox-arrow-down';
 
     protected static ?string $recordTitleAttribute = 'name';
 
