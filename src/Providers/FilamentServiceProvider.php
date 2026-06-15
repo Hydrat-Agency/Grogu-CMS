@@ -3,9 +3,8 @@
 namespace Hydrat\GroguCMS\Providers;
 
 use Filament\Actions\Action;
-use Filament\Actions\StaticAction;
-use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Placeholder;
+use Filament\Schemas\Components\Component;
 use Filament\Infolists\Components\Entry;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Filters\BaseFilter;
@@ -56,7 +55,6 @@ class FilamentServiceProvider extends ServiceProvider
             Component::class,
             Entry::class,
             Action::class,
-            StaticAction::class,
         ]);
 
         // LanguageSwitch::configureUsing(function (LanguageSwitch $switch) {
