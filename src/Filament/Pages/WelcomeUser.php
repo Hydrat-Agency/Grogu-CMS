@@ -36,7 +36,7 @@ class WelcomeUser extends SimplePage
 
     public ?string $passwordConfirmation = '';
 
-    protected static string $view = 'grogu-cms::filament.pages.welcome-user';
+    protected string $view = 'grogu-cms::filament.pages.welcome-user';
 
     protected static ?string $slug = 'welcome';
 
