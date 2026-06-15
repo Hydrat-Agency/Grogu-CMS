@@ -7,6 +7,7 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Pages\ManageRelatedRecords;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Enums\FormFieldType;
@@ -237,17 +238,17 @@ class ManageFormFields extends ManageRelatedRecords
             ->headerActions([
                 ...$this->beforeTableHeaderActions(),
 
-                Tables\Actions\CreateAction::make()
+                Actions\CreateAction::make()
                     ->mutateFormDataUsing(fn (array $data): array => $this->mutateDataBeforeSaving($data)),
             ])
             ->actions([
-                Tables\Actions\ReplicateAction::make()->iconSoftButton('heroicon-o-square-2-stack'),
-                Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+                Actions\ReplicateAction::make()->iconSoftButton('heroicon-o-square-2-stack'),
+                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ])
             ->emptyStateDescription(__('Create a new field to get started.'));

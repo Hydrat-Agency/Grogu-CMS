@@ -5,10 +5,11 @@ namespace Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\FilamentLexiTranslate\Resources\RelationManagers\Concerns\Translatable;
-use Hydrat\FilamentLexiTranslate\Tables\Actions\LocaleSwitcher;
+use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
 
 class FieldsRelationManager extends RelationManager
 {
@@ -40,16 +41,16 @@ class FieldsRelationManager extends RelationManager
             ->headerActions([
                 ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
 
-                Tables\Actions\CreateAction::make()
+                Actions\CreateAction::make()
                     ->mutateFormDataUsing(fn (array $data): array => $this->mutateDataBeforeSaving($data)),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
+                Actions\EditAction::make(),
+                Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

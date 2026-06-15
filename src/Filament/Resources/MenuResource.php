@@ -7,6 +7,7 @@ use Filament\Forms\Form;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Facades\GroguCMS;
@@ -87,13 +88,13 @@ class MenuResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->iconSoftButton('heroicon-o-eye'),
-                Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+                Actions\ViewAction::make()->iconSoftButton('heroicon-o-eye'),
+                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

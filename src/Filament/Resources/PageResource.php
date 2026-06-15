@@ -4,6 +4,7 @@ namespace Hydrat\GroguCMS\Filament\Resources;
 
 use Filament\Forms\Form;
 use Filament\Resources\Pages\Page as FilamentPage;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
@@ -48,10 +49,10 @@ class PageResource extends CmsResource
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                    Tables\Actions\ForceDeleteBulkAction::make(),
-                    Tables\Actions\RestoreBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
+                    Actions\ForceDeleteBulkAction::make(),
+                    Actions\RestoreBulkAction::make(),
                 ]),
             ]);
     }

@@ -5,6 +5,7 @@ namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
@@ -131,16 +132,16 @@ class ManageFormEntries extends ManageRelatedRecords
                 //
             ])
             ->headerActions([
-                // Tables\Actions\CreateAction::make(),
+                // Actions\CreateAction::make(),
             ])
             ->actions([
-                Tables\Actions\ViewAction::make()->iconSoftButton('heroicon-o-eye'),
-                Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+                Actions\ViewAction::make()->iconSoftButton('heroicon-o-eye'),
+                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -13,6 +13,7 @@
     },
     "repositories": [
         {
+            "name": "ralphjsmit/*",
             "type": "composer",
             "url": "https://satis.ralphjsmit.com"
         },

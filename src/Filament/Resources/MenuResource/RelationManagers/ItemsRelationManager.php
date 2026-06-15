@@ -7,11 +7,12 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Hydrat\FilamentLexiTranslate\Resources\RelationManagers\Concerns\Translatable;
-use Hydrat\FilamentLexiTranslate\Tables\Actions\LocaleSwitcher;
+use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\GroguCMS\Models\MenuItem;
 use Illuminate\Database\Eloquent\Builder;
@@ -157,26 +158,26 @@ class ItemsRelationManager extends RelationManager
             ->headerActions([
                 ...(GroguCMS::isTranslatableEnabled() ? [LocaleSwitcher::make()] : []),
 
-                Tables\Actions\CreateAction::make()
+                Actions\CreateAction::make()
                     ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
                     ->after(fn () => $this->dispatch('refreshTree')),
             ])
             ->actions([
-                Tables\Actions\ReplicateAction::make()
+                Actions\ReplicateAction::make()
                     ->iconSoftButton('heroicon-o-square-2-stack'),
 
-                Tables\Actions\EditAction::make()
+                Actions\EditAction::make()
                     ->iconSoftButton('heroicon-o-pencil-square')
                     ->mutateFormDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeSaving']))
                     ->mutateRecordDataUsing(Closure::fromCallable([$this, 'mutateDataBeforeEditing']))
                     ->after(fn () => $this->dispatch('refreshTree')),
 
-                Tables\Actions\DeleteAction::make()
+                Actions\DeleteAction::make()
                     ->iconSoftButton('heroicon-o-trash'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ])
             ->groups([

@@ -7,7 +7,6 @@ use Filament\Actions\StaticAction;
 use Filament\Forms\Components\Component;
 use Filament\Forms\Components\Placeholder;
 use Filament\Infolists\Components\Entry;
-use Filament\Tables\Actions\Action as TableAction;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Support\ServiceProvider;
@@ -19,8 +18,8 @@ class FilamentServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        TableAction::macro('iconSoftButton', function (string $icon): TableAction {
-            /** @var TableAction $this */
+        Action::macro('iconSoftButton', function (string $icon): Action {
+            /** @var Action $this */
             return $this->outlined()
                 ->iconButton()
                 ->icon($icon)

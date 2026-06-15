@@ -5,6 +5,7 @@ namespace Hydrat\GroguCMS\Filament\Resources;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Actions\Seo\GenerateSeoScore;
@@ -48,13 +49,13 @@ abstract class TabbedCmsResource extends Resource implements HasBlueprint
                 ...static::getTableColumns(),
             ])
             ->actions([
-                Tables\Actions\Action::make('visit')
+                Actions\Action::make('visit')
                     ->iconSoftButton('heroicon-o-arrow-up-right')
                     ->url(fn (Model $record) => optional($record->blueprint())->frontUrl())
                     ->openUrlInNewTab(),
 
-                Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ]);
     }
 

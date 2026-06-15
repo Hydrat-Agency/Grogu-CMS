@@ -5,6 +5,7 @@ namespace Hydrat\GroguCMS\Filament\Resources;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Actions\User\WelcomeUser;
@@ -126,25 +127,25 @@ class UserResource extends Resource
                     ->preload(),
             ])
             ->actions([
-                // Tables\Actions\Action::make('resetPassword')
+                // Actions\Action::make('resetPassword')
                 //     ->iconSoftButton('heroicon-o-lock-closed')
                 //     ->visible(
                 //         fn (User $record) => auth()->user()->can('update', $record)
                 //     ),
 
-                Tables\Actions\Action::make('welcomeReset')
+                Actions\Action::make('welcomeReset')
                     ->iconSoftButton('heroicon-o-rocket-launch')
                     ->label(__('Resend welcome email'))
                     ->authorize(fn (User $record) => Gate::check('update', $record) && $record->welcome_valid_until !== null)
                     ->action(fn (User $record) => WelcomeUser::run($record))
                     ->requiresConfirmation(),
 
-                Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Actions\BulkActionGroup::make([
+                    Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

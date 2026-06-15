@@ -6,6 +6,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Actions\GenerateUniqueSlug;
@@ -153,7 +154,7 @@ abstract class CmsResource extends Resource implements HasBlueprint
             ])
             ->recordUrl(fn (Model $record): string => static::getUrl('content', ['record' => $record]))
             ->actions([
-                Tables\Actions\Action::make('visit')
+                Actions\Action::make('visit')
                     ->iconSoftButton('heroicon-o-arrow-up-right')
                     ->url(function (Model $record, $livewire) {
                         $blueprint = $record->blueprint();
@@ -165,7 +166,7 @@ abstract class CmsResource extends Resource implements HasBlueprint
                     })
                     ->openUrlInNewTab(),
 
-                Tables\Actions\ReplicateAction::make()
+                Actions\ReplicateAction::make()
                     ->form(function (Form $form) {
                         $blueprint = static::getBlueprint($form);
 
@@ -206,8 +207,8 @@ abstract class CmsResource extends Resource implements HasBlueprint
                     ->successRedirectUrl(fn (Model $replica): string => static::getUrl('edit', ['record' => $replica]))
                     ->iconSoftButton('heroicon-o-square-2-stack'),
 
-                Tables\Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
-                Tables\Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
+                Actions\EditAction::make()->iconSoftButton('heroicon-o-pencil-square'),
+                Actions\DeleteAction::make()->iconSoftButton('heroicon-o-trash'),
             ]);
     }
 
