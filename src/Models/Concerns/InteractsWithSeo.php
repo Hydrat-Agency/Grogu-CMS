@@ -3,7 +3,7 @@
 namespace Hydrat\GroguCMS\Models\Concerns;
 
 use Illuminate\Support\Collection;
-use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
+use RalphJSmit\Filament\MediaLibrary\Models\MediaLibraryItem;
 use RalphJSmit\Laravel\SEO\Support\AlternateTag;
 use RalphJSmit\Laravel\SEO\Support\HasSEO;
 use RalphJSmit\Laravel\SEO\Support\SEOData;

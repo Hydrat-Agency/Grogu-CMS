@@ -28,8 +28,8 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
-use RalphJSmit\Filament\MediaLibrary\Forms\Components\MediaPicker;
-use RalphJSmit\Filament\MediaLibrary\Tables\Columns\MediaColumn;
+use RalphJSmit\Filament\MediaLibrary\Filament\Forms\Components\MediaPicker;
+use RalphJSmit\Filament\MediaLibrary\Filament\Tables\Columns\MediaColumn;
 
 abstract class CmsResource extends Resource implements HasBlueprint
 {
