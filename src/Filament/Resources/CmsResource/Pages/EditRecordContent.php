@@ -4,7 +4,7 @@ namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
 use Filament\Actions\Action;
 use Filament\Forms;
-use Filament\\Schemas\\Components\\Actions;
+use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Component;
 use Filament\Forms\Get;
 use Filament\Schemas\Schema;
