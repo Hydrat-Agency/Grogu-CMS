@@ -16,7 +16,7 @@ use Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
 class MenuResource extends Resource
 {
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-bars-3';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-bars-3';
 
     protected static bool $isDiscovered = false;
 

@@ -23,7 +23,7 @@ abstract class EditRecordContent extends EditRecord
     use HasBuilderPreview;
     use HasPreviewModal;
 
-    protected static BackedEnum|string|null $navigationIcon = 'phosphor-selection-all';
+    protected static \BackedEnum|string|null $navigationIcon = 'phosphor-selection-all';
 
     public static function getNavigationLabel(): string
     {

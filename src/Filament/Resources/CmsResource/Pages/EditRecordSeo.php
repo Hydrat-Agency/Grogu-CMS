@@ -21,7 +21,7 @@ abstract class EditRecordSeo extends EditRecord
     use HasBuilderPreview;
     use HasPreviewModal;
 
-    protected static BackedEnum|string|null $navigationIcon = 'phosphor-robot';
+    protected static \BackedEnum|string|null $navigationIcon = 'phosphor-robot';
 
     public static function getNavigationLabel(): string
     {

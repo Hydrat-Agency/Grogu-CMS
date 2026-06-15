@@ -18,7 +18,7 @@ class UserResource extends Resource
 {
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-user';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-user';
 
     protected static ?int $navigationSort = 510;
 

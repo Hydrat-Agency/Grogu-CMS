@@ -18,7 +18,7 @@ class ManageFormEntries extends ManageRelatedRecords
 {
     protected static string $relationship = 'entries';
 
-    protected static BackedEnum|string|null $navigationIcon = 'radix-enter';
+    protected static \BackedEnum|string|null $navigationIcon = 'radix-enter';
 
     /**
      * @return class-string

@@ -19,7 +19,7 @@ class ManageFormFields extends ManageRelatedRecords
 {
     protected static string $relationship = 'fields';
 
-    protected static BackedEnum|string|null $navigationIcon = 'radix-section'; // heroicon-o-queue-list
+    protected static \BackedEnum|string|null $navigationIcon = 'radix-section'; // heroicon-o-queue-list
 
     /**
      * @return class-string

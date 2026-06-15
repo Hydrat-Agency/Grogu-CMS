@@ -19,7 +19,7 @@ class SectionResource extends Resource implements HasBlueprint
 
     protected static ?string $model = Section::class;
 
-    protected static BackedEnum|string|null $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
+    protected static \BackedEnum|string|null $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
 
     protected static ?int $navigationSort = 110;
 

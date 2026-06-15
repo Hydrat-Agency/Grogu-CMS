@@ -15,7 +15,7 @@ class EditPage extends EditRecord
 {
     use HasPreviewModal;
 
-    protected static BackedEnum|string|null $navigationIcon = 'phosphor-pencil';
+    protected static \BackedEnum|string|null $navigationIcon = 'phosphor-pencil';
 
     /**
      * @return class-string
