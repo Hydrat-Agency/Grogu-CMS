@@ -2,16 +2,14 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Filament\Schemas\Components\Tabs;
 use Filament\Actions\Action;
-use Filament\Actions\EditAction;
 use Filament\Actions\DeleteAction;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Schemas\Components\Tabs;
 use Filament\Schemas\Schema;
-use Filament\Actions;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Actions\Seo\GenerateSeoScore;
 use Hydrat\GroguCMS\Filament\Concerns as Parts;

@@ -2,10 +2,9 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
-use Filament\Forms\Components\RichEditor;
-use Filament\Forms\Components\Builder;
 use Filament\Actions\Action;
-use Filament\Forms;
+use Filament\Forms\Components\Builder;
+use Filament\Forms\Components\RichEditor;
 use Filament\Schemas\Components\Actions;
 use Filament\Schemas\Components\Component;
 use Filament\Schemas\Components\Utilities\Get;
@@ -25,7 +24,7 @@ abstract class EditRecordContent extends EditRecord
     use HasBuilderPreview;
     use HasPreviewModal;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'phosphor-selection-all';
+    protected static string|\BackedEnum|null $navigationIcon = 'phosphor-selection-all';
 
     public static function getNavigationLabel(): string
     {

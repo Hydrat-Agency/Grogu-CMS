@@ -2,14 +2,13 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource\Pages\ListTranslatableForms;
-use Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource\Pages\CreateTranslatableForm;
-use Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource\Pages\EditTranslatableForm;
-use Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource\Pages\ManageTranslatableFormFields;
-use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ManageFormEntries;
 use Filament\Resources\Pages\Page;
 use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
-use Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource\Pages;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ManageFormEntries;
+use Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource\Pages\CreateTranslatableForm;
+use Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource\Pages\EditTranslatableForm;
+use Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource\Pages\ListTranslatableForms;
+use Hydrat\GroguCMS\Filament\Resources\TranslatableFormResource\Pages\ManageTranslatableFormFields;
 
 class TranslatableFormResource extends FormResource
 {

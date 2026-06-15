@@ -2,7 +2,6 @@
 
 namespace Hydrat\GroguCMS\Mail;
 
-use Spatie\LaravelData\DataCollection;
 use Hydrat\GroguCMS\Enums\FormFieldType;
 use Hydrat\GroguCMS\Models\FormEntry;
 use Illuminate\Bus\Queueable;
@@ -11,6 +10,7 @@ use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Spatie\LaravelData\DataCollection;
 
 class NewFormEntry extends Mailable
 {

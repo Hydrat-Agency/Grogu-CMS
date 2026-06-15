@@ -4,8 +4,8 @@ namespace Hydrat\GroguCMS\Providers;
 
 use Filament\Actions\Action;
 use Filament\Forms\Components\Placeholder;
-use Filament\Schemas\Components\Component;
 use Filament\Infolists\Components\Entry;
+use Filament\Schemas\Components\Component;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Filters\BaseFilter;
 use Illuminate\Support\ServiceProvider;

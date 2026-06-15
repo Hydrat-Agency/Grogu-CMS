@@ -1,5 +1,8 @@
 <?php
 
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Resource;
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\CreateForm;
@@ -111,15 +114,15 @@ describe('FormResource pages registration', function () {
 
 describe('FormResource page classes', function () {
     it('ListForms extends Filament ListRecords', function () {
-        expect(is_subclass_of(ListForms::class, \Filament\Resources\Pages\ListRecords::class))->toBeTrue();
+        expect(is_subclass_of(ListForms::class, ListRecords::class))->toBeTrue();
     });
 
     it('CreateForm extends Filament CreateRecord', function () {
-        expect(is_subclass_of(CreateForm::class, \Filament\Resources\Pages\CreateRecord::class))->toBeTrue();
+        expect(is_subclass_of(CreateForm::class, CreateRecord::class))->toBeTrue();
     });
 
     it('EditForm extends Filament EditRecord', function () {
-        expect(is_subclass_of(EditForm::class, \Filament\Resources\Pages\EditRecord::class))->toBeTrue();
+        expect(is_subclass_of(EditForm::class, EditRecord::class))->toBeTrue();
     });
 });
 

@@ -2,33 +2,29 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Hydrat\GroguCMS\Models\Form;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ListForms;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Pages\Page;
+use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\CreateForm;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\EditForm;
-use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ManageFormFields;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ListForms;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ManageFormEntries;
-use Filament\Forms;
-use Filament\Resources\Pages\Page;
-use Filament\Schemas\Schema;
-use Filament\Resources\Resource;
-use Filament\Actions;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
+use Hydrat\GroguCMS\Filament\Resources\FormResource\Pages\ManageFormFields;
 use Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
+use Hydrat\GroguCMS\Models\Form;
 
 class FormResource extends Resource
 {
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-inbox-arrow-down';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-inbox-arrow-down';
 
     protected static ?string $recordTitleAttribute = 'name';
 

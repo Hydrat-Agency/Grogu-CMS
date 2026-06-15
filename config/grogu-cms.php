@@ -1,5 +1,19 @@
 <?php
 
+use Hydrat\GroguCMS\Filament\Resources\FormResource;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource;
+use Hydrat\GroguCMS\Filament\Resources\PageResource;
+use Hydrat\GroguCMS\Filament\Resources\SectionResource;
+use Hydrat\GroguCMS\Filament\Resources\UserResource;
+use Hydrat\GroguCMS\Models\Form;
+use Hydrat\GroguCMS\Models\FormEntry;
+use Hydrat\GroguCMS\Models\FormField;
+use Hydrat\GroguCMS\Models\Menu;
+use Hydrat\GroguCMS\Models\MenuItem;
+use Hydrat\GroguCMS\Models\Page;
+use Hydrat\GroguCMS\Models\Section;
+use Hydrat\GroguCMS\PermissionRegistrar;
+
 return [
 
     /**
@@ -7,24 +21,24 @@ return [
      */
     'models' => [
         'user' => 'App\Models\User',
-        'page' => Hydrat\GroguCMS\Models\Page::class,
-        'menu' => Hydrat\GroguCMS\Models\Menu::class,
-        'menu_item' => Hydrat\GroguCMS\Models\MenuItem::class,
-        'form' => Hydrat\GroguCMS\Models\Form::class,
-        'form_field' => Hydrat\GroguCMS\Models\FormField::class,
-        'form_entry' => Hydrat\GroguCMS\Models\FormEntry::class,
-        'section' => Hydrat\GroguCMS\Models\Section::class,
+        'page' => Page::class,
+        'menu' => Menu::class,
+        'menu_item' => MenuItem::class,
+        'form' => Form::class,
+        'form_field' => FormField::class,
+        'form_entry' => FormEntry::class,
+        'section' => Section::class,
     ],
 
     /**
      * Define the resources that should be registred by the plugin.
      */
     'resources' => [
-        'user_resource' => Hydrat\GroguCMS\Filament\Resources\UserResource::class,
-        'page_resource' => Hydrat\GroguCMS\Filament\Resources\PageResource::class,
-        'menu_resource' => Hydrat\GroguCMS\Filament\Resources\MenuResource::class,
-        'form_resource' => Hydrat\GroguCMS\Filament\Resources\FormResource::class,
-        'section_resource' => Hydrat\GroguCMS\Filament\Resources\SectionResource::class,
+        'user_resource' => UserResource::class,
+        'page_resource' => PageResource::class,
+        'menu_resource' => MenuResource::class,
+        'form_resource' => FormResource::class,
+        'section_resource' => SectionResource::class,
     ],
 
     /**
@@ -46,7 +60,7 @@ return [
      */
     'users' => [
         'guard' => 'web',
-        'permissions_registrar' => Hydrat\GroguCMS\PermissionRegistrar::class,
+        'permissions_registrar' => PermissionRegistrar::class,
         // 'guarded_resource' => [
         //     Hydrat\GroguCMS\Filament\Resources\PageResource::class,
         //     Hydrat\GroguCMS\Filament\Resources\MenuResource::class,

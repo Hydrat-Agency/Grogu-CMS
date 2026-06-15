@@ -1,6 +1,7 @@
 <?php
 
 use Hydrat\GroguCMS\Models\Menu;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 describe('Menu model', function () {
     it('can be created with title and location', function () {
@@ -15,11 +16,11 @@ describe('Menu model', function () {
     });
 
     it('has an items HasMany relationship', function () {
-        expect((new Menu)->items())->toBeInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class);
+        expect((new Menu)->items())->toBeInstanceOf(HasMany::class);
     });
 
     it('has an elements HasMany relationship', function () {
-        expect((new Menu)->elements())->toBeInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class);
+        expect((new Menu)->elements())->toBeInstanceOf(HasMany::class);
     });
 
     it('fillable includes title and location', function () {

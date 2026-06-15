@@ -2,20 +2,18 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
-use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\KeyValue;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Actions\ViewAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
+use Filament\Actions;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Filament\Forms;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\KeyValue;
+use Filament\Forms\Components\Select;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Schemas\Schema;
-use Filament\Actions;
-use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
 use Hydrat\GroguCMS\Models\FormField;
@@ -27,7 +25,7 @@ class ManageFormEntries extends ManageRelatedRecords
 {
     protected static string $relationship = 'entries';
 
-    protected static string | \BackedEnum | null $navigationIcon = 'radix-enter';
+    protected static string|\BackedEnum|null $navigationIcon = 'radix-enter';
 
     /**
      * @return class-string

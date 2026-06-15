@@ -3,10 +3,9 @@
 namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages;
 
 use Filament\Actions\EditAction;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget;
-use Filament\Actions;
 use Filament\Resources\Pages\ViewRecord;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget;
 
 class ViewMenu extends ViewRecord
 {

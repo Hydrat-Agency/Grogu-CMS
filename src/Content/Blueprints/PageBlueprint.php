@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS\Content\Blueprints;
 
-use Hydrat\GroguCMS\Models\Page;
 use Hydrat\GroguCMS\Content\Blueprint;
+use Hydrat\GroguCMS\Models\Page;
 
 class PageBlueprint extends Blueprint
 {

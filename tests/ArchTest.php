@@ -46,7 +46,7 @@ it('filament resources extend the Filament Resource base class', function () {
     ];
 
     foreach ($resources as $resource) {
-        expect(is_subclass_of($resource, \Filament\Resources\Resource::class))
+        expect(is_subclass_of($resource, Filament\Resources\Resource::class))
             ->toBeTrue("{$resource} must extend Filament\\Resources\\Resource");
     }
 });

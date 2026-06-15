@@ -2,30 +2,27 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Filament\Schemas\Components\Section;
-use Filament\Schemas\Components\Grid;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\FileUpload;
+use Filament\Actions;
+use Filament\Actions\Action;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Forms\Components\CheckboxList;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\TextInput;
+use Filament\Resources\Resource;
+use Filament\Schemas\Components\Grid;
+use Filament\Schemas\Components\Section;
+use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
-use Filament\Actions\Action;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
-use Filament\Actions\BulkActionGroup;
-use Filament\Actions\DeleteBulkAction;
-use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\ListUsers;
-use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\CreateUser;
-use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\EditUser;
-use Filament\Forms;
-use Filament\Resources\Resource;
-use Filament\Schemas\Schema;
-use Filament\Actions;
-use Filament\Tables;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Actions\User\WelcomeUser;
-use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages;
+use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\CreateUser;
+use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\EditUser;
+use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\ListUsers;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Gate;
@@ -34,7 +31,7 @@ class UserResource extends Resource
 {
     protected static ?string $recordTitleAttribute = 'name';
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-user';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-user';
 
     protected static ?int $navigationSort = 510;
 

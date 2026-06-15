@@ -1,5 +1,9 @@
 <?php
 
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ListRecords;
+use Filament\Resources\Pages\ViewRecord;
 use Filament\Resources\Resource;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\CreateMenu;
@@ -103,19 +107,19 @@ describe('MenuResource relation managers', function () {
 
 describe('MenuResource page classes', function () {
     it('ListMenus extends Filament ListRecords', function () {
-        expect(is_subclass_of(ListMenus::class, \Filament\Resources\Pages\ListRecords::class))->toBeTrue();
+        expect(is_subclass_of(ListMenus::class, ListRecords::class))->toBeTrue();
     });
 
     it('CreateMenu extends Filament CreateRecord', function () {
-        expect(is_subclass_of(CreateMenu::class, \Filament\Resources\Pages\CreateRecord::class))->toBeTrue();
+        expect(is_subclass_of(CreateMenu::class, CreateRecord::class))->toBeTrue();
     });
 
     it('EditMenu extends Filament EditRecord', function () {
-        expect(is_subclass_of(EditMenu::class, \Filament\Resources\Pages\EditRecord::class))->toBeTrue();
+        expect(is_subclass_of(EditMenu::class, EditRecord::class))->toBeTrue();
     });
 
     it('ViewMenu extends Filament ViewRecord', function () {
-        expect(is_subclass_of(ViewMenu::class, \Filament\Resources\Pages\ViewRecord::class))->toBeTrue();
+        expect(is_subclass_of(ViewMenu::class, ViewRecord::class))->toBeTrue();
     });
 });
 

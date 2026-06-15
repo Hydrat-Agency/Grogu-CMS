@@ -1,5 +1,7 @@
 <?php
 
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
 use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Resource;
 use Hydrat\GroguCMS\Filament\Contracts\HasBlueprint;
@@ -127,11 +129,11 @@ describe('PageResource page classes', function () {
     });
 
     it('EditPage extends Filament EditRecord', function () {
-        expect(is_subclass_of(EditPage::class, \Filament\Resources\Pages\EditRecord::class))->toBeTrue();
+        expect(is_subclass_of(EditPage::class, EditRecord::class))->toBeTrue();
     });
 
     it('CreatePage extends Filament CreateRecord', function () {
-        expect(is_subclass_of(CreatePage::class, \Filament\Resources\Pages\CreateRecord::class))->toBeTrue();
+        expect(is_subclass_of(CreatePage::class, CreateRecord::class))->toBeTrue();
     });
 });
 

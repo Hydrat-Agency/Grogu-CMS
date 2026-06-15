@@ -5,7 +5,6 @@ namespace Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
-use Filament\Actions;
 use Hydrat\GroguCMS\Collections\BlockCollection;
 use Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages\EditRecord;
 use Hydrat\GroguCMS\Filament\Resources\PageResource;
@@ -18,7 +17,7 @@ class EditPage extends EditRecord
 {
     use HasPreviewModal;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'phosphor-pencil';
+    protected static string|\BackedEnum|null $navigationIcon = 'phosphor-pencil';
 
     /**
      * @return class-string

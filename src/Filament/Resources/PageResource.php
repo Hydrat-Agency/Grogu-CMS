@@ -2,34 +2,32 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Filament\Tables\Filters\TrashedFilter;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\ForceDeleteBulkAction;
 use Filament\Actions\RestoreBulkAction;
-use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\ListPages;
+use Filament\Resources\Pages\Page as FilamentPage;
+use Filament\Schemas\Schema;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\CreatePage;
 use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\EditPage;
 use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\EditPageContent;
 use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\EditPageSeo;
-use Filament\Resources\Pages\Page as FilamentPage;
-use Filament\Schemas\Schema;
-use Filament\Actions;
-use Filament\Tables;
-use Filament\Tables\Table;
-use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages;
+use Hydrat\GroguCMS\Filament\Resources\PageResource\Pages\ListPages;
+use Hydrat\GroguCMS\Models\Page;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PageResource extends CmsResource
 {
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected static ?int $navigationSort = 100;
 
     public static function getModel(): string
     {
-        return config('grogu-cms.models.page') ?? \Hydrat\GroguCMS\Models\Page::class;
+        return config('grogu-cms.models.page') ?? Page::class;
     }
 
     public static function getLabel(): string

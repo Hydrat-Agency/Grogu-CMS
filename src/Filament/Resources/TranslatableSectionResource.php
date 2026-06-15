@@ -2,11 +2,10 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Hydrat\GroguCMS\Filament\Resources\TranslatableSectionResource\Pages\ListTranslatableSections;
+use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
 use Hydrat\GroguCMS\Filament\Resources\TranslatableSectionResource\Pages\CreateTranslatableSection;
 use Hydrat\GroguCMS\Filament\Resources\TranslatableSectionResource\Pages\EditTranslatableSection;
-use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
-use Hydrat\GroguCMS\Filament\Resources\TranslatableSectionResource\Pages;
+use Hydrat\GroguCMS\Filament\Resources\TranslatableSectionResource\Pages\ListTranslatableSections;
 
 class TranslatableSectionResource extends SectionResource
 {

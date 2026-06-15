@@ -2,12 +2,12 @@
 
 namespace Hydrat\GroguCMS\Providers;
 
-use Hydrat\GroguCMS\Events\UserCreated;
-use Hydrat\GroguCMS\Actions\User\WelcomeUser;
-use Hydrat\GroguCMS\Events\CmsModelSaved;
-use Hydrat\GroguCMS\Events\CmsModelDeleted;
 use Hydrat\GroguCMS\Actions;
+use Hydrat\GroguCMS\Actions\User\WelcomeUser;
 use Hydrat\GroguCMS\Events;
+use Hydrat\GroguCMS\Events\CmsModelDeleted;
+use Hydrat\GroguCMS\Events\CmsModelSaved;
+use Hydrat\GroguCMS\Events\UserCreated;
 use Hydrat\GroguCMS\Observers\UserObserver;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;

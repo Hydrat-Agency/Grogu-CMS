@@ -1,5 +1,8 @@
 <?php
 
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Resource;
 use Hydrat\GroguCMS\Filament\Resources\UserResource;
 use Hydrat\GroguCMS\Filament\Resources\UserResource\Pages\CreateUser;
@@ -102,15 +105,15 @@ describe('UserResource pages registration', function () {
 
 describe('UserResource page classes', function () {
     it('ListUsers extends Filament ListRecords', function () {
-        expect(is_subclass_of(ListUsers::class, \Filament\Resources\Pages\ListRecords::class))->toBeTrue();
+        expect(is_subclass_of(ListUsers::class, ListRecords::class))->toBeTrue();
     });
 
     it('CreateUser extends Filament CreateRecord', function () {
-        expect(is_subclass_of(CreateUser::class, \Filament\Resources\Pages\CreateRecord::class))->toBeTrue();
+        expect(is_subclass_of(CreateUser::class, CreateRecord::class))->toBeTrue();
     });
 
     it('EditUser extends Filament EditRecord', function () {
-        expect(is_subclass_of(EditUser::class, \Filament\Resources\Pages\EditRecord::class))->toBeTrue();
+        expect(is_subclass_of(EditUser::class, EditRecord::class))->toBeTrue();
     });
 });
 

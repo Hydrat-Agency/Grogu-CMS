@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS\Content\Blueprints;
 
-use Hydrat\GroguCMS\Models\Section;
 use Hydrat\GroguCMS\Content\Blueprint;
+use Hydrat\GroguCMS\Models\Section;
 
 class SectionBlueprint extends Blueprint
 {

@@ -2,35 +2,29 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Hydrat\GroguCMS\Models\Menu;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Select;
-use Filament\Infolists\Components\TextEntry;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Actions\ViewAction;
-use Filament\Actions\EditAction;
-use Filament\Actions\DeleteAction;
 use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers\ItemsRelationManager;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\ListMenus;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\CreateMenu;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\ViewMenu;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\EditMenu;
-use Filament\Forms;
-use Filament\Infolists;
-use Filament\Schemas\Schema;
+use Filament\Actions\EditAction;
+use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Infolists\Components\TextEntry;
 use Filament\Resources\Resource;
-use Filament\Actions;
-use Filament\Tables;
+use Filament\Schemas\Schema;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Facades\GroguCMS;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\CreateMenu;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\EditMenu;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\ListMenus;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Pages\ViewMenu;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers\ItemsRelationManager;
+use Hydrat\GroguCMS\Models\Menu;
 
 class MenuResource extends Resource
 {
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-bars-3';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-bars-3';
 
     protected static bool $isDiscovered = false;
 

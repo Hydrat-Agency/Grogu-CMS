@@ -2,23 +2,23 @@
 
 namespace Hydrat\GroguCMS;
 
-use Hydrat\GroguCMS\Providers\FilamentServiceProvider;
-use Hydrat\GroguCMS\Providers\EventServiceProvider;
-use Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget;
-use Hydrat\GroguCMS\Filament\Pages\WelcomeUser;
-use Hydrat\GroguCMS\Commands\CmsModelMakeCommand;
-use Hydrat\GroguCMS\Commands\BlueprintMakeCommand;
-use Hydrat\GroguCMS\Commands\TranslatableModelMakeCommand;
-use Hydrat\GroguCMS\Commands\GroguSearchReplaceCommand;
-use Hydrat\GroguCMS\Commands\SitemapGenerateCommand;
-use Hydrat\GroguCMS\Commands\UpdatePermissionsCommand;
 use Filament\Support\Assets\AlpineComponent;
 use Filament\Support\Assets\Asset;
 use Filament\Support\Assets\Css;
 use Filament\Support\Assets\Js;
 use Filament\Support\Facades\FilamentAsset;
 use Filament\Support\Facades\FilamentIcon;
+use Hydrat\GroguCMS\Commands\BlueprintMakeCommand;
+use Hydrat\GroguCMS\Commands\CmsModelMakeCommand;
+use Hydrat\GroguCMS\Commands\GroguSearchReplaceCommand;
+use Hydrat\GroguCMS\Commands\SitemapGenerateCommand;
+use Hydrat\GroguCMS\Commands\TranslatableModelMakeCommand;
+use Hydrat\GroguCMS\Commands\UpdatePermissionsCommand;
+use Hydrat\GroguCMS\Filament\Pages\WelcomeUser;
+use Hydrat\GroguCMS\Filament\Resources\MenuResource\Widgets\MenuItemTreeWidget;
 use Hydrat\GroguCMS\Livewire as LivewireComponents;
+use Hydrat\GroguCMS\Providers\EventServiceProvider;
+use Hydrat\GroguCMS\Providers\FilamentServiceProvider;
 use Hydrat\GroguCMS\Testing\TestsGroguCMS;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Blade;

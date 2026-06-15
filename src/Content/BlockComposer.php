@@ -2,9 +2,9 @@
 
 namespace Hydrat\GroguCMS\Content;
 
-use Illuminate\Support\Fluent;
 use Hydrat\GroguCMS\Concerns\Extractable;
 use Hydrat\GroguCMS\Datas\Block;
+use Illuminate\Support\Fluent;
 use Illuminate\Support\Str;
 
 /**

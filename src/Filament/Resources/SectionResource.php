@@ -2,25 +2,21 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Builder;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Actions\EditAction;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
-use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages\ListSections;
-use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages\CreateSection;
-use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages\EditSection;
-use Filament\Forms;
+use Filament\Actions\EditAction;
+use Filament\Forms\Components\Builder;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Actions;
-use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Hydrat\GroguCMS\Filament\Concerns\InteractsWithBlueprint;
 use Hydrat\GroguCMS\Filament\Contracts\HasBlueprint;
-use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages;
+use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages\CreateSection;
+use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages\EditSection;
+use Hydrat\GroguCMS\Filament\Resources\SectionResource\Pages\ListSections;
 use Hydrat\GroguCMS\Models\Section;
 
 class SectionResource extends Resource implements HasBlueprint
@@ -29,7 +25,7 @@ class SectionResource extends Resource implements HasBlueprint
 
     protected static ?string $model = Section::class;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-arrow-path-rounded-square';
 
     protected static ?int $navigationSort = 110;
 

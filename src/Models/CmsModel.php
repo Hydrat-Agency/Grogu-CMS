@@ -2,19 +2,17 @@
 
 namespace Hydrat\GroguCMS\Models;
 
-use Hydrat\GroguCMS\Events\CmsModelSaved;
-use Hydrat\GroguCMS\Events\CmsModelDeleted;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Hydrat\GroguCMS\Enums\PostStatus;
-use Hydrat\GroguCMS\Events;
+use Hydrat\GroguCMS\Events\CmsModelDeleted;
+use Hydrat\GroguCMS\Events\CmsModelSaved;
 use Hydrat\GroguCMS\Models\Concerns as CmsConcerns;
 use Hydrat\GroguCMS\Models\Contracts as CmsContracts;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Fluent;
 use RalphJSmit\Filament\MediaLibrary\Media\Models\MediaLibraryItem;
 use Spatie\MediaLibrary\HasMedia;

@@ -1,7 +1,12 @@
 <?php
 
 use Hydrat\GroguCMS\Enums\PostStatus;
+use Hydrat\GroguCMS\Events\CmsModelDeleted;
+use Hydrat\GroguCMS\Events\CmsModelSaved;
 use Hydrat\GroguCMS\Models\Page;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Event;
 
 /**
  * CmsModel base class behaviour tested through Page (a concrete CmsModel subclass).
@@ -61,11 +66,11 @@ describe('CmsModel casts', function () {
 
 describe('CmsModel relationships', function () {
     it('has a parent BelongsTo relationship', function () {
-        expect((new Page)->parent())->toBeInstanceOf(\Illuminate\Database\Eloquent\Relations\BelongsTo::class);
+        expect((new Page)->parent())->toBeInstanceOf(BelongsTo::class);
     });
 
     it('has a children HasMany relationship', function () {
-        expect((new Page)->children())->toBeInstanceOf(\Illuminate\Database\Eloquent\Relations\HasMany::class);
+        expect((new Page)->children())->toBeInstanceOf(HasMany::class);
     });
 });
 
@@ -121,7 +126,7 @@ describe('CmsModel soft deletes', function () {
 
 describe('CmsModel events', function () {
     it('dispatches CmsModelSaved event on save', function () {
-        \Illuminate\Support\Facades\Event::fake([\Hydrat\GroguCMS\Events\CmsModelSaved::class]);
+        Event::fake([CmsModelSaved::class]);
 
         Page::create([
             'title' => 'Event Test',
@@ -129,11 +134,11 @@ describe('CmsModel events', function () {
             'status' => PostStatus::Draft,
         ]);
 
-        \Illuminate\Support\Facades\Event::assertDispatched(\Hydrat\GroguCMS\Events\CmsModelSaved::class);
+        Event::assertDispatched(CmsModelSaved::class);
     });
 
     it('dispatches CmsModelDeleted event on delete', function () {
-        \Illuminate\Support\Facades\Event::fake([\Hydrat\GroguCMS\Events\CmsModelDeleted::class]);
+        Event::fake([CmsModelDeleted::class]);
 
         $page = Page::create([
             'title' => 'Delete Event',
@@ -143,6 +148,6 @@ describe('CmsModel events', function () {
 
         $page->delete();
 
-        \Illuminate\Support\Facades\Event::assertDispatched(\Hydrat\GroguCMS\Events\CmsModelDeleted::class);
+        Event::assertDispatched(CmsModelDeleted::class);
     });
 });

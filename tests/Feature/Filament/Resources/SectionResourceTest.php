@@ -1,5 +1,8 @@
 <?php
 
+use Filament\Resources\Pages\CreateRecord;
+use Filament\Resources\Pages\EditRecord;
+use Filament\Resources\Pages\ListRecords;
 use Filament\Resources\Resource;
 use Hydrat\GroguCMS\Filament\Contracts\HasBlueprint;
 use Hydrat\GroguCMS\Filament\Resources\SectionResource;
@@ -87,15 +90,15 @@ describe('SectionResource pages registration', function () {
 
 describe('SectionResource page classes', function () {
     it('ListSections extends Filament ListRecords', function () {
-        expect(is_subclass_of(ListSections::class, \Filament\Resources\Pages\ListRecords::class))->toBeTrue();
+        expect(is_subclass_of(ListSections::class, ListRecords::class))->toBeTrue();
     });
 
     it('CreateSection extends Filament CreateRecord', function () {
-        expect(is_subclass_of(CreateSection::class, \Filament\Resources\Pages\CreateRecord::class))->toBeTrue();
+        expect(is_subclass_of(CreateSection::class, CreateRecord::class))->toBeTrue();
     });
 
     it('EditSection extends Filament EditRecord', function () {
-        expect(is_subclass_of(EditSection::class, \Filament\Resources\Pages\EditRecord::class))->toBeTrue();
+        expect(is_subclass_of(EditSection::class, EditRecord::class))->toBeTrue();
     });
 });
 

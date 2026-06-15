@@ -2,10 +2,10 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Placeholder;
 use Filament\Forms;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Select;
+use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
@@ -24,7 +24,7 @@ abstract class EditRecordSeo extends EditRecord
     use HasBuilderPreview;
     use HasPreviewModal;
 
-    protected static string | \BackedEnum | null $navigationIcon = 'phosphor-robot';
+    protected static string|\BackedEnum|null $navigationIcon = 'phosphor-robot';
 
     public static function getNavigationLabel(): string
     {

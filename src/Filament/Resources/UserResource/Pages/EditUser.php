@@ -2,11 +2,10 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources\UserResource\Pages;
 
-use Filament\Actions\ViewAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ForceDeleteAction;
 use Filament\Actions\RestoreAction;
-use Filament\Actions;
+use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 use Hydrat\GroguCMS\Filament\Resources\UserResource;
 use Illuminate\Support\Arr;

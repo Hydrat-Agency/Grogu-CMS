@@ -2,14 +2,13 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource\Pages\ListTranslatablePages;
+use Filament\Resources\Pages\Page as FilamentPage;
+use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
 use Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource\Pages\CreateTranslatablePage;
 use Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource\Pages\EditTranslatablePage;
 use Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource\Pages\EditTranslatablePageContent;
 use Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource\Pages\EditTranslatablePageSeo;
-use Filament\Resources\Pages\Page as FilamentPage;
-use Hydrat\FilamentLexiTranslate\Resources\Concerns\Translatable;
-use Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource\Pages;
+use Hydrat\GroguCMS\Filament\Resources\TranslatablePageResource\Pages\ListTranslatablePages;
 
 class TranslatablePageResource extends PageResource
 {
