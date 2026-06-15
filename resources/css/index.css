@@ -1,69 +1,54 @@
-@import '../../vendor/filament/filament/resources/css/theme.css';
+@import 'tailwindcss' source(none);
 
-.fi-ac-icon-btn-action.table-soft-btn {
-  @apply ml-1 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm p-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700;
+/* Map Filament's runtime CSS variables into Tailwind v4's color system */
+@theme inline {
+    --color-gray-50: var(--gray-50);
+    --color-gray-100: var(--gray-100);
+    --color-gray-200: var(--gray-200);
+    --color-gray-300: var(--gray-300);
+    --color-gray-400: var(--gray-400);
+    --color-gray-500: var(--gray-500);
+    --color-gray-600: var(--gray-600);
+    --color-gray-700: var(--gray-700);
+    --color-gray-800: var(--gray-800);
+    --color-gray-900: var(--gray-900);
+    --color-gray-950: var(--gray-950);
 }
 
-.fi-ac-icon-btn-action.table-soft-btn svg {
-  @apply w-4 h-4 text-gray-700 dark:text-gray-100;
-}
+/* Match Filament's class-based dark mode */
+@variant dark (&:where(.dark, .dark *));
 
-/* .form-placeholder-section {
-  @apply !text-lg font-semibold leading-none text-gray-900 dark:text-white;
-}
+@layer components {
+    .fi-ac-icon-btn-action.table-soft-btn {
+        @apply ml-1 text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm p-1.5;
 
-.fi-btn:not(.fi-btn-custom) {
-  @apply items-center hover:cursor-pointer focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center disabled:opacity-50 disabled:cursor-not-allowed shadow-lg dark:shadow-lg;
+        &:is(.dark *) {
+            @apply bg-gray-800 text-white border-gray-600 hover:bg-gray-700 hover:border-gray-600 focus:ring-gray-700;
+        }
+    }
 
-  &.fi-btn-color-gray {
-    @apply shadow-none text-gray-900 bg-white ring-0 border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700;
-  }
-}
+    .fi-ac-icon-btn-action.table-soft-btn svg {
+        @apply w-4 h-4 text-gray-700;
 
-.fi-modal-footer-actions {
-  @apply flex-row-reverse justify-start;
-}
+        &:is(.dark *) {
+            @apply text-gray-100;
+        }
+    }
 
-.fi-pagination {
-  .fi-input-wrp {
-    @apply py-0 bg-transparent;
-  }
+    .grogu-google-preview {
+        @apply flex flex-col gap-2 p-4 bg-white border border-gray-200 rounded-lg;
 
-  .fi-select-input {
-    @apply py-2 pe-4;
-  }
-}
+        font-family: Arial, sans-serif;
+        font-weight: 400;
+    }
 
-.grid-revert-lg .grid:first-child > .col-\[--col-span-default\]:first-child {
-  @apply order-last lg:order-first;
-}
+    .grogu-google-preview-title {
+        color: #1a0dab;
+        font-size: 20px;
+    }
 
-.fi-in-entry-wrp:has(.fi-inline-label-grow .fi-in-affixes) {
-  & > .grid > .flex {
-    @apply col-span-2;
-  }
-  & > .grid > .sm\:col-span-2 {
-    @apply col-span-1;
-  }
-}
-
-.fi-ta-actions {
-  @apply gap-2;
-} */
-
-.grogu-google-preview {
-  @apply flex flex-col gap-2 p-4 bg-white border border-gray-200 rounded-lg;
-
-  font-family: Arial,sans-serif;
-  font-weight: 400;
-}
-
-.grogu-google-preview-title {
-  color: #1a0dab;
-  font-size: 20px;
-}
-
-.grogu-google-preview-description {
-  color: #474747;
-  font-size: 14px;
+    .grogu-google-preview-description {
+        color: #474747;
+        font-size: 14px;
+    }
 }

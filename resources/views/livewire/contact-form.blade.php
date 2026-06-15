@@ -98,9 +98,9 @@
       <div class="col-span-full">
         <div wire:ignore>
           <altcha-widget
-            challengeurl="/altcha-challenge"
+            challenge="/altcha-challenge"
             x-on:statechange="$event.detail.state === 'verified' ? (altcha = $event.detail.payload) : null"
-            floating
+            display="floating"
           ></altcha-widget>
         </div>
       </div>
