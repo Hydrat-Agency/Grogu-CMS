@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Schema;
 use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -17,10 +17,10 @@ class FieldsRelationManager extends RelationManager
 
     protected static string $relationship = 'fields';
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255)

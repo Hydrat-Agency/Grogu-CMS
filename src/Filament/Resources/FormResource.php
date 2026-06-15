@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Pages\Page;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Actions;
 use Filament\Tables;
@@ -40,10 +40,10 @@ class FormResource extends Resource
         return __('Site');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),

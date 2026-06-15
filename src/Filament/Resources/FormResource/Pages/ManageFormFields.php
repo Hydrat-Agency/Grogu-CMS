@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Schemas\Schema;
 use Filament\Forms\Set;
 use Filament\Resources\Pages\ManageRelatedRecords;
 use Filament\Actions;
@@ -44,10 +44,10 @@ class ManageFormFields extends ManageRelatedRecords
         $this->getTable()->getModel()::setNewOrder($order);
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Forms\Components\Grid::make(2)
                     ->schema([
                         Forms\Components\TextInput::make('name')

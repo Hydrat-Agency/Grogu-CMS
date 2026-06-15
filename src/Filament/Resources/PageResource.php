@@ -2,8 +2,8 @@
 
 namespace Hydrat\GroguCMS\Filament\Resources;
 
-use Filament\Forms\Form;
 use Filament\Resources\Pages\Page as FilamentPage;
+use Filament\Schemas\Schema;
 use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -37,9 +37,9 @@ class PageResource extends CmsResource
         return __('Site');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return parent::form($form);
+        return parent::form($schema);
     }
 
     public static function table(Table $table): Table

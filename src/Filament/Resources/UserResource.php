@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -47,12 +47,12 @@ class UserResource extends Resource
         return __('User');
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
         $guard = config('grogu-cms.users.guard');
 
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Forms\Components\Section::make(__('Manage user'))
                     ->schema([
                         Forms\Components\Grid::make(2)
@@ -62,7 +62,7 @@ class UserResource extends Resource
                                     ->maxLength(255),
 
                                 Forms\Components\TextInput::make('email')
-                                    ->disabled($form->getOperation() === 'edit')
+                                    ->disabled($schema->getOperation() === 'edit')
                                     ->unique(ignoreRecord: true)
                                     ->required()
                                     ->email()

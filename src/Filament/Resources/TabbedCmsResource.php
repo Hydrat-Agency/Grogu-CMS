@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -25,19 +25,19 @@ abstract class TabbedCmsResource extends Resource implements HasBlueprint
     use Parts\HasOverviewTab;
     use Parts\HasSeoTab;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Forms\Components\Tabs::make()
                     ->contained(false)
                     ->persistTab(true)
                     ->id(str(static::class)->afterLast('\\')->append('CmsTabs')->kebab())
                     ->columnSpanFull()
                     ->schema([
-                        ...static::getOverviewTabSchema($form),
-                        ...static::getContentTabSchema($form),
-                        ...static::getSeoTabSchema($form),
+                        ...static::getOverviewTabSchema($schema),
+                        ...static::getContentTabSchema($schema),
+                        ...static::getSeoTabSchema($schema),
                     ]),
             ]);
     }

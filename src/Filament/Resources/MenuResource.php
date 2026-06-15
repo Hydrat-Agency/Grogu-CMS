@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Infolists;
+use Filament\Schemas\Schema;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Actions;
@@ -32,10 +32,10 @@ class MenuResource extends Resource
         return config('grogu-cms.models.menu') ?? \Hydrat\GroguCMS\Models\Menu::class;
     }
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),

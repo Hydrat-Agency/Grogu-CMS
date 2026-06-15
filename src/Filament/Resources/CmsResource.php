@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Forms\Set;
+use Filament\Schemas\Schema;
 use Filament\Resources\Resource;
 use Filament\Actions;
 use Filament\Tables;
@@ -30,12 +30,12 @@ abstract class CmsResource extends Resource implements HasBlueprint
     use Parts\HasOverviewTab;
     use Parts\HasSeoTab;
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        $blueprint = static::getBlueprint($form);
+        $blueprint = static::getBlueprint($schema);
 
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 ...static::startAttributesSection(),
 
                 Forms\Components\Section::make(__('Overview'))
@@ -73,7 +73,7 @@ abstract class CmsResource extends Resource implements HasBlueprint
                                 return Str::finish($blueprint->frontUrl(includeSelf: false, locale: $locale), '/');
                             })
                             ->columnSpanFull()
-                            ->unique($form->getModel(), 'slug', ignoreRecord: true),
+                            ->unique($schema->getModel(), 'slug', ignoreRecord: true),
                         // ->unique($form->getModel(), 'slug', ignoreRecord: true, modifyRuleUsing: function ($rule) {
                         //     return $rule->where('parent_id', request()->route('record')?->parent_id ?: null);
                         // }),

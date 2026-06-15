@@ -6,8 +6,8 @@ use Filament\Actions\Action;
 use Filament\Forms;
 use Filament\\Schemas\\Components\\Actions;
 use Filament\Schemas\Components\Component;
-use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Schemas\Schema;
 use Hydrat\GroguCMS\Collections\BlockCollection;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 use Illuminate\Contracts\Support\Htmlable;
@@ -35,14 +35,14 @@ abstract class EditRecordContent extends EditRecord
         return __('Edit record content');
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
         $avaibleTemplates = static::getBlueprint()->templates();
         $selectedTemplate = fn (Get $get) => GroguCMS::getTemplate($get('template'));
 
-        return $form
+        return $schema
             ->columns(1)
-            ->schema([
+            ->components([
                 Forms\Components\RichEditor::make('content')
                     ->required()
                     ->maxLength(65535)

@@ -4,8 +4,8 @@ namespace Hydrat\GroguCMS\Filament\Resources\MenuResource\RelationManagers;
 
 use Closure;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Schemas\Schema;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Actions;
 use Filament\Tables;
@@ -39,7 +39,7 @@ class ItemsRelationManager extends RelationManager
         $this->dispatch('refreshTree');
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
         $blueprints = GroguCMS::getBlueprints();
 
@@ -47,8 +47,8 @@ class ItemsRelationManager extends RelationManager
             fn ($blueprint) => [$blueprint->model() => $blueprint->modelSingularLabel()]
         );
 
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Forms\Components\Grid::make()
                     ->columns(6)
                     ->schema([

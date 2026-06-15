@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources\FormResource\Pages;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Pages\ManageRelatedRecords;
+use Filament\Schemas\Schema;
 use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -38,10 +38,10 @@ class ManageFormEntries extends ManageRelatedRecords
         return __('Manage form entries');
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
-        return $form
-            ->schema([
+        return $schema
+            ->components([
                 Forms\Components\DateTimePicker::make('submitted_at')
                     ->required(),
 

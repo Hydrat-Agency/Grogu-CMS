@@ -3,8 +3,8 @@
 namespace Hydrat\GroguCMS\Filament\Resources\CmsResource\Pages;
 
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Forms\Get;
+use Filament\Schemas\Schema;
 use Illuminate\Contracts\Support\Htmlable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
@@ -33,7 +33,7 @@ abstract class EditRecordSeo extends EditRecord
         return __('Edit record SEO');
     }
 
-    public function form(Form $form): Form
+    public function form(Schema $schema): Schema
     {
         try {
             $seoDefault = $this->getRecord()?->getDynamicSEOData();
@@ -47,9 +47,9 @@ abstract class EditRecordSeo extends EditRecord
             default => true,
         };
 
-        return $form
+        return $schema
             ->columns(1)
-            ->schema([
+            ->components([
                 Forms\Components\Section::make(__('SEO Details'))
                     ->columns(2)
                     ->relationship('seo')
