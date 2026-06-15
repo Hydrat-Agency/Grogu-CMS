@@ -39,7 +39,7 @@ class ManageFormFields extends ManageRelatedRecords
         return __('Manage form fields');
     }
 
-    public function reorderTable(array $order): void
+    public function reorderTable(array $order, string|int|null $draggedRecordKey = null): void
     {
         $this->getTable()->getModel()::setNewOrder($order);
     }
