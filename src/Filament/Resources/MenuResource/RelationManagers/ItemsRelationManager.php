@@ -30,7 +30,7 @@ class ItemsRelationManager extends RelationManager
         return __('Items');
     }
 
-    public function reorderTable(array $order): void
+    public function reorderTable(array $order, string|int|null $draggedRecordKey = null): void
     {
         $model = config('grogu-cms.models.menu_item', MenuItem::class);
 
