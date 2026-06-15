@@ -66,7 +66,9 @@ class FilamentServiceProvider extends ServiceProvider
     {
         foreach ($components as $component) {
             $component::configureUsing(function ($c): void {
-                $c->translateLabel();
+                if (method_exists($c, 'translateLabel')) {
+                    $c->translateLabel();
+                }
             });
         }
     }
