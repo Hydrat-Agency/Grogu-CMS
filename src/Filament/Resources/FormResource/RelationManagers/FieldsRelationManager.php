@@ -13,6 +13,7 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Hydrat\FilamentLexiTranslate\Actions\LocaleSwitcher;
+use Hydrat\GroguCMS\Facades\GroguCMS;
 use Hydrat\FilamentLexiTranslate\Resources\RelationManagers\Concerns\Translatable;
 
 class FieldsRelationManager extends RelationManager
