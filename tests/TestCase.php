@@ -8,6 +8,8 @@ use Filament\Actions\ActionsServiceProvider;
 use Filament\FilamentServiceProvider;
 use Filament\Forms\FormsServiceProvider;
 use Filament\Infolists\InfolistsServiceProvider;
+use Filament\Schemas\SchemasServiceProvider;
+use RalphJSmit\Filament\Explore\FilamentExploreServiceProvider;
 use Filament\Notifications\NotificationsServiceProvider;
 use Filament\SpatieLaravelSettingsPluginServiceProvider;
 use Filament\Support\SupportServiceProvider;
@@ -16,7 +18,9 @@ use Filament\Widgets\WidgetsServiceProvider;
 use Hydrat\GroguCMS\GroguCMSServiceProvider;
 use Hydrat\GroguCMS\Tests\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Filament\Support\Livewire\Partials\DataStoreOverride;
 use Livewire\LivewireServiceProvider;
+use Livewire\Mechanisms\DataStore;
 use Orchestra\Testbench\TestCase as Orchestra;
 use RalphJSmit\Filament\MediaLibrary\FilamentMediaLibraryServiceProvider;
 use RalphJSmit\Laravel\SEO\LaravelSEOServiceProvider;
@@ -30,6 +34,15 @@ class TestCase extends Orchestra
     protected function setUp(): void
     {
         parent::setUp();
+
+        // Filament 5's SupportServiceProvider uses bind() instead of singleton() for DataStore,
+        // which causes a new instance to be created on every app(DataStore::class) resolution.
+        // This breaks Livewire's WeakMap-based DataStore because set() and get() use different
+        // instances. Re-register the already-created DataStoreOverride instance as a singleton.
+        $this->afterApplicationCreated(function () {
+            $ds = app(DataStoreOverride::class);
+            app()->instance(DataStore::class, $ds);
+        });
 
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'Hydrat\\GroguCMS\\Database\\Factories\\'.class_basename($modelName).'Factory'
@@ -46,6 +59,8 @@ class TestCase extends Orchestra
             FilamentServiceProvider::class,
             FormsServiceProvider::class,
             InfolistsServiceProvider::class,
+            SchemasServiceProvider::class,
+            FilamentExploreServiceProvider::class,
             LivewireServiceProvider::class,
             NotificationsServiceProvider::class,
             SpatieLaravelSettingsPluginServiceProvider::class,

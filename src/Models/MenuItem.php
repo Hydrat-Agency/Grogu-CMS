@@ -84,7 +84,7 @@ class MenuItem extends Model implements Resourceable, Sortable
         'sort_when_creating' => true,
     ];
 
-    public function toResource(): JsonResource
+    public function toResource(?string $resourceClass = null): JsonResource
     {
         return new MenuItemResource($this);
     }

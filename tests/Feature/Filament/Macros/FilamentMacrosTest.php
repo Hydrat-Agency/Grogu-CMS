@@ -1,6 +1,6 @@
 <?php
 
-use Filament\Tables\Actions\Action as TableAction;
+use Filament\Actions\Action as TableAction;
 use Filament\Tables\Columns\Column;
 
 /**
