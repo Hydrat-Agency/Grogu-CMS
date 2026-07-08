@@ -4,6 +4,7 @@ namespace Hydrat\GroguCMS;
 
 use Filament\Contracts\Plugin;
 use Filament\Panel;
+use Hydrat\FilamentLexiTranslate\LexiTranslatablePlugin;
 use Hydrat\GroguCMS\Facades\GroguCMS;
 
 class GroguCMSPlugin implements Plugin
@@ -51,7 +52,12 @@ class GroguCMSPlugin implements Plugin
 
     public function boot(Panel $panel): void
     {
-        //
+        if ($panel->hasPlugin('lexi-laravel-translatable')) {
+            /** @var LexiTranslatablePlugin $lexiTranslatablePlugin */
+            $lexiTranslatablePlugin = $panel->getPlugin('lexi-laravel-translatable');
+
+            $lexiTranslatablePlugin->enabled(GroguCMS::isTranslatableEnabled());
+        }
     }
 
     public static function make(): static
