@@ -59,6 +59,7 @@ class ItemsRelationManager extends RelationManager
             ->components([
                 Grid::make()
                     ->columns(6)
+                    ->columnSpanFull()
                     ->schema([
                         TextInput::make('title')
                             ->required()
