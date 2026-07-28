@@ -47,7 +47,7 @@ class UserResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Users');
+        return __('Settings');
     }
 
     public static function getBreadcrumb(): string
