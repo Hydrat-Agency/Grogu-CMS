@@ -3,6 +3,7 @@
 use Hydrat\GroguCMS\Filament\Resources\FormResource;
 use Hydrat\GroguCMS\Filament\Resources\MenuResource;
 use Hydrat\GroguCMS\Filament\Resources\PageResource;
+use Hydrat\GroguCMS\Filament\Resources\RoleResource;
 use Hydrat\GroguCMS\Filament\Resources\SectionResource;
 use Hydrat\GroguCMS\Filament\Resources\UserResource;
 use Hydrat\GroguCMS\Models\Form;
@@ -13,6 +14,7 @@ use Hydrat\GroguCMS\Models\MenuItem;
 use Hydrat\GroguCMS\Models\Page;
 use Hydrat\GroguCMS\Models\Section;
 use Hydrat\GroguCMS\PermissionRegistrar;
+use Spatie\Permission\Models\Role;
 
 return [
 
@@ -21,6 +23,7 @@ return [
      */
     'models' => [
         'user' => 'App\Models\User',
+        'role' => Role::class,
         'page' => Page::class,
         'menu' => Menu::class,
         'menu_item' => MenuItem::class,
@@ -35,6 +38,7 @@ return [
      */
     'resources' => [
         'user_resource' => UserResource::class,
+        'role_resource' => RoleResource::class,
         'page_resource' => PageResource::class,
         'menu_resource' => MenuResource::class,
         'form_resource' => FormResource::class,

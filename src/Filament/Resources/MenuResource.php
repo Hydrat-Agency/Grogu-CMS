@@ -32,7 +32,7 @@ class MenuResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Configuration');
+        return __('Appearance');
     }
 
     public static function getModel(): string

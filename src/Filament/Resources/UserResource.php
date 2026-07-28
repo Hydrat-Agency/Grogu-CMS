@@ -47,7 +47,7 @@ class UserResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Configuration');
+        return __('Users');
     }
 
     public static function getBreadcrumb(): string
@@ -117,6 +117,10 @@ class UserResource extends Resource
 
                 TextColumn::make('email')
                     ->searchable(),
+
+                TextColumn::make('roles.name')
+                    ->label(__('Roles'))
+                    ->badge(),
 
                 TextColumn::make('email_verified_at')
                     ->dateTime()

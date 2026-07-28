@@ -47,7 +47,7 @@ class FormResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return __('Site');
+        return __('Content');
     }
 
     public static function form(Schema $schema): Schema
